@@ -1,4 +1,11 @@
 2009-03-26	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac, src/Makefile.am:
+	Compilation fixes and clean.
+
+	* src/main.cpp:
+	Cleaned garbage code.
+
+2009-03-26	Fabrício Godoy <skarllot@gmail.com>
 	* ChangeLog:
 	File to track development history.
 

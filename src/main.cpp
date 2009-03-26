@@ -5,7 +5,7 @@
  * Created on 25 de Março de 2009, 08:41
  */
 
-#include "config.h"
+#include "../config.h"
 
 #include <stdlib.h>
 #include <iostream>
@@ -49,7 +49,6 @@ int main(int argc, char** argv)
     }
     // ----------------------
 
-    DWORD dwSize = 0;
     DWORD dwRetVal = 0;
 
     ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
@@ -114,77 +113,10 @@ int main(int argc, char** argv)
                 std::endl;
 
         pCurAddresses = pCurAddresses->Next;
+        FREE(pIfRow);
     }
 
     FREE(pAddresses);
-
-    // ---
-
-    MIB_IFTABLE* pIfTable;
-    MIB_IFROW* pIfRow;
-
-    pIfTable = (MIB_IFTABLE*) MALLOC(sizeof (MIB_IFTABLE));
-    if (pIfTable == NULL)
-        throw "Error allocating memory needed to call GetIfTable";
-
-    dwSize = sizeof (MIB_IFTABLE);
-    if (GetIfTable(pIfTable, &dwSize, FALSE) == ERROR_INSUFFICIENT_BUFFER)
-    {
-        FREE(pIfTable);
-        pIfTable = (MIB_IFTABLE*) MALLOC(dwSize);
-
-        if (pIfTable == NULL)
-            throw "Error allocating memory";
-    }
-
-    dwRetVal = GetIfTable(pIfTable, &dwSize, FALSE);
-    if (dwRetVal != NO_ERROR)
-        throw "GetIfTable failed with error: " + dwRetVal;
-
-    if (pIfTable->dwNumEntries == 0)
-    {
-        FREE(pIfTable);
-        std::cout << "No interfaces found." << std::endl;
-        return (EXIT_FAILURE);
-    }
-
-    std::cout << "Num entries: " << pIfTable->dwNumEntries << std::endl;
-
-    pIfRow = (MIB_IFROW*) MALLOC(sizeof (MIB_IFROW));
-    if (pIfRow == NULL)
-    {
-        FREE(pIfTable);
-        throw "Error allocating memory";
-    }
-
-    for (int i = 0; i < (int) pIfTable->dwNumEntries; i++)
-    {
-        pIfRow->dwIndex = pIfTable->table[i].dwIndex;
-
-        dwRetVal = GetIfEntry(pIfRow);
-        if (dwRetVal != NO_ERROR)
-        {
-            FREE(pIfTable);
-            FREE(pIfRow);
-            throw "GetIfEntry failed for index %index with error: %num";
-        }
-
-        std::cout << "Index: " << pIfRow->dwIndex << std::endl;
-        std::cout << "Interface name: ";
-        if (pIfRow->wszName != NULL)
-            std::wcout << pIfRow->wszName;
-        std::cout << std::endl;
-        std::cout << "Description: " << pIfRow->bDescr << std::endl;
-        std::cout << "Bytes in: " << pIfRow->dwInOctets << std::endl;
-        std::cout << "Bytes out: " << pIfRow->dwOutOctets << std::endl;
-
-        std::cout << std::endl <<
-                "============================================================================" <<
-                std::endl;
-    }
-
-    FREE(pIfRow);
-    FREE(pIfTable);
 #endif
 
     return (EXIT_SUCCESS);
