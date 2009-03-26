@@ -1,0 +1,13 @@
+2009-03-26	Fabrício Godoy <skarllot@gmail.com>
+	* ChangeLog:
+	File to track development history.
+
+	* configure.ac, src/Makefile.am, Makefile.am:
+	Configuration files to build project.
+
+	* AUTHORS, INSTALL, COPYING, NEWS, README:
+	Stardart information files.
+
+	* src/main.cpp:
+	Initial code, only testing Windows API.
+
