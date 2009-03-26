@@ -1,4 +1,11 @@
 2009-03-26	Fabrício Godoy <skarllot@gmail.com>
+	* src/Makefile.am:
+	Added networkinfo.h and networkinfo.cpp.
+
+	* src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
+	Creating a class to return interface information.
+
+2009-03-26	Fabrício Godoy <skarllot@gmail.com>
 	* configure.ac, src/Makefile.am:
 	Compilation fixes and clean.
 

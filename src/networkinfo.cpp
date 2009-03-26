@@ -1,16 +1,12 @@
 /* 
- * File:   main.cpp
+ * File:   networkinfo.cpp
  * Author: fabricio
- *
- * Created on 25 de Março de 2009, 08:41
+ * 
+ * Created on 26 de Março de 2009, 16:34
  */
 
-#include "../config.h"
-
-#include <stdlib.h>
-#include <iostream>
-#include <string>
 #include "networkinfo.h"
+#include <iostream>
 
 #if WINNT
 #ifndef WINVER
@@ -20,42 +16,34 @@
 
 #include <windows.h>
 #include <iphlpapi.h>
+#include <string>
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 #endif
 
-/*
- * 
- */
-int main(int argc, char** argv)
+NetworkInfo::NetworkInfo()
+{
+    std::cout << "Constructor" << std::endl;
+    this->load_interfaces_info();
+}
+
+NetworkInfo::NetworkInfo(const NetworkInfo& orig)
+{
+}
+
+NetworkInfo::~NetworkInfo()
+{
+}
+
+int NetworkInfo::get_interface_count()
+{
+    return 0;
+}
+
+void NetworkInfo::load_interfaces_info()
 {
 #if WINNT
-    // Verify Windows version
-    // http://msdn.microsoft.com/en-gb/library/ms724833(VS.85).aspx
-    OSVERSIONINFOEX os_version;
-    ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
-    os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
-    GetVersionEx((OSVERSIONINFO*) & os_version);
-
-    if (os_version.dwMajorVersion < 5 ||
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
-            os_version.wServicePackMajor < 2) ||
-            (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
-            os_version.wServicePackMajor < 1))
-    {
-        std::cout << "Windows version not supported, requires at least Windows XP with SP2"
-                << std::endl;
-        return (EXIT_FAILURE);
-    }
-    // ----------------------
-
-    NetworkInfo netinfo;
-    return (EXIT_SUCCESS);
-
-    // WILL DEPRECATE
-
     DWORD dwRetVal = 0;
 
     ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
@@ -103,6 +91,9 @@ int main(int argc, char** argv)
             throw "GetIfEntry failed for index %index with error: %num";
         }
 
+        Interface _if;
+        _if.index = (int)pIfRow->dwIndex;
+        _if.name = std::wstring(pIfRow->wszName);
         std::cout << "IfIndex: " << pCurAddresses->IfIndex << std::endl;
         std::wcout << "FriendlyName: " << pCurAddresses->FriendlyName << std::endl;
 
@@ -121,11 +112,14 @@ int main(int argc, char** argv)
 
         pCurAddresses = pCurAddresses->Next;
         FREE(pIfRow);
+
+        this->interfaces.push_back(_if);
     }
 
+    std::cout << "Test index: " << this->interfaces.at(0).index << std::endl;
+    std::wcout << "Test name: " << this->interfaces.at(0).name << std::endl;
+    std::cout << "Test index: " << this->interfaces.at(1).index << std::endl;
+    std::wcout << "Test name: " << this->interfaces.at(1).name << std::endl;
     FREE(pAddresses);
 #endif
-
-    return (EXIT_SUCCESS);
 }
-
