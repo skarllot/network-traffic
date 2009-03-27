@@ -1,10 +1,10 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.56])
+AC_PREREQ([2.60])
 AC_INIT(Network Logger, 0.1.0, http://code.google.com/p/network-logger/issues/list, network-logger)
 AC_CONFIG_SRCDIR([src/main.cpp])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([-Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 
 # ------------------------------------------------------------------------------
@@ -14,6 +14,11 @@ AC_CONFIG_HEADERS([config.h])
 # `maintainer rules' to be enabled.
 # ------------------------------------------------------------------------------
 #AM_MAINTAINER_MODE
+
+# ------------------------------------------------------------------------------
+# Check build environment
+# ------------------------------------------------------------------------------
+AC_CANONICAL_HOST
 
 # Checks for programs.
 AC_PROG_CC

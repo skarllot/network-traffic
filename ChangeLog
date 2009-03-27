@@ -1,4 +1,17 @@
 2009-03-27	Fabrício Godoy <skarllot@gmail.com>
+	* AUTHORS:
+	Added my name.
+
+	* configure.ac:
+	Readded AC_CANONICAL_HOST to check for platform name.
+
+	* configure.ac:
+	Fixed macros parameters.
+
+	* Makefile.am:
+	Added and sorted MAINTAINERCLEANFILES files.
+
+2009-03-27	Fabrício Godoy <skarllot@gmail.com>
 	* configure.ac:
 	Configuration clenup.
 
