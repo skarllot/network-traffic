@@ -1,3 +1,16 @@
+2009-03-27	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac:
+	Configuration clenup.
+
+	* Makefile.am, src/Makefile.am:
+	Added files to maintainer-clean.
+
+	* autogen.sh:
+	Script to auto generate needed files to call configure.
+
+	* src/main.cpp:
+	Added test code to *nix systems.
+
 2009-03-26	Fabrício Godoy <skarllot@gmail.com>
 	* src/Makefile.am:
 	Added networkinfo.h and networkinfo.cpp.

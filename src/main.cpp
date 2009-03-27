@@ -8,6 +8,7 @@
 #include "../config.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <iostream>
 #include <string>
 #include "networkinfo.h"
@@ -23,6 +24,15 @@
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
+#else
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <net/if.h>
+#include <fstream>
 #endif
 
 /*
@@ -124,6 +134,33 @@ int main(int argc, char** argv)
     }
 
     FREE(pAddresses);
+#else
+    int fd;
+    struct ifreq ifr;
+
+    fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+    /* I want to get an IPv4 IP address */
+    ifr.ifr_addr.sa_family = AF_INET;
+
+    /* I want IP address attached to "eth0" */
+    strncpy(ifr.ifr_name, "eth0", IFNAMSIZ - 1);
+
+    ioctl(fd, SIOCGIFADDR, &ifr);
+
+    close(fd);
+    std::cout << inet_ntoa(((struct sockaddr_in*)&ifr.ifr_addr)->sin_addr) << std::endl;
+
+    // WILL DEPRECATE
+
+    std::ifstream fin("/proc/net/dev");
+
+    std::string str;
+
+    while (getline(fin, str))
+        std::cout << str << std::endl;
+
+    fin.close();
 #endif
 
     return (EXIT_SUCCESS);

@@ -7,3 +7,5 @@ network_logger_LDADD = \
 	@WIN32_EXTRA_LIBADD@
 
 CLEANFILES = *~
+MAINTAINERCLEANFILES = \
+	Makefile.in

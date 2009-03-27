@@ -4,8 +4,8 @@
 AC_PREREQ([2.56])
 AC_INIT(Network Logger, 0.1.0, http://code.google.com/p/network-logger/issues/list, network-logger)
 AC_CONFIG_SRCDIR([src/main.cpp])
+AM_INIT_AUTOMAKE
 AC_CONFIG_HEADERS([config.h])
-AM_INIT_AUTOMAKE([-Wportability -Wsyntax])
 
 # ------------------------------------------------------------------------------
 # In order to enable this mode, you must first add AM_MAINTAINER_MODE to
@@ -14,12 +14,6 @@ AM_INIT_AUTOMAKE([-Wportability -Wsyntax])
 # `maintainer rules' to be enabled.
 # ------------------------------------------------------------------------------
 #AM_MAINTAINER_MODE
-
-# ------------------------------------------------------------------------------
-# Check build environment
-# ------------------------------------------------------------------------------
-AC_CANONICAL_HOST
-AC_ISC_POSIX
 
 # Checks for programs.
 AC_PROG_CC
