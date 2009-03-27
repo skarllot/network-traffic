@@ -4,7 +4,7 @@ network_logger_SOURCES = \
 	networkinfo.h \
 	networkinfo.cpp
 network_logger_LDADD = \
-	@WIN32_EXTRA_LIBADD@
+	$(WIN32_EXTRA_LIBADD)
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = \

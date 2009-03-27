@@ -1,4 +1,8 @@
 2009-03-27	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac, src/Makefile.am:
+	Scripts cleaned.
+
+2009-03-27	Fabrício Godoy <skarllot@gmail.com>
 	* AUTHORS:
 	Added my name.
 

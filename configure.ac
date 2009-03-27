@@ -1,10 +1,11 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.60])
+AC_PREREQ([2.61])
 AC_INIT(Network Logger, 0.1.0, http://code.google.com/p/network-logger/issues/list, network-logger)
+AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([src/main.cpp])
-AM_INIT_AUTOMAKE([-Wall -Werror])
+AM_INIT_AUTOMAKE([1.10 -Wall -Werror dist-bzip2])
 AC_CONFIG_HEADERS([config.h])
 
 # ------------------------------------------------------------------------------
