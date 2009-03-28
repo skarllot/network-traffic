@@ -25,14 +25,12 @@
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 #else
-#include <string.h>
-#include <sys/types.h>
 #include <sys/socket.h>
-#include <sys/ioctl.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <net/if.h>
+#include <netdb.h>
+#include <dirent.h>
+#include <ifaddrs.h>
 #include <fstream>
+//#include <arpa/inet.h>
 #endif
 
 /*
@@ -135,32 +133,65 @@ int main(int argc, char** argv)
 
     FREE(pAddresses);
 #else
-    int fd;
-    struct ifreq ifr;
+    DIR* dirp;
+    struct dirent* entry;
 
-    fd = socket(AF_INET, SOCK_DGRAM, 0);
+    if (dirp = opendir("/sys/class/net"))
+    {
+        readdir(dirp); // .
+        readdir(dirp); // ..
+        while (entry = readdir(dirp))
+            std::cout << entry->d_name << std::endl;
+        closedir(dirp);
+    }
 
-    /* I want to get an IPv4 IP address */
-    ifr.ifr_addr.sa_family = AF_INET;
+    std::cout << "----------" << std::endl;
 
-    /* I want IP address attached to "eth0" */
-    strncpy(ifr.ifr_name, "eth0", IFNAMSIZ - 1);
+    struct ifaddrs* ifs;
+    getifaddrs(&ifs);
 
-    ioctl(fd, SIOCGIFADDR, &ifr);
+    struct ifaddrs* curIfs;
+    curIfs = ifs;
+    while (curIfs)
+    {
+        std::cout << "Name: " << curIfs->ifa_name << std::endl;
+        if (curIfs->ifa_addr)
+        {
+            char name[NI_MAXHOST];
+            getnameinfo(curIfs->ifa_addr, sizeof (sockaddr_storage), name, sizeof (name),
+                    NULL, 0, NI_NUMERICHOST);
+            std::string strname(name);
+            std::cout << "Gen addr: " << strname << " -> " << strname.length() << std::endl;
 
-    close(fd);
-    std::cout << inet_ntoa(((struct sockaddr_in*)&ifr.ifr_addr)->sin_addr) << std::endl;
+            // ---
 
-    // WILL DEPRECATE
+            std::string filename("/sys/class/net/");
+            filename.append(curIfs->ifa_name).append("/statistics/rx_bytes");
+            std::ifstream fs(filename.c_str());
+            std::string rbytes;
 
-    std::ifstream fin("/proc/net/dev");
+            getline(fs, rbytes);
+            fs.close();
+            std::cout << "R. bytes: " << rbytes << std::endl;
 
-    std::string str;
+            // ---
 
-    while (getline(fin, str))
-        std::cout << str << std::endl;
+            std::string filename2("/sys/class/net/");
+            filename2.append(curIfs->ifa_name).append("/statistics/tx_bytes");
+            std::ifstream fs2(filename2.c_str());
+            std::string tbytes;
 
-    fin.close();
+            getline(fs2, tbytes);
+            fs2.close();
+            std::cout << "T. bytes: " << tbytes << std::endl;
+        }
+        std::cout << "------------------------------------------------------" <<
+                std::endl;
+        
+        curIfs = curIfs->ifa_next;
+    }
+
+    freeifaddrs(ifs);
 #endif
 
     return (EXIT_SUCCESS);

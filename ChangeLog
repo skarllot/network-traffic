@@ -1,3 +1,14 @@
+2009-03-28	Fabrício Godoy <skarllot@gmail.com>
+	* Makefile.am:
+	Changed to fit files location.
+
+	* src/main.cpp:
+	Changed test code for *nix, now lists all interfaces and gets its
+	received and sent bytes.
+
+	* autogen.sh:
+	Deleted useless file.
+
 2009-03-27	Fabrício Godoy <skarllot@gmail.com>
 	* configure.ac, src/Makefile.am:
 	Scripts cleaned.

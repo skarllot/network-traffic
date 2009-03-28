@@ -1,14 +1,14 @@
 SUBDIRS = src
 CLEANFILES = *~
 MAINTAINERCLEANFILES = \
+	build-aux/config.guess \
+	build-aux/config.sub \
+	build-aux/depcomp \
+	build-aux/install-sh \
+	build-aux/missing \
 	aclocal.m4 \
-	config.guess \
 	config.h.in \
-	config.sub \
 	configure \
-	depcomp \
-	install-sh \
 	Makefile.in \
-	missing \
 	autoscan.log \
 	configure.scan
