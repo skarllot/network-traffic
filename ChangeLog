@@ -1,3 +1,25 @@
+2009-03-29	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac:
+	Removed additional libraries setting, just check for platform.
+
+	* src/Makefile.am:
+	Added additional libraries setting for Microsoft Windows platform.
+
+	* src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
+	Fixed header date.
+
+	* configure.ac:
+	Changed required versions for autotools.
+
+	* AUTHORS, NEWS, README:
+	Changes based on other projects.
+
+	* TODO, HACKING:
+	Add based on other projects.
+
+	* Makefile.am:
+	Added HACKING file to distribution package.
+
 2009-03-28	Fabrício Godoy <skarllot@gmail.com>
 	* Makefile.am:
 	Changed to fit files location.

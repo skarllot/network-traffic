@@ -3,8 +3,12 @@ network_logger_SOURCES = \
 	main.cpp \
 	networkinfo.h \
 	networkinfo.cpp
+
+if PLATFORM_WIN32
+EXTRALIBADD = -liphlpapi
+endif
 network_logger_LDADD = \
-	$(WIN32_EXTRA_LIBADD)
+	$(EXTRALIBADD)
 
 CLEANFILES = *~
 MAINTAINERCLEANFILES = \

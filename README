@@ -1,0 +1,33 @@
+Network Logger
+==============
+
+Network Logger is an application that write logs from network usage, that is,
+how many bytes was sent and received from your network interface.
+Useful when your internet provider restrict your network usage.
+
+You can download or see more information about it on:
+	http://code.google.com/p/network-logger/
+
+
+Installation
+============
+
+See INSTALL file.
+
+
+What's new?
+===========
+
+See NEWS file.
+
+
+How to report bugs
+==================
+
+Bugs should be reported in http://code.google.com/p/network-logger/issues page.
+
+
+Contact
+=======
+
+Fabrício Godoy <skarllot@gmail.com>

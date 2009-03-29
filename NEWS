@@ -1,0 +1,4 @@
+Major changes for 0.1.0 are:
+* Lists all network interfaces to *nix and Microsoft Windows systems.
+* Shows basic information and sent/received bytes from listed network
+  interfaces.

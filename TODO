@@ -1,0 +1,5 @@
+We track all tasks as issue report in
+http://code.google.com/p/network-logger/issues page.
+
+- Lists all network interfaces information showing its name and sent/received
+  bytes on *nix and Microsoft Windows systems.

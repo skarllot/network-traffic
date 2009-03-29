@@ -1,11 +1,13 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.61])
-AC_INIT(Network Logger, 0.1.0, http://code.google.com/p/network-logger/issues/list, network-logger)
+AC_PREREQ([2.54])
+AC_INIT([Network Logger],[0.1.0],
+        [http://code.google.com/p/network-logger/issues],
+        [network-logger])
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([src/main.cpp])
-AM_INIT_AUTOMAKE([1.10 -Wall -Werror dist-bzip2])
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 
 # ------------------------------------------------------------------------------
@@ -34,6 +36,21 @@ AC_PROG_CXX
 # Checks for libraries.
 
 # ------------------------------------------------------------------------------
+# Check OS-specific platform
+# ------------------------------------------------------------------------------
+AC_MSG_CHECKING([for native Win32])
+case "$host_os" in
+  *mingw*)
+    AM_CONDITIONAL(PLATFORM_WIN32, test xtrue = xtrue)
+    AC_MSG_RESULT(yes)
+    ;;
+  *)
+    AM_CONDITIONAL(PLATFORM_WIN32, test xtrue = xfalse)
+    AC_MSG_RESULT(no)
+    ;;
+esac
+
+# ------------------------------------------------------------------------------
 # Target compile to Windows Vista
 # ------------------------------------------------------------------------------
 
@@ -43,24 +60,6 @@ AC_ARG_ENABLE(winvista,
 	AC_DEFINE(WINVER,0x0600,[Define minimum Windows version])
     fi
 ])
-
-# ------------------------------------------------------------------------------
-# Add OS-specific libraries
-# ------------------------------------------------------------------------------
-AC_MSG_CHECKING([for native Win32])
-case "$host_os" in
-	*mingw*)
-		#WIN32_EXTRA_LIBADD="-lwinmm -mwindows"
-		WIN32_EXTRA_LIBADD="-liphlpapi"
-		AC_DEFINE(PLATFORM_NATIVE_WIN32,,[Define if this is compiled for a native Win32 platform])
-		AC_MSG_RESULT(yes)
-		;;
-	*)
-		AC_MSG_RESULT(no)
-		;;
-esac
-
-AC_SUBST(WIN32_EXTRA_LIBADD)
 
 # Checks for header files.
 AC_HEADER_STDC

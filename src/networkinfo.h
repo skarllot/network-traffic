@@ -2,7 +2,7 @@
  * File:   networkinfo.h
  * Author: fabricio
  *
- * Created on 26 de Março de 2009, 16:34
+ * Created on March 26, 2009, 16:34
  */
 
 #ifndef _NETWORKINFO_H

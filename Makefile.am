@@ -1,5 +1,10 @@
 SUBDIRS = src
+
+EXTRA_DIST = \
+	HACKING
+
 CLEANFILES = *~
+
 MAINTAINERCLEANFILES = \
 	build-aux/config.guess \
 	build-aux/config.sub \

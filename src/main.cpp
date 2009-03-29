@@ -2,7 +2,7 @@
  * File:   main.cpp
  * Author: fabricio
  *
- * Created on 25 de Março de 2009, 08:41
+ * Created on March 25, 2009, 08:41
  */
 
 #include "../config.h"

@@ -1,0 +1,33 @@
+Hacking on Network Logger
+-------------------------
+
+The Network Logger source tree is available from Google Code svn
+(http://network-logger.googlecode.com/svn).
+
+If you plan to hack on Network Logger, please make sure you work from the SVN
+version. The SVN version can be checked from the Google Code svn server.
+
+If you want to contribute in development discussions, please visit
+http://groups.google.com/group/network-logger or send mail to the
+Network Logger mailing list: <network-logger@googlegroups.com>.
+
+
+Submitting Patches
+------------------
+
+If you've been working on a change to Network Logger and want to propose it for
+inclusion, you have to generate a patch and submit it for review by the
+maintainers.
+
+Patches should be made with 'svn diff --diff-cmd diff -x -up >patch' and should
+conform to Network Logger coding style as described in (no file yet, sorry).
+
+The best way to submit a patch for review is to post it on the mailing list.
+That way everyone sees it and can take part in the following discussion about
+it. Sometimes people also attach patches to issues in
+http://code.google.com/p/network-logger/issues. If you do this, please send a
+mail to the list saying you did so.
+
+If you're planning to do large changes, please take them up for discussion on
+the list first. If you get feedback early it is much easier to integrate it into
+your work.
