@@ -1,3 +1,28 @@
+2009-03-30	Fabrício Godoy <skarllot@gmail.com>
+	* src/main.cpp, src/networkinterface.h, src/networkinterface.cpp,
+	src/nix_networkinterface.h, src/nix_networkinterface.cpp,
+	src/win_networkinterface.h, src/win_networkinterface.cpp:
+	Code organization.
+
+	* src/networkinfo.h, src/networkinfo.cpp:
+	Renamed for better understanding.
+
+	* configure.ac, src/Makefile.am:
+	Added glibmm dependency.
+
+	* TODO:
+	Added new task (issue 2).
+
+	* configure.ac, Makefile.am, autogen.sh, po/ChangeLog, po/LINGUAS,
+	po/POTFILES.in:
+	Added internationalization support.
+
+	* src/main.cpp(main):
+	Added a transladable string for testing.
+
+	* src/ucompose.hpp, src/README.compose, src/Makefile.am:
+	Added composing class to allow C++ compose.
+
 2009-03-29	Fabrício Godoy <skarllot@gmail.com>
 	* configure.ac:
 	Removed additional libraries setting, just check for platform.

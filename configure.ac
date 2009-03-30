@@ -10,6 +10,20 @@ AC_CONFIG_SRCDIR([src/main.cpp])
 AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 
+# Internationalization and localization
+#IT_PROG_INTLTOOL([0.35.0],[no-xml])
+
+GETTEXT_PACKAGE=network-logger
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
+                   [The domain to use with gettext])
+AM_GLIB_GNU_GETTEXT
+
+NETWORK_LOGGER_LOCALEDIR=[${datadir}/locale]
+AC_SUBST(NETWORK_LOGGER_LOCALEDIR)
+AC_DEFINE_UNQUOTED([NETWORK_LOGGER_LOCALEDIR], ["$NETWORK_LOGGER_LOCALEDIR"],
+                   [The locale directory])
+
 # ------------------------------------------------------------------------------
 # In order to enable this mode, you must first add AM_MAINTAINER_MODE to
 # `configure.in'. This will add the `--enable-maintainer-mode' option to 
@@ -29,11 +43,14 @@ AC_PROG_CXX
 #AC_PROG_CXXCPP
 #AC_PROG_INSTALL
 #AC_PROG_LIBTOOL
-#AC_PROG_INTLTOOL([0.23], [no-xml])
+#AC_PROG_INTLTOOL
 #AM_SANITY_CHECK
 #AC_LANG_CPLUSPLUS
 
 # Checks for libraries.
+PKG_CHECK_MODULES([GLIB_MODULES],[glibmm-2.4])
+AC_SUBST(GLIB_MODULES_CFLAGS)
+AC_SUBST(GLIB_MODULES_LIBS)
 
 # ------------------------------------------------------------------------------
 # Check OS-specific platform
@@ -70,5 +87,14 @@ AC_CHECK_HEADERS([stdlib.h])
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
+                 po/Makefile.in
                  src/Makefile])
 AC_OUTPUT
+
+dnl ==========================================================================
+echo "
+network-logger-$VERSION:
+
+prefix: ${prefix}
+source code location: ${srcdir}
+"

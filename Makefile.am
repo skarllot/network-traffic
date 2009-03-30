@@ -1,9 +1,25 @@
-SUBDIRS = src
+SUBDIRS = \
+	src \
+	po
+
+INTLTOOL_FILES = \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
 
 EXTRA_DIST = \
-	HACKING
+	HACKING \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
 
 CLEANFILES = *~
+
+DISTCLEANFILES = \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in \
+	po/.intltool-merge-cache
 
 MAINTAINERCLEANFILES = \
 	build-aux/config.guess \

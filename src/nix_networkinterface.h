@@ -18,45 +18,30 @@
  *
  */
 
+#ifndef WINNT
+
+#ifndef _NIX_NETWORKINTERFACE_H
+#define	_NIX_NETWORKINTERFACE_H
+
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <string>
-#include <glibmm/i18n.h>
 #include "networkinterface.h"
 
-#ifndef WINNT
-#include "nix_networkinterface.h"
-#include <sys/socket.h>
-#include <netdb.h>
-#include <dirent.h>
-#include <ifaddrs.h>
-#include <fstream>
-//#include <arpa/inet.h>
-#else
-#include "win_networkinterface.h"
-#endif
-
-int main(int argc, char** argv)
+class nix_NetworkInterface
 {
-    // Gettext initialization
-    bindtextdomain(GETTEXT_PACKAGE, NETWORK_LOGGER_LOCALEDIR);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
+public:
+    nix_NetworkInterface();
+    nix_NetworkInterface(const nix_NetworkInterface& orig);
+    virtual ~nix_NetworkInterface();
 
-    // A text to test whether gettext is working
-    std::cout << _("This is a test text") << std::endl;
+    static NetworkInterface* get_all_network_interfaces();
+    static int test_code();
+private:
 
-#ifndef WINNT
-    return nix_NetworkInterface::test_code();
-#else
-    return win_NetworkInterface::test_code();
+};
+
+#endif	/* _NIX_NETWORKINTERFACE_H */
+
 #endif
-
-    return (EXIT_SUCCESS);
-}
-

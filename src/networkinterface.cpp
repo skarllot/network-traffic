@@ -18,45 +18,47 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <stdlib.h>
-#include <stdio.h>
-#include <iostream>
-#include <string>
-#include <glibmm/i18n.h>
 #include "networkinterface.h"
-
-#ifndef WINNT
 #include "nix_networkinterface.h"
-#include <sys/socket.h>
-#include <netdb.h>
-#include <dirent.h>
-#include <ifaddrs.h>
-#include <fstream>
-//#include <arpa/inet.h>
-#else
 #include "win_networkinterface.h"
+#include <iostream>
+
+#ifdef WINNT
+#ifndef WINVER
+#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
+// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
+#endif /* WINVER */
+
+#include <windows.h>
+#include <iphlpapi.h>
+#include <string>
+
+#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
+#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 #endif
 
-int main(int argc, char** argv)
+NetworkInterface::NetworkInterface()
 {
-    // Gettext initialization
-    bindtextdomain(GETTEXT_PACKAGE, NETWORK_LOGGER_LOCALEDIR);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
-
-    // A text to test whether gettext is working
-    std::cout << _("This is a test text") << std::endl;
-
-#ifndef WINNT
-    return nix_NetworkInterface::test_code();
-#else
-    return win_NetworkInterface::test_code();
-#endif
-
-    return (EXIT_SUCCESS);
 }
 
+NetworkInterface::NetworkInterface(const NetworkInterface& orig)
+{
+}
+
+NetworkInterface::~NetworkInterface()
+{
+}
+
+NetworkInterface* NetworkInterface::get_all_network_interfaces()
+{
+#ifndef WINNT
+    return nix_NetworkInterface::get_all_network_interfaces();
+#else
+    return win_NetworkInterface::get_all_network_interfaces();
+#endif
+}
+
+int NetworkInterface::get_interface_count()
+{
+    return 0;
+}

@@ -1,14 +1,17 @@
 /* 
- * File:   networkinfo.cpp
+ * File:   win_networkinterface.cpp
  * Author: fabricio
  * 
- * Created on March 26, 2009, 16:34
+ * Created on 29 de Março de 2009, 18:42
  */
 
-#include "networkinfo.h"
-#include <iostream>
+#ifdef WINNT
 
-#if WINNT
+#include "win_networkinterface.h"
+#include "networkinterface.h"
+
+// Test
+#include <iostream>
 #ifndef WINVER
 #define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
 // See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
@@ -16,34 +19,49 @@
 
 #include <windows.h>
 #include <iphlpapi.h>
-#include <string>
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
-#endif
 
-NetworkInfo::NetworkInfo()
-{
-    std::cout << "Constructor" << std::endl;
-    this->load_interfaces_info();
-}
-
-NetworkInfo::NetworkInfo(const NetworkInfo& orig)
+win_NetworkInterface::win_NetworkInterface()
 {
 }
 
-NetworkInfo::~NetworkInfo()
+win_NetworkInterface::win_NetworkInterface(const win_NetworkInterface& orig)
 {
 }
 
-int NetworkInfo::get_interface_count()
+win_NetworkInterface::~win_NetworkInterface()
+{
+}
+
+NetworkInterface* win_NetworkInterface::get_all_network_interfaces()
 {
     return 0;
 }
 
-void NetworkInfo::load_interfaces_info()
+int win_NetworkInterface::test_code()
 {
-#if WINNT
+    // Verify Windows version
+    // http://msdn.microsoft.com/en-gb/library/ms724833(VS.85).aspx
+    OSVERSIONINFOEX os_version;
+    ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
+    os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
+    GetVersionEx((OSVERSIONINFO*) & os_version);
+
+    if (os_version.dwMajorVersion < 5 ||
+            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
+            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
+            os_version.wServicePackMajor < 2) ||
+            (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
+            os_version.wServicePackMajor < 1))
+    {
+        std::cout << "Windows version not supported, requires at least Windows XP with SP2"
+                << std::endl;
+        return (EXIT_FAILURE);
+    }
+    // ----------------------
+
     DWORD dwRetVal = 0;
 
     ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
@@ -91,9 +109,6 @@ void NetworkInfo::load_interfaces_info()
             throw "GetIfEntry failed for index %index with error: %num";
         }
 
-        Interface _if;
-        _if.index = (int)pIfRow->dwIndex;
-        _if.name = std::wstring(pIfRow->wszName);
         std::cout << "IfIndex: " << pCurAddresses->IfIndex << std::endl;
         std::wcout << "FriendlyName: " << pCurAddresses->FriendlyName << std::endl;
 
@@ -112,14 +127,9 @@ void NetworkInfo::load_interfaces_info()
 
         pCurAddresses = pCurAddresses->Next;
         FREE(pIfRow);
-
-        this->interfaces.push_back(_if);
     }
 
-    std::cout << "Test index: " << this->interfaces.at(0).index << std::endl;
-    std::wcout << "Test name: " << this->interfaces.at(0).name << std::endl;
-    std::cout << "Test index: " << this->interfaces.at(1).index << std::endl;
-    std::wcout << "Test name: " << this->interfaces.at(1).name << std::endl;
     FREE(pAddresses);
-#endif
 }
+
+#endif
