@@ -27,6 +27,7 @@ MAINTAINERCLEANFILES = \
 	build-aux/depcomp \
 	build-aux/install-sh \
 	build-aux/missing \
+	po/Makefile.in.in \
 	aclocal.m4 \
 	config.h.in \
 	configure \

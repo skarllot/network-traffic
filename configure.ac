@@ -11,13 +11,13 @@ AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
 AC_CONFIG_HEADERS([config.h])
 
 # Internationalization and localization
-#IT_PROG_INTLTOOL([0.35.0],[no-xml])
+IT_PROG_INTLTOOL([0.35.0],[no-xml])
 
 GETTEXT_PACKAGE=network-logger
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
                    [The domain to use with gettext])
-AM_GLIB_GNU_GETTEXT
+#AM_GLIB_GNU_GETTEXT
 
 NETWORK_LOGGER_LOCALEDIR=[${datadir}/locale]
 AC_SUBST(NETWORK_LOGGER_LOCALEDIR)

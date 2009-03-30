@@ -31,11 +31,13 @@ fi
 
 rm -f config.cache acconfig.h
 
-echo "- glib-gettextize."	&& \
-glib-gettextize --force --copy	&& \
+#echo "- glib-gettextize."	&& \
+#glib-gettextize --force --copy	&& \
+echo "- intltoolize."		&& \
+intltoolize			&& \
 echo "- autoreconf."		&& \
 autoreconf --install		&& \
-echo				&& \
+echo "- configure. "		&& \
 ./configure "$@"		&& exit 0
 
 exit 1

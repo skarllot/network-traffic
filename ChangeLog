@@ -1,4 +1,11 @@
 2009-03-30	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac, autogen.sh:
+	Changes to make distcheck compliant.
+
+	* Makefile.am:
+	Added "po/Makefile.in.in" to maintainer-clean files.
+
+2009-03-30	Fabrício Godoy <skarllot@gmail.com>
 	* src/main.cpp, src/networkinterface.h, src/networkinterface.cpp,
 	src/nix_networkinterface.h, src/nix_networkinterface.cpp,
 	src/win_networkinterface.h, src/win_networkinterface.cpp:
