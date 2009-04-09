@@ -18,8 +18,6 @@ if PLATFORM_WIN32
 network_logger_LDADD += -liphlpapi -lintl
 endif
 
-AM_CPPFLAGS = -DNETWORK_LOGGER_LOCALEDIR=\"${NETWORK_LOGGER_LOCALEDIR}\"
-
 EXTRA_DIST = \
 	README.compose
 

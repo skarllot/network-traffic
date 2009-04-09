@@ -1,4 +1,11 @@
 2009-04-09	Fabrício Godoy <skarllot@gmail.com>
+	* .:
+	Updated ignore rules.
+
+	* configure.ac, src/Makefile.am:
+	Files cleaned.
+
+2009-04-09	Fabrício Godoy <skarllot@gmail.com>
 	* ., src, po:
 	Added ignore rules.
 
