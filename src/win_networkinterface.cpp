@@ -1,21 +1,31 @@
-/* 
- * File:   win_networkinterface.cpp
- * Author: fabricio
- * 
- * Created on 29 de Março de 2009, 18:42
+/*
+ * Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Authors: Fabrício Godoy <skarllot@gmail.com>
+ *
  */
 
 #ifdef WINNT
 
+#include <glibmm/i18n.h>
 #include "win_networkinterface.h"
 #include "networkinterface.h"
 
 // Test
 #include <iostream>
-#ifndef WINVER
-#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
-// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
-#endif /* WINVER */
 
 #include <windows.h>
 #include <iphlpapi.h>
@@ -23,7 +33,9 @@
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
-win_NetworkInterface::win_NetworkInterface()
+IP_ADAPTER_ADDRESSES* win_NetworkInterface::ifinfocache = NULL;
+
+win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES ifinfo)
 {
 }
 
@@ -35,33 +47,63 @@ win_NetworkInterface::~win_NetworkInterface()
 {
 }
 
+IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
+{
+    DWORD dwRetVal = 0;
+
+    ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
+    ULONG family = AF_INET; // Only IPv4
+    LPVOID lpMsgBuf = NULL;
+    IP_ADAPTER_ADDRESSES* pAddresses = NULL;
+    ULONG outBufLen = sizeof (IP_ADAPTER_ADDRESSES);
+
+    pAddresses = (IP_ADAPTER_ADDRESSES*) MALLOC(outBufLen);
+    if (pAddresses == NULL)
+        throw _("Memory allocation failed for IP_ADAPTER_ADDRESSES struct");
+
+    // Gets needed size to alloc pAddresses, writes size to outBufLen.
+    if (GetAdaptersAddresses(family, flags, lpMsgBuf, pAddresses,
+            &outBufLen) == ERROR_BUFFER_OVERFLOW)
+    {
+        FREE(pAddresses);
+        pAddresses = (IP_ADAPTER_ADDRESSES*) MALLOC(outBufLen);
+
+        if (pAddresses == NULL)
+            throw _("Memory allocation failed for IP_ADAPTER_ADDRESSES struct");
+    }
+
+    dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
+            pAddresses, &outBufLen);
+    if (dwRetVal != NO_ERROR)
+        throw _("GetAdapterAddresses failed");
+
+    return pAddresses;
+}
+
 NetworkInterface* win_NetworkInterface::get_all_network_interfaces()
 {
+    IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
+    FREE(ifsinfo);
     return 0;
+}
+
+int win_NetworkInterface::get_interface_count()
+{
+    IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
+
+    int count = 0;
+    while (ifsinfo)
+    {
+        count++;
+        ifsinfo = ifsinfo->Next;
+    }
+
+    FREE(ifsinfo);
+    return count;
 }
 
 int win_NetworkInterface::test_code()
 {
-    // Verify Windows version
-    // http://msdn.microsoft.com/en-gb/library/ms724833(VS.85).aspx
-    OSVERSIONINFOEX os_version;
-    ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
-    os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
-    GetVersionEx((OSVERSIONINFO*) & os_version);
-
-    if (os_version.dwMajorVersion < 5 ||
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
-            os_version.wServicePackMajor < 2) ||
-            (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
-            os_version.wServicePackMajor < 1))
-    {
-        std::cout << "Windows version not supported, requires at least Windows XP with SP2"
-                << std::endl;
-        return (EXIT_FAILURE);
-    }
-    // ----------------------
-
     DWORD dwRetVal = 0;
 
     ULONG flags = GAA_FLAG_INCLUDE_PREFIX;

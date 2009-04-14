@@ -20,6 +20,9 @@
 
 #ifndef WINNT
 
+#include <string.h>
+
+
 #include "nix_networkinterface.h"
 
 // Test
@@ -74,6 +77,7 @@ int nix_NetworkInterface::test_code()
         if (curIfs->ifa_addr)
         {
             char name[NI_MAXHOST];
+            memset(name, 0, NI_MAXHOST);
             getnameinfo(curIfs->ifa_addr, sizeof (sockaddr_storage), name, sizeof (name),
                     NULL, 0, NI_NUMERICHOST);
             std::string strname(name);

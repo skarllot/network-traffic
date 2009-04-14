@@ -31,14 +31,16 @@
 
 #ifndef WINNT
 #include "nix_networkinterface.h"
-#include <sys/socket.h>
-#include <netdb.h>
-#include <dirent.h>
-#include <ifaddrs.h>
-#include <fstream>
-//#include <arpa/inet.h>
 #else
+#ifndef WINVER
+#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
+// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
+#endif /* WINVER */
+
+#include <windows.h>
 #include "win_networkinterface.h"
+
+int check_version();
 #endif
 
 int main(int argc, char** argv)
@@ -54,9 +56,40 @@ int main(int argc, char** argv)
 #ifndef WINNT
     return nix_NetworkInterface::test_code();
 #else
+    int retval = check_version();
+    if (retval != NO_ERROR)
+        return retval;
+
     return win_NetworkInterface::test_code();
 #endif
 
     return (EXIT_SUCCESS);
 }
+
+#ifdef WINNT
+/** Check whether running Windows version is supported.
+ */
+int check_version()
+{
+    // http://msdn.microsoft.com/en-gb/library/ms724833(VS.85).aspx
+    OSVERSIONINFOEX os_version;
+    ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
+    os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
+    GetVersionEx((OSVERSIONINFO*) & os_version);
+
+    if (os_version.dwMajorVersion < 5 ||
+            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
+            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
+            os_version.wServicePackMajor < 2) ||
+            (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
+            os_version.wServicePackMajor < 1))
+    {
+        std::cout << _("Windows version not supported, requires at least Windows XP with SP2")
+                << std::endl;
+        return (EXIT_FAILURE);
+    }
+
+    return NO_ERROR;
+}
+#endif
 

@@ -23,20 +23,6 @@
 #include "win_networkinterface.h"
 #include <iostream>
 
-#ifdef WINNT
-#ifndef WINVER
-#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
-// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
-#endif /* WINVER */
-
-#include <windows.h>
-#include <iphlpapi.h>
-#include <string>
-
-#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
-#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
-#endif
-
 NetworkInterface::NetworkInterface()
 {
 }
@@ -60,5 +46,9 @@ NetworkInterface* NetworkInterface::get_all_network_interfaces()
 
 int NetworkInterface::get_interface_count()
 {
+#ifndef WINNT
     return 0;
+#else
+    return win_NetworkInterface::get_interface_count();
+#endif
 }

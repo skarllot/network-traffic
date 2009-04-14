@@ -1,3 +1,22 @@
+2009-04-14	Fabrício Godoy <skarllot@gmail.com>
+	* src/main.cpp:
+	Removed ununsed includes.
+
+	* src/main.cpp [WINVER]:
+	Define here is better.
+
+	* src/main.cpp (check_version):
+	Added to check version of running Windows.
+
+	* src/networkinterface.cpp [WINNT]:
+	Removed specific stuff.
+
+	* src/nix_networkinterface.cpp (test_code):
+	Modified to clear new array after created.
+
+	* src/win_networkinterface.h, src/win_networkinterface.cpp:
+	Reorganizing the code.
+
 2009-04-09	Fabrício Godoy <skarllot@gmail.com>
 	* .:
 	Updated ignore rules.
