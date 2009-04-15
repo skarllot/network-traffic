@@ -1,4 +1,12 @@
 2009-04-15	Fabrício Godoy <skarllot@gmail.com>
+	* src/networkinterface.h, src/networkinterface.cpp
+	(get_all_network_interfaces):
+	Modified to return a "std::vector" instead of "NetworkInterface*".
+
+	* src/main.cpp, src/win_networkinterface.h, src/win_networkinterface.cpp:
+	Reorganizing the code.
+
+2009-04-15	Fabrício Godoy <skarllot@gmail.com>
 	* src/Makefile.am [SOURCES]:
 	Added "src/windowsdef.h" file.
 

@@ -24,6 +24,7 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
 #include <glibmm/i18n.h>
 #include "networkinterface.h"
 
@@ -31,7 +32,6 @@
 #include "nix_networkinterface.h"
 #else
 #include "windowsdef.h"
-#include "win_networkinterface.h"
 
 int check_version();
 #endif
@@ -55,7 +55,15 @@ int main(int argc, char** argv)
 #ifndef WINNT
     return nix_NetworkInterface::test_code();
 #else
-    return win_NetworkInterface::test_code();
+    std::vector<NetworkInterface*> netifs =
+            NetworkInterface::get_all_network_interfaces();
+
+    std::cout << "Size: " << (int) netifs.size() << std::endl;
+
+    NetworkInterface* netif = netifs[0];
+    std::cout << "Name: " << netif->get_name() << std::endl;
+    std::cout << "Bytes in: " << netif->get_bytes_received() << std::endl;
+    std::cout << "Bytes out: " << netif->get_bytes_sent() << std::endl;
 #endif
 
     return (EXIT_SUCCESS);

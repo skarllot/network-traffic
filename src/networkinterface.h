@@ -26,7 +26,7 @@
 #endif
 
 #include <glibmm/ustring.h>
-#include <string>
+#include <vector>
 
 /** Base class that provides basic network interface information.
  */
@@ -41,7 +41,7 @@ public:
      *
      * @return A vector of NetworkInterface.
      */
-    static NetworkInterface* get_all_network_interfaces();
+    static std::vector<NetworkInterface*> get_all_network_interfaces();
 
     /** Gets a number that represents a count of computer network interfaces.
      */
@@ -61,7 +61,7 @@ public:
 
 protected:
     // Fields:
-    std::wstring name;
+    Glib::ustring name;
     uint64_t in_bytes;
     uint64_t out_bytes;
 };

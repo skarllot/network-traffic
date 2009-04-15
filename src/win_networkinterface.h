@@ -30,17 +30,38 @@ class win_NetworkInterface : NetworkInterface
 public:
     virtual ~win_NetworkInterface();
 
-    static NetworkInterface* get_all_network_interfaces();
+    /** Gets an array or NetworkInterface for all computer network interfaces.
+     *
+     * @return A vector of NetworkInterface.
+     */
+    static std::vector<NetworkInterface*> get_all_network_interfaces();
+
+    /** Gets a number that represents a count of computer network interfaces.
+     */
     static int get_interface_count();
+
     static int test_code();
+
+    /** Gets the bytes received by this interface.
+     */
+    virtual uint64_t get_bytes_received();
+
+    /** Gets the bytes sent by this interface.
+     */
+    virtual uint64_t get_bytes_sent();
+
+    /** Gets the name of this network interface.
+     */
+    virtual Glib::ustring get_name();
 
 private:
     win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo);
     win_NetworkInterface(const win_NetworkInterface& orig);
-    
+
+    static MIB_IFROW get_if_detail(DWORD ifindex);
     static IP_ADAPTER_ADDRESSES* get_ifs_info();
-    
-    const IP_ADAPTER_ADDRESSES* ifinfo;
+
+    IP_ADAPTER_ADDRESSES ifinfo;
 };
 
 #endif	/* _WIN_NETWORKINTERFACE_H */

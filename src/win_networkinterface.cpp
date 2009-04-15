@@ -21,6 +21,7 @@
 #ifdef WINNT
 
 #include <glibmm/i18n.h>
+#include <glib.h>
 #include "win_networkinterface.h"
 
 // Test
@@ -31,7 +32,7 @@
 
 win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo)
 {
-    this->ifinfo = ifinfo;
+    this->ifinfo = *ifinfo;
 }
 
 win_NetworkInterface::win_NetworkInterface(const win_NetworkInterface& orig)
@@ -41,6 +42,47 @@ win_NetworkInterface::win_NetworkInterface(const win_NetworkInterface& orig)
 
 win_NetworkInterface::~win_NetworkInterface()
 {
+}
+
+std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces()
+{
+    std::vector<NetworkInterface*> ifs;
+
+    IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
+
+    IP_ADAPTER_ADDRESSES* curIfsinfo = ifsinfo;
+    while (curIfsinfo)
+    {
+        win_NetworkInterface* currIf = new win_NetworkInterface(curIfsinfo);
+        ifs.push_back(currIf);
+        curIfsinfo = curIfsinfo->Next;
+    }
+
+    FREE(ifsinfo);
+    return ifs;
+}
+
+uint64_t win_NetworkInterface::get_bytes_received()
+{
+    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
+    return ifrow.dwInOctets;
+}
+
+uint64_t win_NetworkInterface::get_bytes_sent()
+{
+    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
+    return ifrow.dwOutOctets;
+}
+
+MIB_IFROW win_NetworkInterface::get_if_detail(DWORD ifindex)
+{
+    MIB_IFROW ifrow;
+    ifrow.dwIndex = ifindex;
+    DWORD retval = GetIfEntry(&ifrow);
+    if (retval != NO_ERROR)
+        throw _("GetIfEntry failed for index %index with error: %num");
+
+    return ifrow;
 }
 
 IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
@@ -76,17 +118,11 @@ IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
     return pAddresses;
 }
 
-NetworkInterface* win_NetworkInterface::get_all_network_interfaces()
-{
-    IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
-    FREE(ifsinfo);
-    return 0;
-}
-
 int win_NetworkInterface::get_interface_count()
 {
     IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
 
+    // interates over linked list to count.
     int count = 0;
     while (ifsinfo)
     {
@@ -96,6 +132,13 @@ int win_NetworkInterface::get_interface_count()
 
     FREE(ifsinfo);
     return count;
+}
+
+Glib::ustring win_NetworkInterface::get_name()
+{
+    Glib::ustring name(g_utf16_to_utf8((gunichar2*) this->ifinfo.FriendlyName,
+            -1, NULL, NULL, NULL));
+    return name;
 }
 
 int win_NetworkInterface::test_code()

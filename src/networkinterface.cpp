@@ -38,7 +38,7 @@ NetworkInterface::~NetworkInterface()
 {
 }
 
-NetworkInterface* NetworkInterface::get_all_network_interfaces()
+std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 {
 #ifndef WINNT
     return nix_NetworkInterface::get_all_network_interfaces();
