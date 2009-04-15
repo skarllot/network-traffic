@@ -27,7 +27,6 @@
 
 #include <glibmm/ustring.h>
 #include <string>
-#include <vector>
 
 /** Base class that provides basic network interface information.
  */

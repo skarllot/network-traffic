@@ -23,21 +23,14 @@
 #endif
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <iostream>
-#include <string>
 #include <glibmm/i18n.h>
 #include "networkinterface.h"
 
 #ifndef WINNT
 #include "nix_networkinterface.h"
 #else
-#ifndef WINVER
-#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
-// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
-#endif /* WINVER */
-
-#include <windows.h>
+#include "windowsdef.h"
 #include "win_networkinterface.h"
 
 int check_version();
@@ -45,6 +38,12 @@ int check_version();
 
 int main(int argc, char** argv)
 {
+#ifdef WINNT
+    int retval = check_version();
+    if (retval != NO_ERROR)
+        return retval;
+#endif
+
     // Gettext initialization
     bindtextdomain(GETTEXT_PACKAGE, NETWORK_LOGGER_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
@@ -56,10 +55,6 @@ int main(int argc, char** argv)
 #ifndef WINNT
     return nix_NetworkInterface::test_code();
 #else
-    int retval = check_version();
-    if (retval != NO_ERROR)
-        return retval;
-
     return win_NetworkInterface::test_code();
 #endif
 
@@ -67,6 +62,7 @@ int main(int argc, char** argv)
 }
 
 #ifdef WINNT
+
 /** Check whether running Windows version is supported.
  */
 int check_version()

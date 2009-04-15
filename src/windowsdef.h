@@ -18,29 +18,23 @@
  *
  */
 
-#ifndef _WIN_NETWORKINTERFACE_H
-#define	_WIN_NETWORKINTERFACE_H
+#ifndef _WINDOWSDEF_H
+#define	_WINDOWSDEF_H
 
-#include "windowsdef.h"
-#include <iphlpapi.h>
-#include "networkinterface.h"
+#ifndef WINVER
+#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
+// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
+#endif /* WINVER */
 
-class win_NetworkInterface : NetworkInterface
-{
-public:
-    virtual ~win_NetworkInterface();
+// Workarounds
+#ifndef GETTEXT_PACKAGE
+#define GETTEXT_PACKAGE "network-logger"
+#endif
+#ifndef NETWORK_LOGGER_LOCALEDIR
+#define NETWORK_LOGGER_LOCALEDIR "/usr/local/share/locale"
+#endif
 
-    static NetworkInterface* get_all_network_interfaces();
-    static int get_interface_count();
-    static int test_code();
+#include <windows.h>
 
-private:
-    win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo);
-    win_NetworkInterface(const win_NetworkInterface& orig);
-    
-    static IP_ADAPTER_ADDRESSES* get_ifs_info();
-    
-    const IP_ADAPTER_ADDRESSES* ifinfo;
-};
+#endif	/* _WINDOWSDEF_H */
 
-#endif	/* _WIN_NETWORKINTERFACE_H */

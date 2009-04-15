@@ -1,4 +1,17 @@
 2009-04-15	Fabrício Godoy <skarllot@gmail.com>
+	* src/Makefile.am [SOURCES]:
+	Added "src/windowsdef.h" file.
+
+	* src/main.cpp, src/networkinterface.h, src/networkinterface.cpp:
+	Code cleaning and organization.
+
+	* src/windowsdef.h:
+	Centralize all Windows specific defines and includes.
+
+	* src/win_networkinterface.h, src/win_networkinterface.cpp:
+	Reorganizing the code.
+
+2009-04-15	Fabrício Godoy <skarllot@gmail.com>
 	* po/POTFILES.in:
 	Added new file with localizable messages.
 

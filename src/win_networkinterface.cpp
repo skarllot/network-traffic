@@ -22,25 +22,21 @@
 
 #include <glibmm/i18n.h>
 #include "win_networkinterface.h"
-#include "networkinterface.h"
 
 // Test
 #include <iostream>
 
-#include <windows.h>
-#include <iphlpapi.h>
-
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
-IP_ADAPTER_ADDRESSES* win_NetworkInterface::ifinfocache = NULL;
-
-win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES ifinfo)
+win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo)
 {
+    this->ifinfo = ifinfo;
 }
 
 win_NetworkInterface::win_NetworkInterface(const win_NetworkInterface& orig)
 {
+    this->ifinfo = orig.ifinfo;
 }
 
 win_NetworkInterface::~win_NetworkInterface()
@@ -174,4 +170,4 @@ int win_NetworkInterface::test_code()
     FREE(pAddresses);
 }
 
-#endif
+#endif /* WINNT */

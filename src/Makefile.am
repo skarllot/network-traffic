@@ -7,7 +7,8 @@ network_logger_SOURCES = \
 	nix_networkinterface.h \
 	nix_networkinterface.cpp \
 	win_networkinterface.h \
-	win_networkinterface.cpp
+	win_networkinterface.cpp \
+	windowsdef.h
 
 network_logger_LDADD = \
 	$(GLIB_MODULES_LIBS)
