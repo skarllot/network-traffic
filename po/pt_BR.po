@@ -1,21 +1,35 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Brazilian Portuguese translation of network-logger.
+# This file is distributed under the same license as the network-logger package.
+# Copyright (C) 2009 Fabrício Godoy.
 # Fabrício Godoy <skarllot@gmail.com>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-04-08 23:36-0300\n"
+"POT-Creation-Date: 2009-04-15 00:06-0300\n"
 "PO-Revision-Date: 2009-04-08 22:49-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. A text to test whether gettext is working
-#: ../src/main.cpp:52
+#: ../src/main.cpp:54
 msgid "This is a test text"
 msgstr "Este é um texto de teste"
+
+#: ../src/main.cpp:87
+msgid "Windows version not supported, requires at least Windows XP with SP2"
+msgstr ""
+"Não há suporte a esta versão do Windows, é necessário ao menos o Windows XP "
+"com SP2"
+
+#: ../src/win_networkinterface.cpp:62 ../src/win_networkinterface.cpp:72
+msgid "Memory allocation failed for IP_ADAPTER_ADDRESSES struct"
+msgstr "Falha ao alocar memória para a struct IP_ADAPTER_ADDRESSES"
+
+#: ../src/win_networkinterface.cpp:78
+msgid "GetAdapterAddresses failed"
+msgstr "Falha em GetAdapterAddresses"
