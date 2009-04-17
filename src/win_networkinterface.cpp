@@ -20,6 +20,11 @@
 
 #ifdef WINNT
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <memory>
 #include <glibmm/i18n.h>
 #include <glib.h>
 #include "win_networkinterface.h"
@@ -136,8 +141,10 @@ int win_NetworkInterface::get_interface_count()
 
 Glib::ustring win_NetworkInterface::get_name()
 {
-    Glib::ustring name(g_utf16_to_utf8((gunichar2*) this->ifinfo.FriendlyName,
-            -1, NULL, NULL, NULL));
+    gchar* pt_name = g_utf16_to_utf8(
+            (gunichar2*) this->ifinfo.FriendlyName, -1, NULL, NULL, NULL);
+    Glib::ustring name(pt_name);
+    g_free(pt_name);
     return name;
 }
 

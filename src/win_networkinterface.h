@@ -21,6 +21,10 @@
 #ifndef _WIN_NETWORKINTERFACE_H
 #define	_WIN_NETWORKINTERFACE_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "windowsdef.h"
 #include <iphlpapi.h>
 #include "networkinterface.h"
