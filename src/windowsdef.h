@@ -21,6 +21,10 @@
 #ifndef _WINDOWSDEF_H
 #define	_WINDOWSDEF_H
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #ifndef WINVER
 #define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
 // See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx

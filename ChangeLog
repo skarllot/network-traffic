@@ -1,3 +1,31 @@
+2009-04-18	Fabrício Godoy <skarllot@gmail.com>
+	* configure.ac:
+	File cleaning.
+
+	* Makefile.am:
+	Moved file list from "distclean" to "maintainer-clean", these files
+	should not be cleaned by distclean because they're dist independent.
+
+	* src/Makefile.am:
+	Modification to be different compile file list to mingw32 from others.
+
+	* src/nix_networkinterface.h, src/nix_networkinterface.cpp:
+	Modification to not make selective compiling for platform in code (if
+	by file).
+
+	* src/networkinterface.h, src/networkinterface.cpp,
+	src/win_networkinterface.h, src/win_networkinterface.cpp,
+	src/windowsdef.h:
+	Includes reorganization and modifications to only include "config.h" if
+	needed.
+
+	* src/networkinterface.cpp, src/main.cpp:
+	Changed platform reference from WINNT to WIN32.
+
+	* src/main.cpp, src/nix_networkinterface.h,
+	src/nix_networkinterface.cpp:
+	Reorganizing the code.
+
 2009-04-17	Fabrício Godoy <skarllot@gmail.com>
 	* src/networkinterface.cpp, src/win_networkinterface.h,
 	src/win_networkinterface.cpp:

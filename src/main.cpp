@@ -26,19 +26,20 @@
 #include <iostream>
 #include <vector>
 #include <glibmm/i18n.h>
+#include <glibmm/ustring.h>
 #include "networkinterface.h"
 
-#ifndef WINNT
-#include "nix_networkinterface.h"
-#else
+#ifdef WIN32
 #include "windowsdef.h"
 
 int check_version();
 #endif
 
+#define compose Glib::ustring::compose
+
 int main(int argc, char** argv)
 {
-#ifdef WINNT
+#ifdef WIN32
     int retval = check_version();
     if (retval != NO_ERROR)
         return retval;
@@ -52,24 +53,33 @@ int main(int argc, char** argv)
     // A text to test whether gettext is working
     std::cout << _("This is a test text") << std::endl;
 
-#ifndef WINNT
-    return nix_NetworkInterface::test_code();
-#else
     std::vector<NetworkInterface*> netifs =
             NetworkInterface::get_all_network_interfaces();
 
-    std::cout << "Size: " << (int) netifs.size() << std::endl;
+    std::vector<NetworkInterface*>::iterator iter;
+    for (int i = 0; i < 6; i++)
+    {
+        for (iter = netifs.begin(); iter != netifs.end(); iter++)
+        {
+            std::cout << compose("Name: %1", (**iter).get_name()) << std::endl;
+            std::cout << compose("Bytes in: %1", (**iter).get_bytes_received()) << std::endl;
+            std::cout << compose("Bytes out: %1", (**iter).get_bytes_sent()) << std::endl;
+            std::cout << std::endl;
+        }
+        std::cout << "--------------------" << std::endl;
+        #ifndef WIN32
+        sleep(1);
+        #endif
+    }
 
-    NetworkInterface* netif = netifs[0];
-    std::cout << "Name: " << netif->get_name() << std::endl;
-    std::cout << "Bytes in: " << netif->get_bytes_received() << std::endl;
-    std::cout << "Bytes out: " << netif->get_bytes_sent() << std::endl;
-#endif
+    for (iter = netifs.begin(); iter != netifs.end(); iter++)
+        delete *iter;
+    netifs.clear();
 
     return (EXIT_SUCCESS);
 }
 
-#ifdef WINNT
+#ifdef WIN32
 
 /** Check whether running Windows version is supported.
  */

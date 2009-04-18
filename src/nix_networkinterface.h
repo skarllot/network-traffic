@@ -18,30 +18,47 @@
  *
  */
 
-#ifndef WINNT
-
 #ifndef _NIX_NETWORKINTERFACE_H
 #define	_NIX_NETWORKINTERFACE_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include "networkinterface.h"
+#include <ifaddrs.h>
+#include <map>
 
-class nix_NetworkInterface
+class nix_NetworkInterface : NetworkInterface
 {
 public:
-    nix_NetworkInterface();
-    nix_NetworkInterface(const nix_NetworkInterface& orig);
     virtual ~nix_NetworkInterface();
 
-    static NetworkInterface* get_all_network_interfaces();
+    /** Gets an array or NetworkInterface for all computer network interfaces.
+     *
+     * @return A vector of NetworkInterface.
+     */
+    static std::vector<NetworkInterface*> get_all_network_interfaces();
     static int test_code();
-private:
 
+    /** Gets the bytes received by this interface.
+     */
+    virtual uint64_t get_bytes_received();
+
+    /** Gets the bytes sent by this interface.
+     */
+    virtual uint64_t get_bytes_sent();
+
+    /** Gets the name of this network interface.
+     */
+    virtual Glib::ustring get_name();
+    
+private:
+    nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* maininfo);
+    nix_NetworkInterface(const nix_NetworkInterface& orig);
+
+    void add_info(const ifaddrs* ifinfo);
+
+    std::vector<ifaddrs> ifinfo;
+    ifaddrs* maininfo;
+    
+    static std::map<ifaddrs*, int> ifs_references;
 };
 
 #endif	/* _NIX_NETWORKINTERFACE_H */
-
-#endif

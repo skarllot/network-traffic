@@ -18,16 +18,11 @@
  *
  */
 
-#ifdef WINNT
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include "win_networkinterface.h"
 
 #include <memory>
 #include <glibmm/i18n.h>
 #include <glib.h>
-#include "win_networkinterface.h"
 
 // Test
 #include <iostream>
@@ -219,5 +214,3 @@ int win_NetworkInterface::test_code()
 
     FREE(pAddresses);
 }
-
-#endif /* WINNT */

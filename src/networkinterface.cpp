@@ -18,13 +18,9 @@
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <iostream>
 #include "networkinterface.h"
-#ifndef WINNT
+
+#ifndef WIN32
 #include "nix_networkinterface.h"
 #else
 #include "win_networkinterface.h"
@@ -44,7 +40,7 @@ NetworkInterface::~NetworkInterface()
 
 std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 {
-#ifndef WINNT
+#ifndef WIN32
     return nix_NetworkInterface::get_all_network_interfaces();
 #else
     return win_NetworkInterface::get_all_network_interfaces();
@@ -53,7 +49,7 @@ std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 
 int NetworkInterface::get_interface_count()
 {
-#ifndef WINNT
+#ifndef WIN32
     return 0;
 #else
     return win_NetworkInterface::get_interface_count();

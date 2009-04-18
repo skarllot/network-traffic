@@ -21,10 +21,6 @@
 #ifndef _NETWORKINTERFACE_H
 #define	_NETWORKINTERFACE_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <glibmm/ustring.h>
 #include <vector>
 
@@ -61,9 +57,9 @@ public:
 
 protected:
     // Fields:
-    Glib::ustring name;
+    /*Glib::ustring name;
     uint64_t in_bytes;
-    uint64_t out_bytes;
+    uint64_t out_bytes;*/
 };
 
 #endif	/* _NETWORKINTERFACE_H */

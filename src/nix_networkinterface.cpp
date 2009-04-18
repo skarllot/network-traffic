@@ -18,24 +18,38 @@
  *
  */
 
-#ifndef WINNT
-
-#include <string.h>
-
-
 #include "nix_networkinterface.h"
+
+#include <stdlib.h>
+#include <string.h>
+#include <vector>
 
 // Test
 #include <iostream>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <dirent.h>
-#include <ifaddrs.h>
 #include <fstream>
 //#include <arpa/inet.h>
 
-nix_NetworkInterface::nix_NetworkInterface()
+#define NET_STATISTICS_PATH "/sys/class/net/"
+#define NET_STATISTICS_RX_SUFFIX "/statistics/rx_bytes"
+#define NET_STATISTICS_TX_SUFFIX "/statistics/tx_bytes"
+
+std::map<ifaddrs*, int> nix_NetworkInterface::ifs_references;
+
+nix_NetworkInterface::nix_NetworkInterface(const ifaddrs* ifinfo,
+        ifaddrs* maininfo)
 {
+    this->ifinfo.push_back(*ifinfo);
+    this->maininfo = maininfo;
+
+    std::map<ifaddrs*, int>::iterator iter;
+    iter = ifs_references.find(maininfo);
+    if (iter == ifs_references.end())
+        ifs_references[maininfo] = 1;
+    else
+        iter->second++;
 }
 
 nix_NetworkInterface::nix_NetworkInterface(const nix_NetworkInterface& orig)
@@ -44,10 +58,89 @@ nix_NetworkInterface::nix_NetworkInterface(const nix_NetworkInterface& orig)
 
 nix_NetworkInterface::~nix_NetworkInterface()
 {
+    std::map<ifaddrs*, int>::iterator iter;
+    iter = ifs_references.find(maininfo);
+    iter->second--;
+
+    if (iter->second == 0)
+    {
+        ifs_references.erase(iter);
+        freeifaddrs(maininfo);
+    }
 }
 
-NetworkInterface* nix_NetworkInterface::get_all_network_interfaces()
+void nix_NetworkInterface::add_info(const ifaddrs* ifinfo)
 {
+    this->ifinfo.push_back(*ifinfo);
+}
+
+std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces()
+{
+    std::vector<NetworkInterface*> ifs;
+    std::map<std::string, nix_NetworkInterface*> ifsmap;
+    std::map<std::string, nix_NetworkInterface*>::iterator it_ifsmap;
+
+    ifaddrs* ifsinfo = NULL;
+    getifaddrs(&ifsinfo);
+
+    ifaddrs* curIfsinfo = ifsinfo;
+    while (curIfsinfo)
+    {
+        it_ifsmap = ifsmap.find(curIfsinfo->ifa_name);
+        nix_NetworkInterface* currnetif;
+
+        if (it_ifsmap == ifsmap.end())
+        {
+            currnetif = new nix_NetworkInterface(curIfsinfo, ifsinfo);
+            ifs.push_back(currnetif);
+            ifsmap[curIfsinfo->ifa_name] = currnetif;
+        }
+        else
+        {
+            currnetif = it_ifsmap->second;
+            currnetif->add_info(curIfsinfo);
+        }
+
+        curIfsinfo = curIfsinfo->ifa_next;
+    }
+
+    // Will be free on destructor.
+    //freeifaddrs(ifsinfo);
+    return ifs;
+}
+
+uint64_t nix_NetworkInterface::get_bytes_received()
+{
+    std::string filename(NET_STATISTICS_PATH);
+    filename += this->ifinfo[0].ifa_name;
+    filename += NET_STATISTICS_RX_SUFFIX;
+
+    std::ifstream fs(filename.c_str());
+    std::string rbytes;
+    getline(fs, rbytes);
+    fs.close();
+
+    return strtoull(rbytes.c_str(), NULL, 0);
+}
+
+uint64_t nix_NetworkInterface::get_bytes_sent()
+{
+    std::string filename(NET_STATISTICS_PATH);
+    filename += this->ifinfo[0].ifa_name;
+    filename += NET_STATISTICS_TX_SUFFIX;
+
+    std::ifstream fs(filename.c_str());
+    std::string tbytes;
+    getline(fs, tbytes);
+    fs.close();
+
+    return strtoull(tbytes.c_str(), NULL, 0);
+}
+
+Glib::ustring nix_NetworkInterface::get_name()
+{
+    Glib::ustring name(this->ifinfo[0].ifa_name);
+    return name;
 }
 
 int nix_NetworkInterface::test_code()
@@ -113,5 +206,3 @@ int nix_NetworkInterface::test_code()
 
     freeifaddrs(ifs);
 }
-
-#endif

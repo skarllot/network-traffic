@@ -15,12 +15,6 @@ EXTRA_DIST = \
 
 CLEANFILES = *~
 
-DISTCLEANFILES = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
-	po/.intltool-merge-cache
-
 MAINTAINERCLEANFILES = \
 	build-aux/config.guess \
 	build-aux/config.sub \
@@ -33,4 +27,8 @@ MAINTAINERCLEANFILES = \
 	configure \
 	Makefile.in \
 	autoscan.log \
-	configure.scan
+	configure.scan \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in \
+	po/.intltool-merge-cache

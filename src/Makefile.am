@@ -4,11 +4,16 @@ network_logger_SOURCES = \
 	main.cpp \
 	networkinterface.h \
 	networkinterface.cpp \
-	nix_networkinterface.h \
-	nix_networkinterface.cpp \
-	win_networkinterface.h \
-	win_networkinterface.cpp \
 	windowsdef.h
+if !PLATFORM_WIN32
+network_logger_SOURCES += \
+	nix_networkinterface.h \
+	nix_networkinterface.cpp
+else
+network_logger_SOURCES += \
+	win_networkinterface.h \
+	win_networkinterface.cpp
+endif
 
 network_logger_LDADD = \
 	$(GLIB_MODULES_LIBS)
