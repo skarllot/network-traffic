@@ -21,14 +21,11 @@
 #include "win_networkinterface.h"
 
 #include <memory>
-#include <glibmm/i18n.h>
-#include <glib.h>
+#include <glib.h>   // To g_utf16_to_utf8(...) function
+#include "i18n.h"
 
 // Test
 #include <iostream>
-
-#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
-#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
 win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo)
 {
@@ -58,6 +55,7 @@ std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces(
         curIfsinfo = curIfsinfo->Next;
     }
 
+    // FIXME: remaining references will point to garbage
     FREE(ifsinfo);
     return ifs;
 }
@@ -80,7 +78,10 @@ MIB_IFROW win_NetworkInterface::get_if_detail(DWORD ifindex)
     ifrow.dwIndex = ifindex;
     DWORD retval = GetIfEntry(&ifrow);
     if (retval != NO_ERROR)
-        throw _("GetIfEntry failed for index %index with error: %num");
+    {
+        throw compose(_("GetIfEntry failed for index %1 with error: %2"),
+                ifindex, retval);
+    }
 
     return ifrow;
 }

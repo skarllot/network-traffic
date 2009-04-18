@@ -25,8 +25,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include <glibmm/i18n.h>
-#include <glibmm/ustring.h>
+#include "i18n.h"
 #include "networkinterface.h"
 
 #ifdef WIN32
@@ -34,8 +33,6 @@
 
 int check_version();
 #endif
-
-#define compose Glib::ustring::compose
 
 int main(int argc, char** argv)
 {
@@ -50,9 +47,6 @@ int main(int argc, char** argv)
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
 
-    // A text to test whether gettext is working
-    std::cout << _("This is a test text") << std::endl;
-
     std::vector<NetworkInterface*> netifs =
             NetworkInterface::get_all_network_interfaces();
 
@@ -61,17 +55,22 @@ int main(int argc, char** argv)
     {
         for (iter = netifs.begin(); iter != netifs.end(); iter++)
         {
-            std::cout << compose("Name: %1", (**iter).get_name()) << std::endl;
-            std::cout << compose("Bytes in: %1", (**iter).get_bytes_received()) << std::endl;
-            std::cout << compose("Bytes out: %1", (**iter).get_bytes_sent()) << std::endl;
+            std::cout << compose(_("Name: %1"), (**iter).get_name())
+                    << std::endl;
+            std::cout
+                    << compose(_("Bytes in: %1"), (**iter).get_bytes_received())
+                    << std::endl;
+            std::cout << compose(_("Bytes out: %1"), (**iter).get_bytes_sent())
+                    << std::endl;
             std::cout << std::endl;
         }
         std::cout << "--------------------" << std::endl;
-        #ifndef WIN32
+#ifndef WIN32
         sleep(1);
-        #endif
+#endif
     }
 
+    // Free all vector items
     for (iter = netifs.begin(); iter != netifs.end(); iter++)
         delete *iter;
     netifs.clear();

@@ -1,10 +1,9 @@
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \
-	ucompose.hpp \
+	i18n.h \
 	main.cpp \
 	networkinterface.h \
-	networkinterface.cpp \
-	windowsdef.h
+	networkinterface.cpp
 if !PLATFORM_WIN32
 network_logger_SOURCES += \
 	nix_networkinterface.h \
@@ -12,7 +11,8 @@ network_logger_SOURCES += \
 else
 network_logger_SOURCES += \
 	win_networkinterface.h \
-	win_networkinterface.cpp
+	win_networkinterface.cpp \
+	windowsdef.h
 endif
 
 network_logger_LDADD = \
@@ -23,9 +23,6 @@ network_logger_CPPFLAGS = \
 if PLATFORM_WIN32
 network_logger_LDADD += -liphlpapi -lintl
 endif
-
-EXTRA_DIST = \
-	README.compose
 
 CLEANFILES = *~
 

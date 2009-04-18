@@ -1,4 +1,26 @@
 2009-04-18	Fabrício Godoy <skarllot@gmail.com>
+	* src/Makefile.am:
+	Updated to fit new file list.
+
+	* src/ucompose.hpp, src/README.compose:
+	Removed unused compose library.
+
+	* src/i18n.h:
+	Added to centralize needed includes and defines to i18n.
+
+	* src/main.cpp, src/win_networkinterface.cpp:
+	Updated translatable strings.
+
+	* src/windowsdef.h:
+	Added MALLOC and FREE defines.
+
+	* src/win_networkinterface.cpp:
+	Updated to fit windowsdef.h.
+
+	* po/pt_BR.po:
+	Updated.
+
+2009-04-18	Fabrício Godoy <skarllot@gmail.com>
 	* configure.ac:
 	File cleaning.
 

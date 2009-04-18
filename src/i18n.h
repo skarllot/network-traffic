@@ -18,30 +18,13 @@
  *
  */
 
-#ifndef _WINDOWSDEF_H
-#define	_WINDOWSDEF_H
+#ifndef _I18N_H
+#define	_I18N_H
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include <glibmm/i18n.h>
+#include <glibmm/ustring.h>
 
-#ifndef WINVER
-#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
-// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
-#endif /* WINVER */
+#define compose Glib::ustring::compose
 
-#include <windows.h>
-
-// Workarounds
-#ifndef GETTEXT_PACKAGE
-#define GETTEXT_PACKAGE "network-logger"
-#endif
-#ifndef NETWORK_LOGGER_LOCALEDIR
-#define NETWORK_LOGGER_LOCALEDIR "/usr/local/share/locale"
-#endif
-
-#define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
-#define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
-
-#endif	/* _WINDOWSDEF_H */
+#endif	/* _I18N_H */
 
