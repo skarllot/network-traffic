@@ -25,6 +25,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
+#include <glibmm/timer.h>
 #include "i18n.h"
 #include "networkinterface.h"
 
@@ -65,9 +66,8 @@ int main(int argc, char** argv)
             std::cout << std::endl;
         }
         std::cout << "--------------------" << std::endl;
-#ifndef WIN32
-        sleep(1);
-#endif
+
+        Glib::usleep(G_USEC_PER_SEC);   // Wait 1 second
     }
 
     // Free all vector items

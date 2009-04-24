@@ -51,7 +51,6 @@ public:
     
 private:
     nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* maininfo);
-    nix_NetworkInterface(const nix_NetworkInterface& orig);
 
     void add_info(const ifaddrs* ifinfo);
 

@@ -42,33 +42,31 @@ nix_NetworkInterface::nix_NetworkInterface(const ifaddrs* ifinfo,
         ifaddrs* maininfo)
 {
     this->ifinfo.push_back(*ifinfo);
-    this->maininfo = maininfo;
+    this->maininfo = maininfo; // store the pointer that should be freed
 
     std::map<ifaddrs*, int>::iterator iter;
     iter = ifs_references.find(maininfo);
     if (iter == ifs_references.end())
-        ifs_references[maininfo] = 1;
+        ifs_references[maininfo] = 1; // first reference
     else
-        iter->second++;
-}
-
-nix_NetworkInterface::nix_NetworkInterface(const nix_NetworkInterface& orig)
-{
+        iter->second++; // increases for new reference
 }
 
 nix_NetworkInterface::~nix_NetworkInterface()
 {
     std::map<ifaddrs*, int>::iterator iter;
     iter = ifs_references.find(maininfo);
-    iter->second--;
+    iter->second--; // decreases reference count
 
-    if (iter->second == 0)
+    if (iter->second == 0) // last reference
     {
         ifs_references.erase(iter);
         freeifaddrs(maininfo);
     }
 }
 
+/** Add info for same interface but different protocol (e.g. IPv6)
+ */
 void nix_NetworkInterface::add_info(const ifaddrs* ifinfo)
 {
     this->ifinfo.push_back(*ifinfo);
@@ -83,19 +81,20 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
     ifaddrs* ifsinfo = NULL;
     getifaddrs(&ifsinfo);
 
+    // Iterates over linked list to add each item
     ifaddrs* curIfsinfo = ifsinfo;
     while (curIfsinfo)
     {
         it_ifsmap = ifsmap.find(curIfsinfo->ifa_name);
         nix_NetworkInterface* currnetif;
 
-        if (it_ifsmap == ifsmap.end())
+        if (it_ifsmap == ifsmap.end()) // If this interface is not added
         {
             currnetif = new nix_NetworkInterface(curIfsinfo, ifsinfo);
             ifs.push_back(currnetif);
             ifsmap[curIfsinfo->ifa_name] = currnetif;
         }
-        else
+        else // If this interface is already added
         {
             currnetif = it_ifsmap->second;
             currnetif->add_info(curIfsinfo);
@@ -111,6 +110,7 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
 
 uint64_t nix_NetworkInterface::get_bytes_received()
 {
+    // Reads from pseudo file
     std::string filename(NET_STATISTICS_PATH);
     filename += this->ifinfo[0].ifa_name;
     filename += NET_STATISTICS_RX_SUFFIX;
@@ -125,6 +125,7 @@ uint64_t nix_NetworkInterface::get_bytes_received()
 
 uint64_t nix_NetworkInterface::get_bytes_sent()
 {
+    // Reads from pseudo file
     std::string filename(NET_STATISTICS_PATH);
     filename += this->ifinfo[0].ifa_name;
     filename += NET_STATISTICS_TX_SUFFIX;

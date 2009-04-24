@@ -23,6 +23,7 @@
 
 #include "networkinterface.h"
 
+#include <map>
 #include "windowsdef.h"
 #include <iphlpapi.h>
 
@@ -56,13 +57,16 @@ public:
     virtual Glib::ustring get_name();
 
 private:
-    win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo);
-    win_NetworkInterface(const win_NetworkInterface& orig);
+    win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
+            IP_ADAPTER_ADDRESSES* maininfo);
 
     static MIB_IFROW get_if_detail(DWORD ifindex);
     static IP_ADAPTER_ADDRESSES* get_ifs_info();
 
     IP_ADAPTER_ADDRESSES ifinfo;
+    IP_ADAPTER_ADDRESSES* maininfo;
+
+    static std::map<IP_ADAPTER_ADDRESSES*, int> ifs_references;
 };
 
 #endif	/* _WIN_NETWORKINTERFACE_H */

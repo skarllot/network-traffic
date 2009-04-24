@@ -1,3 +1,19 @@
+2009-04-23	Fabrício Godoy <skarllot@gmail.com>
+	* src/main.cpp (main):
+	Modified to use Glib::usleep() instead of sleep().
+
+	* src/nix_networkinterface.h, src/win_networkinterface.h:
+	Removed copy constructor.
+
+	* src/nix_networkinterface.cpp, src/win_networkinterface.cpp:
+	Added comments.
+
+	* src/win_networkinterface.h, src/win_networkinterface.cpp:
+	Modification to not free memory while is still in use.
+
+	* src/win_networkinterface.cpp (get_ifs_info):
+	Modified to not call GetAdaptersAddresses() twice if not needed.
+
 2009-04-18	Fabrício Godoy <skarllot@gmail.com>
 	* src/Makefile.am:
 	Updated to fit new file list.

@@ -20,25 +20,37 @@
 
 #include "win_networkinterface.h"
 
-#include <memory>
 #include <glib.h>   // To g_utf16_to_utf8(...) function
 #include "i18n.h"
 
 // Test
 #include <iostream>
 
-win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo)
+win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
+        IP_ADAPTER_ADDRESSES* maininfo)
 {
     this->ifinfo = *ifinfo;
-}
+    this->maininfo = maininfo; // store the pointer that should be freed
 
-win_NetworkInterface::win_NetworkInterface(const win_NetworkInterface& orig)
-{
-    this->ifinfo = orig.ifinfo;
+    std::map<IP_ADAPTER_ADDRESSES*, int>::iterator iter;
+    iter = ifs_references.find(maininfo);
+    if (iter = ifs_references.end())
+        ifs_references[maininfo] = 1; // first reference
+    else
+        iter->second++; // increases for new reference
 }
 
 win_NetworkInterface::~win_NetworkInterface()
 {
+    std::map<IP_ADAPTER_ADDRESSES*, int>::iterator iter;
+    iter = ifs_references.find(maininfo);
+    iter->second--; // decreases reference count
+
+    if (iter->second == 0) // last reference
+    {
+        ifs_references.erase(iter);
+        FREE(maininfo);
+    }
 }
 
 std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces()
@@ -47,16 +59,16 @@ std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces(
 
     IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
 
+    // Iterates over linked list to add each item
     IP_ADAPTER_ADDRESSES* curIfsinfo = ifsinfo;
     while (curIfsinfo)
     {
-        win_NetworkInterface* currIf = new win_NetworkInterface(curIfsinfo);
+        win_NetworkInterface* currIf =
+                new win_NetworkInterface(curIfsinfo, ifsinfo);
         ifs.push_back(currIf);
         curIfsinfo = curIfsinfo->Next;
     }
 
-    // FIXME: remaining references will point to garbage
-    FREE(ifsinfo);
     return ifs;
 }
 
@@ -100,19 +112,24 @@ IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
     if (pAddresses == NULL)
         throw _("Memory allocation failed for IP_ADAPTER_ADDRESSES struct");
 
-    // Gets needed size to alloc pAddresses, writes size to outBufLen.
-    if (GetAdaptersAddresses(family, flags, lpMsgBuf, pAddresses,
-            &outBufLen) == ERROR_BUFFER_OVERFLOW)
+    dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
+            pAddresses, &outBufLen);
+    
+    // If size of pAddresses is insuficient, gets needed size returned in
+    // outBufLen
+    if (dwRetVal == ERROR_BUFFER_OVERFLOW)
     {
         FREE(pAddresses);
         pAddresses = (IP_ADAPTER_ADDRESSES*) MALLOC(outBufLen);
 
         if (pAddresses == NULL)
             throw _("Memory allocation failed for IP_ADAPTER_ADDRESSES struct");
+
+        // Tries again with correct size
+        dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
+                pAddresses, &outBufLen);
     }
 
-    dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
-            pAddresses, &outBufLen);
     if (dwRetVal != NO_ERROR)
         throw _("GetAdapterAddresses failed");
 
