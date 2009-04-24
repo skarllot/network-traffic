@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-04-18 15:30-0300\n"
-"PO-Revision-Date: 2009-04-08 22:49-0300\n"
+"PO-Revision-Date: 2009-04-23 22:16-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -17,15 +17,15 @@ msgstr ""
 
 #: ../src/main.cpp:58
 msgid "Name: %1"
-msgstr ""
+msgstr "Nome: %1"
 
 #: ../src/main.cpp:61
 msgid "Bytes in: %1"
-msgstr ""
+msgstr "Bytes de entrada: %1"
 
 #: ../src/main.cpp:63
 msgid "Bytes out: %1"
-msgstr ""
+msgstr "Bytes de saída: %1"
 
 #: ../src/main.cpp:100
 msgid "Windows version not supported, requires at least Windows XP with SP2"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: ../src/win_networkinterface.cpp:82
 msgid "GetIfEntry failed for index %1 with error: %2"
-msgstr ""
+msgstr "Falha em GetIfEntry no índice %1 com o erro: %2"
 
 #: ../src/win_networkinterface.cpp:101 ../src/win_networkinterface.cpp:111
 msgid "Memory allocation failed for IP_ADAPTER_ADDRESSES struct"
