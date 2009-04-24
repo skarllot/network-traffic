@@ -138,6 +138,29 @@ uint64_t nix_NetworkInterface::get_bytes_sent()
     return strtoull(tbytes.c_str(), NULL, 0);
 }
 
+int nix_NetworkInterface::get_interface_count()
+{
+    ifaddrs* ifsinfo = NULL;
+    getifaddrs(&ifsinfo);
+
+    // Interates over linked list to count
+    int count = 0;
+    ifaddrs* curIfsinfo = ifsinfo;
+    while (curIfsinfo)
+    {
+        count++;
+        curIfsinfo = curIfsinfo->ifa_next;
+    }
+
+    freeifaddrs(ifsinfo);
+    return count;
+}
+
+Glib::ustring nix_NetworkInterface::get_internal_name()
+{
+    return this->get_name();
+}
+
 Glib::ustring nix_NetworkInterface::get_name()
 {
     Glib::ustring name(this->ifinfo[0].ifa_name);

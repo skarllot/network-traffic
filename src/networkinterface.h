@@ -51,15 +51,13 @@ public:
      */
     virtual uint64_t get_bytes_sent() = 0;
 
+    /** Gets the system name of this network interface.
+     */
+    virtual Glib::ustring get_internal_name() = 0;
+
     /** Gets the name of this network interface.
      */
     virtual Glib::ustring get_name() = 0;
-
-protected:
-    // Fields:
-    /*Glib::ustring name;
-    uint64_t in_bytes;
-    uint64_t out_bytes;*/
 };
 
 #endif	/* _NETWORKINTERFACE_H */

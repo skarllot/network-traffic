@@ -35,6 +35,11 @@ public:
      * @return A vector of NetworkInterface.
      */
     static std::vector<NetworkInterface*> get_all_network_interfaces();
+
+    /** Gets a number that represents a count of computer network interfaces.
+     */
+    static int get_interface_count();
+    
     static int test_code();
 
     /** Gets the bytes received by this interface.
@@ -44,6 +49,10 @@ public:
     /** Gets the bytes sent by this interface.
      */
     virtual uint64_t get_bytes_sent();
+
+    /** Gets the system name of this network interface.
+     */
+    virtual Glib::ustring get_internal_name();
 
     /** Gets the name of this network interface.
      */

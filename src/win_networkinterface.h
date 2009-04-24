@@ -52,6 +52,10 @@ public:
      */
     virtual uint64_t get_bytes_sent();
 
+    /** Gets the system name of this network interface.
+     */
+    virtual Glib::ustring get_internal_name();
+
     /** Gets the name of this network interface.
      */
     virtual Glib::ustring get_name();

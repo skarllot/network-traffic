@@ -26,6 +26,8 @@
 // Test
 #include <iostream>
 
+std::map<IP_ADAPTER_ADDRESSES*, int> win_NetworkInterface::ifs_references;
+
 win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
         IP_ADAPTER_ADDRESSES* maininfo)
 {
@@ -34,7 +36,7 @@ win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
 
     std::map<IP_ADAPTER_ADDRESSES*, int>::iterator iter;
     iter = ifs_references.find(maininfo);
-    if (iter = ifs_references.end())
+    if (iter == ifs_references.end())
         ifs_references[maininfo] = 1; // first reference
     else
         iter->second++; // increases for new reference
@@ -114,7 +116,7 @@ IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
 
     dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
             pAddresses, &outBufLen);
-    
+
     // If size of pAddresses is insuficient, gets needed size returned in
     // outBufLen
     if (dwRetVal == ERROR_BUFFER_OVERFLOW)
@@ -140,16 +142,28 @@ int win_NetworkInterface::get_interface_count()
 {
     IP_ADAPTER_ADDRESSES* ifsinfo = get_ifs_info();
 
-    // interates over linked list to count.
+    // Interates over linked list to count
     int count = 0;
-    while (ifsinfo)
+    IP_ADAPTER_ADDRESSES* curIfsinfo = ifsinfo;
+    while (curIfsinfo)
     {
         count++;
-        ifsinfo = ifsinfo->Next;
+        curIfsinfo = curIfsinfo->Next;
     }
 
     FREE(ifsinfo);
     return count;
+}
+
+Glib::ustring win_NetworkInterface::get_internal_name()
+{
+    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
+
+    gchar* pt_name = g_utf16_to_utf8(
+            (gunichar2*) ifrow.wszName, -1, NULL, NULL, NULL);
+    Glib::ustring name(pt_name);
+    g_free(pt_name);
+    return name;
 }
 
 Glib::ustring win_NetworkInterface::get_name()

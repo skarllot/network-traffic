@@ -50,7 +50,7 @@ std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 int NetworkInterface::get_interface_count()
 {
 #ifndef WIN32
-    return 0;
+    return nix_NetworkInterface::get_interface_count();
 #else
     return win_NetworkInterface::get_interface_count();
 #endif
