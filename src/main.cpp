@@ -56,13 +56,15 @@ int main(int argc, char** argv)
     {
         for (iter = netifs.begin(); iter != netifs.end(); iter++)
         {
-            std::cout << compose(_("Name: %1"),
+            std::cout << COMPOSE(_("Name: %1"),
                     (**iter).get_name()) << std::endl;
-            std::cout << compose(_("Internal name: %1"),
+            std::cout << COMPOSE(_("Internal name: %1"),
                     (**iter).get_internal_name()) << std::endl;
-            std::cout << compose(_("Bytes in: %1"),
+            std::cout << COMPOSE(_("Physical address: %1"),
+                    (**iter).get_physical_address()) << std::endl;
+            std::cout << COMPOSE(_("Bytes in: %1"),
                     (**iter).get_bytes_received()) << std::endl;
-            std::cout << compose(_("Bytes out: %1"),
+            std::cout << COMPOSE(_("Bytes out: %1"),
                     (**iter).get_bytes_sent()) << std::endl;
             std::cout << std::endl;
         }

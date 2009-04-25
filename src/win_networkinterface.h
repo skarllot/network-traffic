@@ -42,8 +42,6 @@ public:
      */
     static int get_interface_count();
 
-    static int test_code();
-
     /** Gets the bytes received by this interface.
      */
     virtual uint64_t get_bytes_received();
@@ -59,6 +57,10 @@ public:
     /** Gets the name of this network interface.
      */
     virtual Glib::ustring get_name();
+
+    /** Gets the Media Access Control address of this network interface.
+     */
+    virtual Glib::ustring get_physical_address();
 
 private:
     win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,

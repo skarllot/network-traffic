@@ -58,6 +58,10 @@ public:
     /** Gets the name of this network interface.
      */
     virtual Glib::ustring get_name() = 0;
+
+    /** Gets the Media Access Control address of this network interface.
+     */
+    virtual Glib::ustring get_physical_address() = 0;
 };
 
 #endif	/* _NETWORKINTERFACE_H */

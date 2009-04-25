@@ -20,11 +20,13 @@
 
 #include "win_networkinterface.h"
 
+#include <iomanip>
 #include <glib.h>   // To g_utf16_to_utf8(...) function
 #include "i18n.h"
 
-// Test
-#include <iostream>
+#define IFMAC_DEFAULTFORMAT std::hex, std::setfill('0'), std::setw(2), \
+        std::uppercase
+
 
 std::map<IP_ADAPTER_ADDRESSES*, int> win_NetworkInterface::ifs_references;
 
@@ -93,7 +95,7 @@ MIB_IFROW win_NetworkInterface::get_if_detail(DWORD ifindex)
     DWORD retval = GetIfEntry(&ifrow);
     if (retval != NO_ERROR)
     {
-        throw compose(_("GetIfEntry failed for index %1 with error: %2"),
+        throw COMPOSE(_("GetIfEntry failed for index %1 with error: %2"),
                 ifindex, retval);
     }
 
@@ -159,10 +161,14 @@ Glib::ustring win_NetworkInterface::get_internal_name()
 {
     MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
 
-    gchar* pt_name = g_utf16_to_utf8(
-            (gunichar2*) ifrow.wszName, -1, NULL, NULL, NULL);
-    Glib::ustring name(pt_name);
-    g_free(pt_name);
+    Glib::ustring name("");
+    if (ifrow.wszName != NULL)
+    {
+        gchar* pt_name = g_utf16_to_utf8(
+                (gunichar2*) ifrow.wszName, -1, NULL, NULL, NULL);
+        name += pt_name;
+        g_free(pt_name);
+    }
     return name;
 }
 
@@ -175,74 +181,23 @@ Glib::ustring win_NetworkInterface::get_name()
     return name;
 }
 
-int win_NetworkInterface::test_code()
+Glib::ustring win_NetworkInterface::get_physical_address()
 {
-    DWORD dwRetVal = 0;
+    if (this->ifinfo.PhysicalAddressLength != 6)
+        return "";
 
-    ULONG flags = GAA_FLAG_INCLUDE_PREFIX;
-    ULONG family = AF_INET;
-    LPVOID lpMsgBuf = NULL;
-    PIP_ADAPTER_ADDRESSES pAddresses = NULL;
-    ULONG outBufLen = sizeof (IP_ADAPTER_ADDRESSES);
-
-    pAddresses = (IP_ADAPTER_ADDRESSES*) MALLOC(outBufLen);
-    if (pAddresses == NULL)
-        throw "Memory allocation failed for IP_ADAPTER_ADDRESSES struct";
-
-    // Gets needed size to alloc pAddresses, writes size to outBufLen.
-    if (GetAdaptersAddresses(family, flags, lpMsgBuf, pAddresses,
-            &outBufLen) == ERROR_BUFFER_OVERFLOW)
-    {
-        FREE(pAddresses);
-        pAddresses = (IP_ADAPTER_ADDRESSES*) MALLOC(outBufLen);
-
-        if (pAddresses == NULL)
-            throw "Memory allocation failed for IP_ADAPTER_ADDRESSES struct";
-    }
-
-    dwRetVal = GetAdaptersAddresses(family, flags, lpMsgBuf,
-            pAddresses, &outBufLen);
-    if (dwRetVal != NO_ERROR)
-        throw "GetAdapterAddresses failed";
-
-    PIP_ADAPTER_ADDRESSES pCurAddresses = pAddresses;
-    while (pCurAddresses)
-    {
-        MIB_IFROW* pIfRow = (MIB_IFROW*) MALLOC(sizeof (MIB_IFROW));
-        if (pIfRow == NULL)
-        {
-            FREE(pAddresses);
-            throw "Error allocating memory";
-        }
-        pIfRow->dwIndex = pCurAddresses->IfIndex;
-
-        dwRetVal = GetIfEntry(pIfRow);
-        if (dwRetVal != NO_ERROR)
-        {
-            FREE(pAddresses);
-            FREE(pIfRow);
-            throw "GetIfEntry failed for index %index with error: %num";
-        }
-
-        std::cout << "IfIndex: " << pCurAddresses->IfIndex << std::endl;
-        std::wcout << "FriendlyName: " << pCurAddresses->FriendlyName << std::endl;
-
-        std::cout << "Index: " << pIfRow->dwIndex << std::endl;
-        std::cout << "Interface name: ";
-        if (pIfRow->wszName != NULL)
-            std::wcout << pIfRow->wszName;
-        std::cout << std::endl;
-        std::cout << "Description: " << pIfRow->bDescr << std::endl;
-        std::cout << "Bytes in: " << pIfRow->dwInOctets << std::endl;
-        std::cout << "Bytes out: " << pIfRow->dwOutOctets << std::endl;
-
-        std::cout << std::endl <<
-                "============================================================================" <<
-                std::endl;
-
-        pCurAddresses = pCurAddresses->Next;
-        FREE(pIfRow);
-    }
-
-    FREE(pAddresses);
+    Glib::ustring paddr(COMPOSE("%1:%2:%3:%4:%5:%6",
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[0]),
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[1]),
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[2]),
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[3]),
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[4]),
+            FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[5])));
+    return paddr;
 }
+
+/*
+ * MIB_IFROW.bDescr get interface description as:
+ * - Atheros L2 Fast Ethernet 10/100Base-T Controller
+ * - Software Loopback Interface 1
+ */

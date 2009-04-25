@@ -24,7 +24,8 @@
 #include <glibmm/i18n.h>
 #include <glibmm/ustring.h>
 
-#define compose Glib::ustring::compose
+#define COMPOSE Glib::ustring::compose
+#define FORMAT Glib::ustring::format
 
 #endif	/* _I18N_H */
 

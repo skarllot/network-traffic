@@ -110,6 +110,7 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
 
 uint64_t nix_NetworkInterface::get_bytes_received()
 {
+    // TODO: test if_data struct at <net/if.h>
     // Reads from pseudo file
     std::string filename(NET_STATISTICS_PATH);
     filename += this->ifinfo[0].ifa_name;
