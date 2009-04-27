@@ -1,3 +1,23 @@
+2009-04-27	Fabrício Godoy <skarllot@gmail.com>
+	Modification to fix Windows XP error after network interface disconnection.
+
+	* src/networkinterface.h, src/networkinterface.cpp:
+	(get_network_interface): Added.
+
+	* src/win_networkinterface.h, src/win_networkinterface.cpp:
+	(alloc_maininfo, free_maininfo): Modifications to allow maininfo alloc and
+	dealloc in other places in code.
+
+	* src/win_networkinterface.cpp:
+	[IFMAC_DEFAULTFORMAT]: Use of GLIBMM_HAVE_WIDE_STREAM to workaround gtkmm
+	wide char on Windows.
+
+	* src/win_networkinterface.cpp:
+	(get_bytes_received, get_bytes_sent): Added FIXME.
+
+	* src/win_networkinterface.cpp:
+	(get_internal_name): Better implementation.
+
 2009-04-24	Fabrício Godoy <skarllot@gmail.com>
 	* src/i18n.h
 	[COMPOSE]: Name changed from "compose" to "COMPOSE".

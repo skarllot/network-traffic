@@ -55,3 +55,9 @@ int NetworkInterface::get_interface_count()
     return win_NetworkInterface::get_interface_count();
 #endif
 }
+
+NetworkInterface* NetworkInterface::get_network_interface(Glib::ustring physaddr)
+{
+    // TODO: Implement this.
+    return NULL;
+}

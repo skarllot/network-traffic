@@ -24,9 +24,13 @@
 #include <glib.h>   // To g_utf16_to_utf8(...) function
 #include "i18n.h"
 
+#ifdef GLIBMM_HAVE_WIDE_STREAM
+#define IFMAC_DEFAULTFORMAT std::hex, std::setfill(L'0'), std::setw(2), \
+        std::uppercase
+#else
 #define IFMAC_DEFAULTFORMAT std::hex, std::setfill('0'), std::setw(2), \
         std::uppercase
-
+#endif
 
 std::map<IP_ADAPTER_ADDRESSES*, int> win_NetworkInterface::ifs_references;
 
@@ -35,16 +39,25 @@ win_NetworkInterface::win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
 {
     this->ifinfo = *ifinfo;
     this->maininfo = maininfo; // store the pointer that should be freed
+    this->alloc_maininfo();
+}
 
+win_NetworkInterface::~win_NetworkInterface()
+{
+    this->free_maininfo();
+}
+
+void win_NetworkInterface::alloc_maininfo()
+{
     std::map<IP_ADAPTER_ADDRESSES*, int>::iterator iter;
-    iter = ifs_references.find(maininfo);
+    iter = ifs_references.find(this->maininfo);
     if (iter == ifs_references.end())
-        ifs_references[maininfo] = 1; // first reference
+        ifs_references[this->maininfo] = 1; // first reference
     else
         iter->second++; // increases for new reference
 }
 
-win_NetworkInterface::~win_NetworkInterface()
+void win_NetworkInterface::free_maininfo()
 {
     std::map<IP_ADAPTER_ADDRESSES*, int>::iterator iter;
     iter = ifs_references.find(maininfo);
@@ -78,12 +91,14 @@ std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces(
 
 uint64_t win_NetworkInterface::get_bytes_received()
 {
+    // FIXME: throw error if interface status changes.
     MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
     return ifrow.dwInOctets;
 }
 
 uint64_t win_NetworkInterface::get_bytes_sent()
 {
+    // FIXME: throw error if interface status changes.
     MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
     return ifrow.dwOutOctets;
 }
@@ -159,17 +174,8 @@ int win_NetworkInterface::get_interface_count()
 
 Glib::ustring win_NetworkInterface::get_internal_name()
 {
-    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
-
-    Glib::ustring name("");
-    if (ifrow.wszName != NULL)
-    {
-        gchar* pt_name = g_utf16_to_utf8(
-                (gunichar2*) ifrow.wszName, -1, NULL, NULL, NULL);
-        name += pt_name;
-        g_free(pt_name);
-    }
-    return name;
+    Glib::ustring iname(this->ifinfo.AdapterName);
+    return iname;
 }
 
 Glib::ustring win_NetworkInterface::get_name()

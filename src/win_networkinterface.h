@@ -68,6 +68,8 @@ private:
 
     static MIB_IFROW get_if_detail(DWORD ifindex);
     static IP_ADAPTER_ADDRESSES* get_ifs_info();
+    void alloc_maininfo();
+    void free_maininfo();
 
     IP_ADAPTER_ADDRESSES ifinfo;
     IP_ADAPTER_ADDRESSES* maininfo;

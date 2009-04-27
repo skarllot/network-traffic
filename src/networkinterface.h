@@ -43,6 +43,12 @@ public:
      */
     static int get_interface_count();
 
+    /** Gets a NetworkInterface by its physical address.
+     *
+     * @physaddr String representation of network interface physical address.
+     */
+    static NetworkInterface* get_network_interface(Glib::ustring physaddr);
+
     /** Gets the bytes received by this interface.
      */
     virtual uint64_t get_bytes_received() = 0;
