@@ -65,8 +65,10 @@ AM_CONDITIONAL(PLATFORM_WIN32, test "x$iswin32" = "x1")
 
 AC_ARG_ENABLE(winvista,
     AC_HELP_STRING([--enable-winvista],[Target compile to Windows Vista]),[
+	iswinvista=1
     AC_DEFINE(WINVER,0x0600,[Define minimum Windows version])
 ])
+AM_CONDITIONAL(WINVISTA, test "x$iswinvista" = "x1")
 
 # Checks for header files.
 AC_HEADER_STDC

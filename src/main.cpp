@@ -87,25 +87,40 @@ int main(int argc, char** argv)
  */
 int check_version()
 {
-    // http://msdn.microsoft.com/en-gb/library/ms724833(VS.85).aspx
+#ifdef WINNT
+    // http://msdn.microsoft.com/en-us/library/ms724833.aspx
     OSVERSIONINFOEX os_version;
     ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
     os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
     GetVersionEx((OSVERSIONINFO*) & os_version);
 
-    if (os_version.dwMajorVersion < 5 ||
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
+#if (WINVER < 0x600)
+    // Less than Windows XP
+    if ((os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
+            // Windows XP less than SP2
             (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
             os_version.wServicePackMajor < 2) ||
+            // Windows Server 2003 less than SP1
             (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
             os_version.wServicePackMajor < 1))
     {
-        std::cout << _("Windows version not supported, requires at least Windows XP with SP2")
-                << std::endl;
+        Glib::ustring msg(_("Windows version not supported, requires at least "
+                "Windows XP with SP2"));
+#else
+    // Less than Windows Vista
+    if (os_version.dwMajorVersion < 6)
+    {
+        Glib::ustring msg(_("Windows version not supported, requires at least "
+                "Windows Vista"));
+#endif
+#endif
+        std::cout << msg << std::endl;
         return (EXIT_FAILURE);
+#ifdef WINNT
     }
 
     return NO_ERROR;
+#endif
 }
 #endif
 

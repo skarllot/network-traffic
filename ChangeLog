@@ -1,3 +1,16 @@
+2009-04-28	Fabrício Godoy <skarllot@gmail.com>
+	Initial modification to Windows Vista specific code.
+
+	* configure.ac:
+	[AM_CONDITIONAL]: Added makefile flag to indicate Windows Vista build.
+
+	* src/main.cpp:
+	(check_version): Modification to require minimum Windows Vista when choose
+	Windows Vista build.
+
+	* src/networkinterface.cpp:
+	(get_network_interface): Modification to not exceed 80 columns format.
+
 2009-04-27	Fabrício Godoy <skarllot@gmail.com>
 	Modification to fix Windows XP error after network interface disconnection.
 
