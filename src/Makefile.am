@@ -1,3 +1,6 @@
+SUBDIRS = \
+	mingw32-extension
+
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \
 	i18n.h \
@@ -13,6 +16,10 @@ network_logger_SOURCES += \
 	win_networkinterface.h \
 	win_networkinterface.cpp \
 	windowsdef.h
+if WINVISTA
+network_logger_SOURCES += \
+	mingw32-extension/iphlpapi2.h
+endif
 endif
 
 network_logger_LDADD = \
@@ -22,6 +29,10 @@ network_logger_CPPFLAGS = \
 
 if PLATFORM_WIN32
 network_logger_LDADD += -liphlpapi -lintl
+if WINVISTA
+LIBS += -Lmingw32-extension/lib
+network_logger_LDADD += -liphlpapi2
+endif
 endif
 
 CLEANFILES = *~

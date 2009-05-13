@@ -75,12 +75,16 @@ AC_HEADER_STDC
 AC_CHECK_HEADERS([stdlib.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_UINT64_T
 
 # Checks for library functions.
 
 AC_CONFIG_FILES([Makefile
                  po/Makefile.in
-                 src/Makefile])
+                 src/Makefile
+                 src/mingw32-extension/Makefile
+                 src/mingw32-extension/lib/Makefile])
 AC_OUTPUT
 
 dnl ==========================================================================

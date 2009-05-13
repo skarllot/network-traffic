@@ -27,6 +27,10 @@
 #include "windowsdef.h"
 #include <iphlpapi.h>
 
+#if (WINVER >= 0x0600)
+#include "mingw32-extension/iphlpapi2.h"
+#endif
+
 class win_NetworkInterface : NetworkInterface
 {
 public:
@@ -66,7 +70,10 @@ private:
     win_NetworkInterface(const IP_ADAPTER_ADDRESSES* ifinfo,
             IP_ADAPTER_ADDRESSES* maininfo);
 
-    static MIB_IFROW get_if_detail(DWORD ifindex);
+    static MIB_IFROW* get_if_detail(DWORD ifindex);
+    #if (WINVER >= 0x0600)
+    static MIB_IF_ROW2* get_if_detail2(DWORD ifindex);
+    #endif
     static IP_ADAPTER_ADDRESSES* get_ifs_info();
     void alloc_maininfo();
     void free_maininfo();

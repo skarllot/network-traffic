@@ -21,7 +21,7 @@
 #include "win_networkinterface.h"
 
 #include <iomanip>
-#include <glib.h>   // To g_utf16_to_utf8(...) function
+#include <glib.h> // To g_utf16_to_utf8(...) function
 #include "i18n.h"
 
 #ifdef GLIBMM_HAVE_WIDE_STREAM
@@ -70,7 +70,8 @@ void win_NetworkInterface::free_maininfo()
     }
 }
 
-std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces()
+std::vector<NetworkInterface*> win_NetworkInterface::
+get_all_network_interfaces()
 {
     std::vector<NetworkInterface*> ifs;
 
@@ -91,23 +92,48 @@ std::vector<NetworkInterface*> win_NetworkInterface::get_all_network_interfaces(
 
 uint64_t win_NetworkInterface::get_bytes_received()
 {
+    uint64_t inOctets;
+
     // FIXME: throw error if interface status changes.
-    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
-    return ifrow.dwInOctets;
+    #if (WINVER >= 0x0600)
+    MIB_IF_ROW2* ifrow2 = get_if_detail2(this->ifinfo.IfIndex);
+    inOctets = ifrow2->InOctets;
+    FREE(ifrow2);
+    #else
+    MIB_IFROW* ifrow = get_if_detail(this->ifinfo.IfIndex);
+    inOctets = ifrow->dwInOctets;
+    FREE(ifrow);
+    #endif
+
+    return inOctets;
 }
 
 uint64_t win_NetworkInterface::get_bytes_sent()
 {
+    uint64_t outOctets;
+
     // FIXME: throw error if interface status changes.
-    MIB_IFROW ifrow = get_if_detail(this->ifinfo.IfIndex);
-    return ifrow.dwOutOctets;
+    #if (WINVER >= 0x0600)
+    MIB_IF_ROW2* ifrow2 = get_if_detail2(this->ifinfo.IfIndex);
+    outOctets = ifrow2->OutOctets;
+    FREE(ifrow2);
+    #else
+    MIB_IFROW* ifrow = get_if_detail(this->ifinfo.IfIndex);
+    outOctets = ifrow->dwOutOctets;
+    FREE(ifrow);
+    #endif
+
+    return outOctets;
 }
 
-MIB_IFROW win_NetworkInterface::get_if_detail(DWORD ifindex)
+MIB_IFROW* win_NetworkInterface::get_if_detail(DWORD ifindex)
 {
-    MIB_IFROW ifrow;
-    ifrow.dwIndex = ifindex;
-    DWORD retval = GetIfEntry(&ifrow);
+    MIB_IFROW* ifrow = NULL;
+    ifrow = (MIB_IFROW*)MALLOC(sizeof(MIB_IFROW));
+    memset(ifrow, 0, sizeof(MIB_IFROW));
+
+    ifrow->dwIndex = ifindex;
+    DWORD retval = GetIfEntry(ifrow);
     if (retval != NO_ERROR)
     {
         throw COMPOSE(_("GetIfEntry failed for index %1 with error: %2"),
@@ -116,6 +142,25 @@ MIB_IFROW win_NetworkInterface::get_if_detail(DWORD ifindex)
 
     return ifrow;
 }
+
+#if (WINVER >= 0x0600)
+MIB_IF_ROW2* win_NetworkInterface::get_if_detail2(ULONG ifindex)
+{
+    MIB_IF_ROW2* ifrow2 = NULL;
+    ifrow2 = (MIB_IF_ROW2*)MALLOC(sizeof(MIB_IF_ROW2));
+    memset(ifrow2, 0, sizeof(MIB_IF_ROW2));
+
+    ifrow2->InterfaceIndex = ifindex;
+    DWORD retval = GetIfEntry2(ifrow2);
+    if (retval != NO_ERROR)
+    {
+        throw COMPOSE(_("GetIfEntry2 failed for index %1 with error: %2"),
+                ifindex, retval);
+    }
+
+    return ifrow2;
+}
+#endif
 
 IP_ADAPTER_ADDRESSES* win_NetworkInterface::get_ifs_info()
 {
