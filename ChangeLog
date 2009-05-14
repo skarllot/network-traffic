@@ -1,357 +1,365 @@
-2009-05-13	Fabrício Godoy <skarllot@gmail.com>
-	Modifications to get uint64 sent and received bytes from network interface,
-	targeting Windows Vista specific code.
+2009-05-13  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to get MAC address from network interface, targeting *nix.
 
-	* configure.ac: Added new makefiles to build list.
+    * src/nix_networkinterface.h, src/nix_networkinterface.cpp:
+    (test_code): Commented reference-only code.
+    (read_info): Reads "/sys/class/net" information given file path suffix.
+    (get_physical_address): Added to get MAC address.
 
-	* configure.ac:
-	[AC_C_CONST, AC_TYPE_UINT64_T]: Added compilation features tests.
+2009-05-13  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to get uint64 sent and received bytes from network interface,
+    targeting Windows Vista specific code.
 
-	* src/Makefile.am: Modified to compile and link iphlpapi2 library.
+    * configure.ac: Added new makefiles to build list.
 
-	* src/Makefile.am, src/mingw32-extension/Makefile.am,
-	src/mingw32-extension/lib/Makefile.am: Added to automatic building.
+    * configure.ac:
+    [AC_C_CONST, AC_TYPE_UINT64_T]: Added compilation features tests.
 
-	* src/mingw32-extension/iphlpapi2.h: Added needed header code to call
-	GetIfEntry2 function.
+    * src/Makefile.am: Modified to compile and link iphlpapi2 library.
 
-	* src/mingw32-extension/lib/iphlpapi.def: Export table to GetIfEntry2
-	function.
+    * src/Makefile.am, src/mingw32-extension/Makefile.am,
+    src/mingw32-extension/lib/Makefile.am: Added to automatic building.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	(get_if_detail): Modified to avoid unclean memory.
+    * src/mingw32-extension/iphlpapi2.h: Added needed header code to call
+    GetIfEntry2 function.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	(get_if_detail2): Added to gets uint64 information from sent and received
-	bytes instead of old uint32 information.
-	(get_bytes_received, get_bytes_sent): Modified to get information from
-	get_if_detail2 when possible.
+    * src/mingw32-extension/lib/iphlpapi.def: Export table to GetIfEntry2
+    function.
 
-2009-04-28	Fabrício Godoy <skarllot@gmail.com>
-	Initial modification to Windows Vista specific code.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    (get_if_detail): Modified to avoid unclean memory.
 
-	* configure.ac:
-	[AM_CONDITIONAL]: Added makefile flag to indicate Windows Vista build.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    (get_if_detail2): Added to gets uint64 information from sent and received
+    bytes instead of old uint32 information.
+    (get_bytes_received, get_bytes_sent): Modified to get information from
+    get_if_detail2 when possible.
 
-	* src/main.cpp:
-	(check_version): Modification to require minimum Windows Vista when choose
-	Windows Vista build.
+2009-04-28  Fabrício Godoy <skarllot@gmail.com>
+    Initial modification to Windows Vista specific code.
 
-	* src/networkinterface.cpp:
-	(get_network_interface): Modification to not exceed 80 columns format.
+    * configure.ac:
+    [AM_CONDITIONAL]: Added makefile flag to indicate Windows Vista build.
 
-2009-04-27	Fabrício Godoy <skarllot@gmail.com>
-	Modification to fix Windows XP error after network interface disconnection.
+    * src/main.cpp:
+    (check_version): Modification to require minimum Windows Vista when choose
+    Windows Vista build.
 
-	* src/networkinterface.h, src/networkinterface.cpp:
-	(get_network_interface): Added.
+    * src/networkinterface.cpp:
+    (get_network_interface): Modification to not exceed 80 columns format.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	(alloc_maininfo, free_maininfo): Modifications to allow maininfo alloc and
-	dealloc in other places in code.
+2009-04-27  Fabrício Godoy <skarllot@gmail.com>
+    Modification to fix Windows XP error after network interface disconnection.
 
-	* src/win_networkinterface.cpp:
-	[IFMAC_DEFAULTFORMAT]: Use of GLIBMM_HAVE_WIDE_STREAM to workaround gtkmm
-	wide char on Windows.
+    * src/networkinterface.h, src/networkinterface.cpp:
+    (get_network_interface): Added.
 
-	* src/win_networkinterface.cpp:
-	(get_bytes_received, get_bytes_sent): Added FIXME.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    (alloc_maininfo, free_maininfo): Modifications to allow maininfo alloc and
+    dealloc in other places in code.
 
-	* src/win_networkinterface.cpp:
-	(get_internal_name): Better implementation.
+    * src/win_networkinterface.cpp:
+    [IFMAC_DEFAULTFORMAT]: Use of GLIBMM_HAVE_WIDE_STREAM to workaround gtkmm
+    wide char on Windows.
 
-2009-04-24	Fabrício Godoy <skarllot@gmail.com>
-	* src/i18n.h
-	[COMPOSE]: Name changed from "compose" to "COMPOSE".
-	[FORMAT]: Added.
+    * src/win_networkinterface.cpp:
+    (get_bytes_received, get_bytes_sent): Added FIXME.
 
-	* src/main.cpp (main):
-	Modified to show MAC address to each network interface.
+    * src/win_networkinterface.cpp:
+    (get_internal_name): Better implementation.
 
-	* src/networkinterface.h (get_physical_address): Added.
+2009-04-24  Fabrício Godoy <skarllot@gmail.com>
+    * src/i18n.h
+    [COMPOSE]: Name changed from "compose" to "COMPOSE".
+    [FORMAT]: Added.
 
-	* src/nix_networkinterface.cpp (get_bytes_received): Added TODO comment.
+    * src/main.cpp (main):
+    Modified to show MAC address to each network interface.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp
-	(test_code): Removed.
+    * src/networkinterface.h (get_physical_address): Added.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp
-	(get_physical_address): Implemented.
+    * src/nix_networkinterface.cpp (get_bytes_received): Added TODO comment.
 
-2009-04-24	Fabrício Godoy <skarllot@gmail.com>
-	* src/main.cpp:
-	Modified to show internal name.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp
+    (test_code): Removed.
 
-	* src/networkinterface.cpp, src/nix_networkinterface.h,
-	src/nix_networkinterface.cpp (get_interface_count):
-	Fixed not WIN32 implementation.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp
+    (get_physical_address): Implemented.
 
-	* src/networkinterface.h (get_internal_name): Added.
+2009-04-24  Fabrício Godoy <skarllot@gmail.com>
+    * src/main.cpp:
+    Modified to show internal name.
 
-	* src/nix_networkinterface.h, src/nix_networkinterface.cpp,
-	src/win_networkinterface.h, src/win_networkinterface.cpp
-	(get_internal_name): Implemented.
+    * src/networkinterface.cpp, src/nix_networkinterface.h,
+    src/nix_networkinterface.cpp (get_interface_count):
+    Fixed not WIN32 implementation.
 
-2009-04-23	Fabrício Godoy <skarllot@gmail.com>
-	* src/main.cpp (main):
-	Modified to use Glib::usleep() instead of sleep().
+    * src/networkinterface.h (get_internal_name): Added.
 
-	* src/nix_networkinterface.h, src/win_networkinterface.h:
-	Removed copy constructor.
+    * src/nix_networkinterface.h, src/nix_networkinterface.cpp,
+    src/win_networkinterface.h, src/win_networkinterface.cpp
+    (get_internal_name): Implemented.
 
-	* src/nix_networkinterface.cpp, src/win_networkinterface.cpp:
-	Added comments.
+2009-04-23  Fabrício Godoy <skarllot@gmail.com>
+    * src/main.cpp (main):
+    Modified to use Glib::usleep() instead of sleep().
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	Modification to not free memory while is still in use.
+    * src/nix_networkinterface.h, src/win_networkinterface.h:
+    Removed copy constructor.
 
-	* src/win_networkinterface.cpp (get_ifs_info):
-	Modified to not call GetAdaptersAddresses() twice if not needed.
+    * src/nix_networkinterface.cpp, src/win_networkinterface.cpp:
+    Added comments.
 
-2009-04-18	Fabrício Godoy <skarllot@gmail.com>
-	* src/Makefile.am:
-	Updated to fit new file list.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    Modification to not free memory while is still in use.
 
-	* src/ucompose.hpp, src/README.compose:
-	Removed unused compose library.
+    * src/win_networkinterface.cpp (get_ifs_info):
+    Modified to not call GetAdaptersAddresses() twice if not needed.
 
-	* src/i18n.h:
-	Added to centralize needed includes and defines to i18n.
+2009-04-18  Fabrício Godoy <skarllot@gmail.com>
+    * src/Makefile.am:
+    Updated to fit new file list.
 
-	* src/main.cpp, src/win_networkinterface.cpp:
-	Updated translatable strings.
+    * src/ucompose.hpp, src/README.compose:
+    Removed unused compose library.
 
-	* src/windowsdef.h:
-	Added MALLOC and FREE defines.
+    * src/i18n.h:
+    Added to centralize needed includes and defines to i18n.
 
-	* src/win_networkinterface.cpp:
-	Updated to fit windowsdef.h.
+    * src/main.cpp, src/win_networkinterface.cpp:
+    Updated translatable strings.
 
-	* po/pt_BR.po:
-	Updated.
+    * src/windowsdef.h:
+    Added MALLOC and FREE defines.
 
-2009-04-18	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac:
-	File cleaning.
+    * src/win_networkinterface.cpp:
+    Updated to fit windowsdef.h.
 
-	* Makefile.am:
-	Moved file list from "distclean" to "maintainer-clean", these files
-	should not be cleaned by distclean because they're dist independent.
+    * po/pt_BR.po:
+    Updated.
 
-	* src/Makefile.am:
-	Modification to be different compile file list to mingw32 from others.
+2009-04-18  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac:
+    File cleaning.
 
-	* src/nix_networkinterface.h, src/nix_networkinterface.cpp:
-	Modification to not make selective compiling for platform in code (if
-	by file).
+    * Makefile.am:
+    Moved file list from "distclean" to "maintainer-clean", these files
+    should not be cleaned by distclean because they're dist independent.
 
-	* src/networkinterface.h, src/networkinterface.cpp,
-	src/win_networkinterface.h, src/win_networkinterface.cpp,
-	src/windowsdef.h:
-	Includes reorganization and modifications to only include "config.h" if
-	needed.
+    * src/Makefile.am:
+    Modification to be different compile file list to mingw32 from others.
 
-	* src/networkinterface.cpp, src/main.cpp:
-	Changed platform reference from WINNT to WIN32.
+    * src/nix_networkinterface.h, src/nix_networkinterface.cpp:
+    Modification to not make selective compiling for platform in code (if
+    by file).
 
-	* src/main.cpp, src/nix_networkinterface.h,
-	src/nix_networkinterface.cpp:
-	Reorganizing the code.
+    * src/networkinterface.h, src/networkinterface.cpp,
+    src/win_networkinterface.h, src/win_networkinterface.cpp,
+    src/windowsdef.h:
+    Includes reorganization and modifications to only include "config.h" if
+    needed.
 
-2009-04-17	Fabrício Godoy <skarllot@gmail.com>
-	* src/networkinterface.cpp, src/win_networkinterface.h,
-	src/win_networkinterface.cpp:
-	Added missed include to config.h.
+    * src/networkinterface.cpp, src/main.cpp:
+    Changed platform reference from WINNT to WIN32.
 
-	* src/win_networkinterface.cpp (get_name):
-	Fixed memory leak.
+    * src/main.cpp, src/nix_networkinterface.h,
+    src/nix_networkinterface.cpp:
+    Reorganizing the code.
 
-2009-04-15	Fabrício Godoy <skarllot@gmail.com>
-	* src/networkinterface.h, src/networkinterface.cpp
-	(get_all_network_interfaces):
-	Modified to return a "std::vector" instead of "NetworkInterface*".
+2009-04-17  Fabrício Godoy <skarllot@gmail.com>
+    * src/networkinterface.cpp, src/win_networkinterface.h,
+    src/win_networkinterface.cpp:
+    Added missed include to config.h.
 
-	* src/main.cpp, src/win_networkinterface.h, src/win_networkinterface.cpp:
-	Reorganizing the code.
+    * src/win_networkinterface.cpp (get_name):
+    Fixed memory leak.
 
-2009-04-15	Fabrício Godoy <skarllot@gmail.com>
-	* src/Makefile.am [SOURCES]:
-	Added "src/windowsdef.h" file.
+2009-04-15  Fabrício Godoy <skarllot@gmail.com>
+    * src/networkinterface.h, src/networkinterface.cpp
+    (get_all_network_interfaces):
+    Modified to return a "std::vector" instead of "NetworkInterface*".
 
-	* src/main.cpp, src/networkinterface.h, src/networkinterface.cpp:
-	Code cleaning and organization.
+    * src/main.cpp, src/win_networkinterface.h, src/win_networkinterface.cpp:
+    Reorganizing the code.
 
-	* src/windowsdef.h:
-	Centralize all Windows specific defines and includes.
+2009-04-15  Fabrício Godoy <skarllot@gmail.com>
+    * src/Makefile.am [SOURCES]:
+    Added "src/windowsdef.h" file.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	Reorganizing the code.
+    * src/main.cpp, src/networkinterface.h, src/networkinterface.cpp:
+    Code cleaning and organization.
 
-2009-04-15	Fabrício Godoy <skarllot@gmail.com>
-	* po/POTFILES.in:
-	Added new file with localizable messages.
+    * src/windowsdef.h:
+    Centralize all Windows specific defines and includes.
 
-2009-04-14	Fabrício Godoy <skarllot@gmail.com>
-	* src/main.cpp:
-	Removed ununsed includes.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    Reorganizing the code.
 
-	* src/main.cpp [WINVER]:
-	Define here is better.
+2009-04-15  Fabrício Godoy <skarllot@gmail.com>
+    * po/POTFILES.in:
+    Added new file with localizable messages.
 
-	* src/main.cpp (check_version):
-	Added to check version of running Windows.
+2009-04-14  Fabrício Godoy <skarllot@gmail.com>
+    * src/main.cpp:
+    Removed ununsed includes.
 
-	* src/networkinterface.cpp [WINNT]:
-	Removed specific stuff.
+    * src/main.cpp [WINVER]:
+    Define here is better.
 
-	* src/nix_networkinterface.cpp (test_code):
-	Modified to clear new array after created.
+    * src/main.cpp (check_version):
+    Added to check version of running Windows.
 
-	* src/win_networkinterface.h, src/win_networkinterface.cpp:
-	Reorganizing the code.
+    * src/networkinterface.cpp [WINNT]:
+    Removed specific stuff.
 
-2009-04-09	Fabrício Godoy <skarllot@gmail.com>
-	* .:
-	Updated ignore rules.
+    * src/nix_networkinterface.cpp (test_code):
+    Modified to clear new array after created.
 
-	* configure.ac, src/Makefile.am:
-	Files cleaned.
+    * src/win_networkinterface.h, src/win_networkinterface.cpp:
+    Reorganizing the code.
 
-2009-04-09	Fabrício Godoy <skarllot@gmail.com>
-	* ., src, po:
-	Added ignore rules.
+2009-04-09  Fabrício Godoy <skarllot@gmail.com>
+    * .:
+    Updated ignore rules.
 
-	* configure.ac:
-	File cleaned.
+    * configure.ac, src/Makefile.am:
+    Files cleaned.
 
-	* po/ChangeLog:
-	Corrected the date from last log entry.
+2009-04-09  Fabrício Godoy <skarllot@gmail.com>
+    * ., src, po:
+    Added ignore rules.
 
-	* po/POTFILES.skip:
-	Added to store a file list that intltool should skip.
+    * configure.ac:
+    File cleaned.
 
-	* src/Makefile.am:
-	Modification to make buildable from mingw compiler.
+    * po/ChangeLog:
+    Corrected the date from last log entry.
 
-2009-03-30	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac, autogen.sh:
-	Changes to make distcheck compliant.
+    * po/POTFILES.skip:
+    Added to store a file list that intltool should skip.
 
-	* Makefile.am:
-	Added "po/Makefile.in.in" to maintainer-clean files.
+    * src/Makefile.am:
+    Modification to make buildable from mingw compiler.
 
-2009-03-30	Fabrício Godoy <skarllot@gmail.com>
-	* src/main.cpp, src/networkinterface.h, src/networkinterface.cpp,
-	src/nix_networkinterface.h, src/nix_networkinterface.cpp,
-	src/win_networkinterface.h, src/win_networkinterface.cpp:
-	Code organization.
+2009-03-30  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac, autogen.sh:
+    Changes to make distcheck compliant.
 
-	* src/networkinfo.h, src/networkinfo.cpp:
-	Renamed for better understanding.
+    * Makefile.am:
+    Added "po/Makefile.in.in" to maintainer-clean files.
 
-	* configure.ac, src/Makefile.am:
-	Added glibmm dependency.
+2009-03-30  Fabrício Godoy <skarllot@gmail.com>
+    * src/main.cpp, src/networkinterface.h, src/networkinterface.cpp,
+    src/nix_networkinterface.h, src/nix_networkinterface.cpp,
+    src/win_networkinterface.h, src/win_networkinterface.cpp:
+    Code organization.
 
-	* TODO:
-	Added new task (issue 2).
+    * src/networkinfo.h, src/networkinfo.cpp:
+    Renamed for better understanding.
 
-	* configure.ac, Makefile.am, autogen.sh, po/ChangeLog, po/LINGUAS,
-	po/POTFILES.in:
-	Added internationalization support.
+    * configure.ac, src/Makefile.am:
+    Added glibmm dependency.
 
-	* src/main.cpp(main):
-	Added a transladable string for testing.
+    * TODO:
+    Added new task (issue 2).
 
-	* src/ucompose.hpp, src/README.compose, src/Makefile.am:
-	Added composing class to allow C++ compose.
+    * configure.ac, Makefile.am, autogen.sh, po/ChangeLog, po/LINGUAS,
+    po/POTFILES.in:
+    Added internationalization support.
 
-2009-03-29	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac:
-	Removed additional libraries setting, just check for platform.
+    * src/main.cpp(main):
+    Added a transladable string for testing.
 
-	* src/Makefile.am:
-	Added additional libraries setting for Microsoft Windows platform.
+    * src/ucompose.hpp, src/README.compose, src/Makefile.am:
+    Added composing class to allow C++ compose.
 
-	* src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
-	Fixed header date.
+2009-03-29  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac:
+    Removed additional libraries setting, just check for platform.
 
-	* configure.ac:
-	Changed required versions for autotools.
+    * src/Makefile.am:
+    Added additional libraries setting for Microsoft Windows platform.
 
-	* AUTHORS, NEWS, README:
-	Changes based on other projects.
+    * src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
+    Fixed header date.
 
-	* TODO, HACKING:
-	Add based on other projects.
+    * configure.ac:
+    Changed required versions for autotools.
 
-	* Makefile.am:
-	Added HACKING file to distribution package.
+    * AUTHORS, NEWS, README:
+    Changes based on other projects.
 
-2009-03-28	Fabrício Godoy <skarllot@gmail.com>
-	* Makefile.am:
-	Changed to fit files location.
+    * TODO, HACKING:
+    Add based on other projects.
 
-	* src/main.cpp:
-	Changed test code for *nix, now lists all interfaces and gets its
-	received and sent bytes.
+    * Makefile.am:
+    Added HACKING file to distribution package.
 
-	* autogen.sh:
-	Deleted useless file.
+2009-03-28  Fabrício Godoy <skarllot@gmail.com>
+    * Makefile.am:
+    Changed to fit files location.
 
-2009-03-27	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac, src/Makefile.am:
-	Scripts cleaned.
+    * src/main.cpp:
+    Changed test code for *nix, now lists all interfaces and gets its
+    received and sent bytes.
 
-2009-03-27	Fabrício Godoy <skarllot@gmail.com>
-	* AUTHORS:
-	Added my name.
+    * autogen.sh:
+    Deleted useless file.
 
-	* configure.ac:
-	Readded AC_CANONICAL_HOST to check for platform name.
+2009-03-27  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac, src/Makefile.am:
+    Scripts cleaned.
 
-	* configure.ac:
-	Fixed macros parameters.
+2009-03-27  Fabrício Godoy <skarllot@gmail.com>
+    * AUTHORS:
+    Added my name.
 
-	* Makefile.am:
-	Added and sorted MAINTAINERCLEANFILES files.
+    * configure.ac:
+    Readded AC_CANONICAL_HOST to check for platform name.
 
-2009-03-27	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac:
-	Configuration clenup.
+    * configure.ac:
+    Fixed macros parameters.
 
-	* Makefile.am, src/Makefile.am:
-	Added files to maintainer-clean.
+    * Makefile.am:
+    Added and sorted MAINTAINERCLEANFILES files.
 
-	* autogen.sh:
-	Script to auto generate needed files to call configure.
+2009-03-27  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac:
+    Configuration clenup.
 
-	* src/main.cpp:
-	Added test code to *nix systems.
+    * Makefile.am, src/Makefile.am:
+    Added files to maintainer-clean.
 
-2009-03-26	Fabrício Godoy <skarllot@gmail.com>
-	* src/Makefile.am:
-	Added networkinfo.h and networkinfo.cpp.
+    * autogen.sh:
+    Script to auto generate needed files to call configure.
 
-	* src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
-	Creating a class to return interface information.
+    * src/main.cpp:
+    Added test code to *nix systems.
 
-2009-03-26	Fabrício Godoy <skarllot@gmail.com>
-	* configure.ac, src/Makefile.am:
-	Compilation fixes and clean.
+2009-03-26  Fabrício Godoy <skarllot@gmail.com>
+    * src/Makefile.am:
+    Added networkinfo.h and networkinfo.cpp.
 
-	* src/main.cpp:
-	Cleaned garbage code.
+    * src/main.cpp, src/networkinfo.cpp, src/networkinfo.h:
+    Creating a class to return interface information.
 
-2009-03-26	Fabrício Godoy <skarllot@gmail.com>
-	* ChangeLog:
-	File to track development history.
+2009-03-26  Fabrício Godoy <skarllot@gmail.com>
+    * configure.ac, src/Makefile.am:
+    Compilation fixes and clean.
 
-	* configure.ac, src/Makefile.am, Makefile.am:
-	Configuration files to build project.
+    * src/main.cpp:
+    Cleaned garbage code.
 
-	* AUTHORS, INSTALL, COPYING, NEWS, README:
-	Stardart information files.
+2009-03-26  Fabrício Godoy <skarllot@gmail.com>
+    * ChangeLog:
+    File to track development history.
 
-	* src/main.cpp:
-	Initial code, only testing Windows API.
+    * configure.ac, src/Makefile.am, Makefile.am:
+    Configuration files to build project.
+
+    * AUTHORS, INSTALL, COPYING, NEWS, README:
+    Stardart information files.
+
+    * src/main.cpp:
+    Initial code, only testing Windows API.
 

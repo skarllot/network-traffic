@@ -24,6 +24,7 @@
 #include "networkinterface.h"
 #include <ifaddrs.h>
 #include <map>
+#include <string.h>
 
 class nix_NetworkInterface : NetworkInterface
 {
@@ -39,8 +40,6 @@ public:
     /** Gets a number that represents a count of computer network interfaces.
      */
     static int get_interface_count();
-    
-    static int test_code();
 
     /** Gets the bytes received by this interface.
      */
@@ -57,11 +56,16 @@ public:
     /** Gets the name of this network interface.
      */
     virtual Glib::ustring get_name();
+
+    /** Gets the Media Access Control address of this network interface.
+     */
+    virtual Glib::ustring get_physical_address();
     
 private:
     nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* maininfo);
 
     void add_info(const ifaddrs* ifinfo);
+    std::string read_info(std::string suffix);
 
     std::vector<ifaddrs> ifinfo;
     ifaddrs* maininfo;

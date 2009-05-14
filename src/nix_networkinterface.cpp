@@ -20,19 +20,19 @@
 
 #include "nix_networkinterface.h"
 
+#include <fstream>
 #include <stdlib.h>
-#include <string.h>
 #include <vector>
 
-// Test
+/* Test
 #include <iostream>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <dirent.h>
-#include <fstream>
-//#include <arpa/inet.h>
+//#include <arpa/inet.h> */
 
-#define NET_STATISTICS_PATH "/sys/class/net/"
+#define NET_INFO_ROOT "/sys/class/net/"
+#define NET_ADDRESS_SUFFIX "/address"
 #define NET_STATISTICS_RX_SUFFIX "/statistics/rx_bytes"
 #define NET_STATISTICS_TX_SUFFIX "/statistics/tx_bytes"
 
@@ -111,31 +111,13 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
 uint64_t nix_NetworkInterface::get_bytes_received()
 {
     // TODO: test if_data struct at <net/if.h>
-    // Reads from pseudo file
-    std::string filename(NET_STATISTICS_PATH);
-    filename += this->ifinfo[0].ifa_name;
-    filename += NET_STATISTICS_RX_SUFFIX;
-
-    std::ifstream fs(filename.c_str());
-    std::string rbytes;
-    getline(fs, rbytes);
-    fs.close();
-
+    std::string rbytes = this->read_info(NET_STATISTICS_RX_SUFFIX);
     return strtoull(rbytes.c_str(), NULL, 0);
 }
 
 uint64_t nix_NetworkInterface::get_bytes_sent()
 {
-    // Reads from pseudo file
-    std::string filename(NET_STATISTICS_PATH);
-    filename += this->ifinfo[0].ifa_name;
-    filename += NET_STATISTICS_TX_SUFFIX;
-
-    std::ifstream fs(filename.c_str());
-    std::string tbytes;
-    getline(fs, tbytes);
-    fs.close();
-
+    std::string tbytes = this->read_info(NET_STATISTICS_TX_SUFFIX);
     return strtoull(tbytes.c_str(), NULL, 0);
 }
 
@@ -168,6 +150,29 @@ Glib::ustring nix_NetworkInterface::get_name()
     return name;
 }
 
+Glib::ustring nix_NetworkInterface::get_physical_address()
+{
+    std::string paddr = this->read_info(NET_ADDRESS_SUFFIX);
+    return paddr;
+}
+
+std::string nix_NetworkInterface::read_info(std::string suffix)
+{
+    // Reads from pseudo file
+    std::string filename(NET_INFO_ROOT);
+    filename += this->ifinfo[0].ifa_name;
+    filename += suffix;
+
+    std::ifstream fs(filename.c_str());
+    std::string strvalue;
+    getline(fs, strvalue);
+    fs.close();
+
+    return strvalue;
+}
+
+/*
+ *
 int nix_NetworkInterface::test_code()
 {
     DIR* dirp;
@@ -231,3 +236,4 @@ int nix_NetworkInterface::test_code()
 
     freeifaddrs(ifs);
 }
+ */
