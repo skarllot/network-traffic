@@ -26,13 +26,11 @@
 #include <iostream>
 #include <vector>
 #include <glibmm/timer.h>
-#include "i18n.h"
-#include "networkinterface.h"
+#include "i18n.hpp"
+#include "networkinterface.hpp"
 
 #ifdef WIN32
 #include "windowsdef.h"
-
-int check_version();
 #endif
 
 int main(int argc, char** argv)
@@ -80,47 +78,4 @@ int main(int argc, char** argv)
 
     return (EXIT_SUCCESS);
 }
-
-#ifdef WIN32
-
-/** Check whether running Windows version is supported.
- */
-int check_version()
-{
-#ifdef WINNT
-    // http://msdn.microsoft.com/en-us/library/ms724833.aspx
-    OSVERSIONINFOEX os_version;
-    ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
-    os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
-    GetVersionEx((OSVERSIONINFO*) & os_version);
-
-#if (WINVER < 0x600)
-    // Less than Windows XP
-    if ((os_version.dwMajorVersion == 5 && os_version.dwMinorVersion < 1) ||
-            // Windows XP less than SP2
-            (os_version.dwMajorVersion == 5 && os_version.dwMinorVersion == 1 &&
-            os_version.wServicePackMajor < 2) ||
-            // Windows Server 2003 less than SP1
-            (os_version.dwMajorVersion = 5 && os_version.dwMinorVersion == 2 &&
-            os_version.wServicePackMajor < 1))
-    {
-        Glib::ustring msg(_("Windows version not supported, requires at least "
-                "Windows XP with SP2"));
-#else
-    // Less than Windows Vista
-    if (os_version.dwMajorVersion < 6)
-    {
-        Glib::ustring msg(_("Windows version not supported, requires at least "
-                "Windows Vista"));
-#endif
-#endif
-        std::cout << msg << std::endl;
-        return (EXIT_FAILURE);
-#ifdef WINNT
-    }
-
-    return NO_ERROR;
-#endif
-}
-#endif
 

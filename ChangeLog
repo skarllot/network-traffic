@@ -1,3 +1,25 @@
+2009-05-14  Fabrício Godoy <skarllot@gmail.com>
+    Code and files name cleanup.
+
+    * configure.ac:
+    [AM_PROG_CC_C_O]: Check whether C compiler support "-c" and "-o" options.
+    [AC_C_CONST]: Removed because deprecated.
+    [AC_CHECK_FUNCS]: Check for "strtoull" and "memset" functions.
+
+    * src/i18n.hpp, src/networkinterface.hpp, src/nix_networkinterface.hpp,
+    src/win_networkinterface.hpp: Header files renamed from ".h" to ".hpp".
+
+    * src/Makefile.am, src/main.cpp, src/networkinterface.cpp,
+    src/nix_networkinterface.cpp, src/win_networkinterface.cpp: Modifications
+    to fit header files rename.
+
+    * src/Makefile.am, src/main.cpp, src/windowsdef.h, src/windowsdef.c:
+    (check_version): Function moved to windowsdef.c file.
+
+    * src/windowsdef.h:
+    [GETTEXT_PACKAGE, NETWORK_LOGGER_LOCALEDIR]: Removed uneeded #define
+    workarounds.
+
 2009-05-13  Fabrício Godoy <skarllot@gmail.com>
     Modifications to get MAC address from network interface, targeting *nix.
 

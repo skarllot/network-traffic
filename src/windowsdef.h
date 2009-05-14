@@ -19,7 +19,7 @@
  */
 
 #ifndef _WINDOWSDEF_H
-#define	_WINDOWSDEF_H
+#define _WINDOWSDEF_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -32,16 +32,21 @@
 
 #include <windows.h>
 
-// Workarounds
-#ifndef GETTEXT_PACKAGE
-#define GETTEXT_PACKAGE "network-logger"
-#endif
-#ifndef NETWORK_LOGGER_LOCALEDIR
-#define NETWORK_LOGGER_LOCALEDIR "/usr/local/share/locale"
-#endif
-
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
+
+#ifdef __cplusplus
+// Avoid C++ name mangling
+extern "C" {
+#endif
+
+/** Check whether running Windows version is supported.
+ */
+int check_version(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif	/* _WINDOWSDEF_H */
 

@@ -18,12 +18,12 @@
  *
  */
 
-#include "networkinterface.h"
+#include "networkinterface.hpp"
 
 #ifndef WIN32
-#include "nix_networkinterface.h"
+#include "nix_networkinterface.hpp"
 #else
-#include "win_networkinterface.h"
+#include "win_networkinterface.hpp"
 #endif
 
 NetworkInterface::NetworkInterface()

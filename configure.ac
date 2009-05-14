@@ -22,6 +22,7 @@ AC_PROG_CC
 AC_PROG_CXX
 #AC_LIBTOOL_WIN32_DLL
 #AM_PROG_LIBTOOL
+AM_PROG_CC_C_O
 AM_SANITY_CHECK
 
 AC_LANG([C++])
@@ -72,13 +73,17 @@ AM_CONDITIONAL(WINVISTA, test "x$iswinvista" = "x1")
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h])
+AC_CHECK_HEADERS([stdlib.h string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
 AC_TYPE_UINT64_T
 
 # Checks for library functions.
+if test "x$iswin32" = "x0"; then
+AC_CHECK_FUNCS([strtoull])
+else
+AC_CHECK_FUNCS([memset])
+fi
 
 AC_CONFIG_FILES([Makefile
                  po/Makefile.in

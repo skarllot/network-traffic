@@ -3,19 +3,20 @@ SUBDIRS = \
 
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \
-	i18n.h \
+	i18n.hpp \
 	main.cpp \
-	networkinterface.h \
+	networkinterface.hpp \
 	networkinterface.cpp
 if !PLATFORM_WIN32
 network_logger_SOURCES += \
-	nix_networkinterface.h \
+	nix_networkinterface.hpp \
 	nix_networkinterface.cpp
 else
 network_logger_SOURCES += \
-	win_networkinterface.h \
+	win_networkinterface.hpp \
 	win_networkinterface.cpp \
-	windowsdef.h
+	windowsdef.h \
+	windowsdef.c
 if WINVISTA
 network_logger_SOURCES += \
 	mingw32-extension/iphlpapi2.h

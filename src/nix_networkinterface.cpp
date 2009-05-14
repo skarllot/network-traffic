@@ -18,7 +18,7 @@
  *
  */
 
-#include "nix_networkinterface.h"
+#include "nix_networkinterface.hpp"
 
 #include <fstream>
 #include <stdlib.h>

@@ -21,7 +21,7 @@
 #ifndef _WIN_NETWORKINTERFACE_H
 #define	_WIN_NETWORKINTERFACE_H
 
-#include "networkinterface.h"
+#include "networkinterface.hpp"
 
 #include <map>
 #include "windowsdef.h"
