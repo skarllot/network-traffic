@@ -41,11 +41,11 @@ public:
      */
     static int get_interface_count();
 
-    /** Gets the bytes received by this interface.
+    /** Gets the bytes received by this network interface.
      */
     virtual uint64_t get_bytes_received();
 
-    /** Gets the bytes sent by this interface.
+    /** Gets the bytes sent by this network interface.
      */
     virtual uint64_t get_bytes_sent();
 
@@ -62,13 +62,13 @@ public:
     virtual Glib::ustring get_physical_address();
     
 private:
-    nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* maininfo);
+    nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* firstinfo);
 
     void add_info(const ifaddrs* ifinfo);
     std::string read_info(std::string suffix);
 
     std::vector<ifaddrs> ifinfo;
-    ifaddrs* maininfo;
+    ifaddrs* firstinfo;
     
     static std::map<ifaddrs*, int> ifs_references;
 };

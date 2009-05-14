@@ -24,7 +24,12 @@
 #include <glibmm/i18n.h>
 #include <glibmm/ustring.h>
 
+// ustring text = ustring::compose("%1 of %2 done (%3%%)", 7, 20, 35);
+// -> text = "7 of 20 done (35%)"
 #define COMPOSE Glib::ustring::compose
+
+// ustring text = ustring::format(std::setfill(L'0'), std::setw(6), 123);
+// -> text = "000123"
 #define FORMAT Glib::ustring::format
 
 #endif	/* _I18N_H */

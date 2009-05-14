@@ -31,6 +31,7 @@
 #include <dirent.h>
 //#include <arpa/inet.h> */
 
+// define paths to network information files
 #define NET_INFO_ROOT "/sys/class/net/"
 #define NET_ADDRESS_SUFFIX "/address"
 #define NET_STATISTICS_RX_SUFFIX "/statistics/rx_bytes"
@@ -39,29 +40,29 @@
 std::map<ifaddrs*, int> nix_NetworkInterface::ifs_references;
 
 nix_NetworkInterface::nix_NetworkInterface(const ifaddrs* ifinfo,
-        ifaddrs* maininfo)
+        ifaddrs* firstinfo)
 {
     this->ifinfo.push_back(*ifinfo);
-    this->maininfo = maininfo; // store the pointer that should be freed
+    this->firstinfo = firstinfo; // pointer that must be freed
 
     std::map<ifaddrs*, int>::iterator iter;
-    iter = ifs_references.find(maininfo);
+    iter = ifs_references.find(firstinfo);
     if (iter == ifs_references.end())
-        ifs_references[maininfo] = 1; // first reference
+        ifs_references[firstinfo] = 1; // first reference
     else
-        iter->second++; // increases for new reference
+        iter->second++; // increases reference counting
 }
 
 nix_NetworkInterface::~nix_NetworkInterface()
 {
     std::map<ifaddrs*, int>::iterator iter;
-    iter = ifs_references.find(maininfo);
+    iter = ifs_references.find(firstinfo);
     iter->second--; // decreases reference count
 
     if (iter->second == 0) // last reference
     {
         ifs_references.erase(iter);
-        freeifaddrs(maininfo);
+        freeifaddrs(firstinfo);
     }
 }
 
@@ -156,6 +157,10 @@ Glib::ustring nix_NetworkInterface::get_physical_address()
     return paddr;
 }
 
+/** Reads network information given its final path.
+ *
+ * @suffix The final path where information is read from.
+ */
 std::string nix_NetworkInterface::read_info(std::string suffix)
 {
     // Reads from pseudo file

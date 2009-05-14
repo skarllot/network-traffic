@@ -20,7 +20,7 @@
 
 #include "networkinterface.hpp"
 
-#ifndef WIN32
+#ifndef WINNT
 #include "nix_networkinterface.hpp"
 #else
 #include "win_networkinterface.hpp"
@@ -30,17 +30,13 @@ NetworkInterface::NetworkInterface()
 {
 }
 
-NetworkInterface::NetworkInterface(const NetworkInterface& orig)
-{
-}
-
 NetworkInterface::~NetworkInterface()
 {
 }
 
 std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 {
-#ifndef WIN32
+#ifndef WINNT
     return nix_NetworkInterface::get_all_network_interfaces();
 #else
     return win_NetworkInterface::get_all_network_interfaces();
@@ -49,7 +45,7 @@ std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 
 int NetworkInterface::get_interface_count()
 {
-#ifndef WIN32
+#ifndef WINNT
     return nix_NetworkInterface::get_interface_count();
 #else
     return win_NetworkInterface::get_interface_count();

@@ -30,7 +30,6 @@ class NetworkInterface
 {
 public:
     NetworkInterface();
-    NetworkInterface(const NetworkInterface& orig);
     virtual ~NetworkInterface();
 
     /** Gets an array or NetworkInterface for all computer network interfaces.
@@ -49,11 +48,11 @@ public:
      */
     static NetworkInterface* get_network_interface(Glib::ustring physaddr);
 
-    /** Gets the bytes received by this interface.
+    /** Gets the bytes received by this network interface.
      */
     virtual uint64_t get_bytes_received() = 0;
 
-    /** Gets the bytes sent by this interface.
+    /** Gets the bytes sent by this network interface.
      */
     virtual uint64_t get_bytes_sent() = 0;
 

@@ -29,13 +29,13 @@
 #include "i18n.hpp"
 #include "networkinterface.hpp"
 
-#ifdef WIN32
+#if (defined(WIN32) || defined(WINNT))
 #include "windowsdef.h"
 #endif
 
 int main(int argc, char** argv)
 {
-#ifdef WIN32
+#if (defined(WIN32) || defined(WINNT))
     int retval = check_version();
     if (retval != NO_ERROR)
         return retval;
@@ -68,7 +68,8 @@ int main(int argc, char** argv)
         }
         std::cout << "--------------------" << std::endl;
 
-        Glib::usleep(G_USEC_PER_SEC); // Wait 1 second
+        // Wait 1 second
+        Glib::usleep(G_USEC_PER_SEC);
     }
 
     // Free all vector items

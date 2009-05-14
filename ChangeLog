@@ -1,4 +1,17 @@
 2009-05-14  Fabrício Godoy <skarllot@gmail.com>
+    Added code comments.
+
+    * src/i18n.hpp, src/main.cpp, src/networkinterface.hpp,
+    src/networkinterface.cpp, src/nix_networkinterface.hpp,
+    src/nix_networkinterface.cpp, src/windowsdef.h: Comments added and
+    reorganized.
+
+    * src/main.cpp: Test whether is WINNT or WIN32 instead of only WIN32.
+
+    * src/networkinterface.hpp, src/networkinterface.cpp: Removed copy
+    constructor.
+
+2009-05-14  Fabrício Godoy <skarllot@gmail.com>
     Code and files name cleanup.
 
     * configure.ac:

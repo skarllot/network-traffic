@@ -26,14 +26,16 @@
 #endif
 
 #ifndef WINVER
-#define WINVER 0x0502   // Windows Server 2003 with SP1, Windows XP with SP2
-// See http://msdn.microsoft.com/en-us/library/aa383745(VS.85).aspx
+// Windows Server 2003 with SP1, Windows XP with SP2
+// See http://msdn.microsoft.com/en-us/library/aa383745.aspx
+#define WINVER 0x0502
 #endif /* WINVER */
 
 #include <windows.h>
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
+
 
 #ifdef __cplusplus
 // Avoid C++ name mangling
