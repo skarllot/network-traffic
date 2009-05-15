@@ -1,4 +1,9 @@
 2009-05-14  Fabrício Godoy <skarllot@gmail.com>
+    Updated localizable messages.
+
+    * po/POTFILES.in: Added new file with localizable messages.
+
+2009-05-14  Fabrício Godoy <skarllot@gmail.com>
     Added code comments.
 
     * src/i18n.hpp, src/main.cpp, src/networkinterface.hpp,
