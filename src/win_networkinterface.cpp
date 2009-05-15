@@ -54,7 +54,7 @@ void win_NetworkInterface::alloc_maininfo()
     if (iter == ifs_references.end())
         ifs_references[this->maininfo] = 1; // first reference
     else
-        iter->second++; // increases for new reference
+        iter->second++; // increases reference counting
 }
 
 void win_NetworkInterface::free_maininfo()

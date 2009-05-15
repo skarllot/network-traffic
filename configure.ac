@@ -79,11 +79,7 @@ AC_CHECK_HEADERS([stdlib.h string.h])
 AC_TYPE_UINT64_T
 
 # Checks for library functions.
-if test "x$iswin32" = "x0"; then
-AC_CHECK_FUNCS([strtoull])
-else
-AC_CHECK_FUNCS([memset])
-fi
+AC_CHECK_FUNCS([memset strtoull])
 
 AC_CONFIG_FILES([Makefile
                  po/Makefile.in

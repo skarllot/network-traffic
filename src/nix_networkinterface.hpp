@@ -21,7 +21,7 @@
 #ifndef _NIX_NETWORKINTERFACE_H
 #define	_NIX_NETWORKINTERFACE_H
 
-#include "networkinterface.h"
+#include "networkinterface.hpp"
 #include <ifaddrs.h>
 #include <map>
 #include <string.h>
