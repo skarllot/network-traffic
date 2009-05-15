@@ -1,11 +1,14 @@
-2009-04-23	Fabrício Godoy <skarllot@gmail.com>
-	* po/pt_BR.po:
-	Updated pt_BR translation by Fabrício Godoy.
+2009-05-14      Fabrício Godoy <skarllot@gmail.com>
+        * po/pt_BR.po: Updated pt_BR translation by Fabrício Godoy.
 
-2009-04-15	Fabrício Godoy <skarllot@gmail.com>
-	* po/pt_BR.po:
-	Updated brazilian portuguese translation.
+2009-04-23      Fabrício Godoy <skarllot@gmail.com>
+        * po/pt_BR.po:
+        Updated pt_BR translation by Fabrício Godoy.
 
-2009-04-08	Fabrício Godoy <skarllot@gmail.com>
-	* po/LINGUAS, po/pt_BR.po:
-	Added brazilian portuguese translation.
+2009-04-15      Fabrício Godoy <skarllot@gmail.com>
+        * po/pt_BR.po:
+        Updated brazilian portuguese translation.
+
+2009-04-08      Fabrício Godoy <skarllot@gmail.com>
+        * po/LINGUAS, po/pt_BR.po:
+        Added brazilian portuguese translation.
