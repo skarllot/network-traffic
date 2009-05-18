@@ -44,7 +44,7 @@ public:
 
     /** Gets a NetworkInterface by its physical address.
      *
-     * @physaddr String representation of network interface physical address.
+     * @param physaddr String representation of network interface physical address.
      */
     static NetworkInterface* get_network_interface(Glib::ustring physaddr);
 

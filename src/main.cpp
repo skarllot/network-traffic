@@ -25,9 +25,10 @@
 #include <stdlib.h>
 #include <iostream>
 #include <vector>
-#include <glibmm/timer.h>
+#include <gtkmm.h>
 #include "i18n.hpp"
 #include "networkinterface.hpp"
+#include "wndmain.hpp"
 
 #if (defined(WIN32) || defined(WINNT))
 #include "windowsdef.h"
@@ -45,6 +46,10 @@ int main(int argc, char** argv)
     bindtextdomain(GETTEXT_PACKAGE, NETWORK_LOGGER_LOCALEDIR);
     bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
     textdomain(GETTEXT_PACKAGE);
+
+    Gtk::Main kit(argc, argv);
+    wndMain wndmain;
+    kit.run(*wndmain.get_root());
 
     std::vector<NetworkInterface*> netifs =
             NetworkInterface::get_all_network_interfaces();

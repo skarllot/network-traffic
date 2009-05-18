@@ -1,3 +1,35 @@
+2009-05-17  Fabrício Godoy <skarllot@gmail.com>
+    Added initial test to display graphical interface by libglademm library and
+    modified some building options.
+
+    * configure.ac:
+    [DEPS_C, DEPS_CXX]: splitted C and C++ dependencies.
+    [DEPS_CXX]: Added libglademm-2.4 dependency.
+
+    * src/Makefile.am:
+    [AM_CFLAGS, AM_CXXFLAGS]: Added "-Wall" flag to show all warnings.
+    [network_manager_LDADD, network_manager_CFLAGS, network_manager_CXXFLAGS]:
+    modified to reference DEPS_C and DEPS_CXX.
+    [WINVISTA]: modified to local path linking.
+
+    * src/functions.hpp, src/functions.cpp:
+    (show_error): Added to easy show error dialog.
+
+    * src/ui.glade: Added interface design to wndMain GtkWindow.
+
+    * src/Makefile.am:
+    [glade_DATA, EXTRA_DIST]: Added ui.glade file.
+    [AM_CPPFLAGS, gladedir]: Added glade directory.
+
+    * src/wndmain.hpp, src/wndmain.cpp: Added to handle wndMain GtkWindow from
+    glade file.
+
+    * src/main.cpp:
+    (main): Added test code to show graphical interface.
+
+    * src/networkinterface.hpp:
+    (get_network_interface): Fixed @param doxygen comment.
+
 2009-05-15  Fabrício Godoy <skarllot@gmail.com>
     Improved code cleanup.
 
