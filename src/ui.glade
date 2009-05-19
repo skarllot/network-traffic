@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Sun May 17 21:50:51 2009 -->
+<!--Generated with glade3 3.4.5 on Tue May 19 00:12:21 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="wndMain">
-    <property name="border_width">5</property>
     <property name="title" translatable="yes">Network Logger</property>
     <property name="default_width">350</property>
     <property name="default_height">100</property>
     <child>
       <widget class="GtkVBox" id="vbox_main">
         <property name="visible">True</property>
-        <property name="spacing">5</property>
+        <property name="spacing">2</property>
         <child>
           <widget class="GtkMenuBar" id="menubar2">
             <property name="visible">True</property>
@@ -82,6 +81,7 @@
         <child>
           <widget class="GtkTable" id="tbl_center">
             <property name="visible">True</property>
+            <property name="border_width">5</property>
             <property name="n_rows">3</property>
             <property name="n_columns">2</property>
             <property name="column_spacing">5</property>

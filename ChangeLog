@@ -1,3 +1,16 @@
+2009-05-19  Fabrício Godoy <skarllot@gmail.com>
+    Fixed libiphlpapi2.a cross-compiling and modified border spacing from
+    interface design.
+
+    * configure.ac:
+    [AM_INIT_AUTOMAKE]: Added "-Woverride" option to allow definitions override.
+    [AC_CHECK_TOOL]: Check if dlltool exists, allow cross-compiling name.
+
+    * src/mingw32-extension/lib/Makefile.am: Fixed to cross-compiling
+    libiphlpapi2.a and to correct definition override.
+
+    * src/ui.glade: Modified border spacing.
+
 2009-05-17  Fabrício Godoy <skarllot@gmail.com>
     Added initial test to display graphical interface by libglademm library and
     modified some building options.
