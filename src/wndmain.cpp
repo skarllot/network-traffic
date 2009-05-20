@@ -20,6 +20,9 @@
 
 #include "wndmain.hpp"
 
+#if (defined(WIN32) || defined(WINNT))
+#include "windowsdef.h"
+#endif
 #include <libglademm.h>
 #include "functions.hpp"
 
@@ -31,8 +34,8 @@ wndMain::wndMain()
     Glib::RefPtr<Gnome::Glade::Xml> refXml;
     try
     {
-        refXml = Gnome::Glade::Xml::create(NETWORK_LOGGER_GLADEDIR GLADEFILE,
-                GLADEROOT);
+        refXml = Gnome::Glade::Xml::create(
+                NETWORK_LOGGER_GLADEDIR "/" GLADEFILE, GLADEROOT);
     }
     catch (Gnome::Glade::XmlError& error)
     {

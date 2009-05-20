@@ -6,7 +6,7 @@ AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 
 AM_CPPFLAGS = \
--DNETWORK_LOGGER_GLADEDIR=\""$(gladedir)/"\"
+-DNETWORK_LOGGER_GLADEDIR=\""$(gladedir)"\"
 
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \

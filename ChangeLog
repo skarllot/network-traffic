@@ -1,3 +1,15 @@
+2009-05-20  Fabrício Godoy <skarllot@gmail.com>
+    Some paths cleanups.
+
+    * src/windowsdef.h, src/wndmain.cpp: Redefined NETWORK_LOGGER_GLADEDIR and
+    NETWORK_LOGGER_LOCALEDIR to points to relative path.
+
+    * src/Makefile.am: Removed final "/" from NETWORK_LOGGER_GLADEDIR.
+
+    * src/wndmain.cpp:
+    (wndMain): Modified to include additional "/" removed from
+    NETWORK_LOGGER_GLADEDIR.
+
 2009-05-19  Fabrício Godoy <skarllot@gmail.com>
     Fixed libiphlpapi2.a cross-compiling and modified border spacing from
     interface design.
