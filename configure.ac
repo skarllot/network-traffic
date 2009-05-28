@@ -1,5 +1,6 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
+# vim:set ts=4 sw=4 expandtab nowrap textwidth=80
 
 AC_PREREQ([2.54])
 AC_INIT([Network Logger],[0.1.0],

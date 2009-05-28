@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Tue May 19 00:12:21 2009 -->
+<!--Generated with glade3 3.4.5 on Tue May 27 23:34:05 2009 -->
 <glade-interface>
   <widget class="GtkWindow" id="wndMain">
     <property name="title" translatable="yes">Network Logger</property>
@@ -24,7 +24,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="mnu_quit">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">gtk-quit</property>
+                        <property name="label" translatable="no">gtk-quit</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>
@@ -44,7 +44,7 @@
                     <child>
                       <widget class="GtkImageMenuItem" id="mnu_preferences">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">gtk-preferences</property>
+                        <property name="label" translatable="no">gtk-preferences</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>
@@ -62,9 +62,9 @@
                   <widget class="GtkMenu" id="menu6">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="imagemenuitem20">
+                      <widget class="GtkImageMenuItem" id="mnu_about">
                         <property name="visible">True</property>
-                        <property name="label" translatable="yes">gtk-about</property>
+                        <property name="label" translatable="no">gtk-about</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>

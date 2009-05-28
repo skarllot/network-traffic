@@ -1,4 +1,17 @@
 2009-05-27  Fabrício Godoy <skarllot@gmail.com>
+    Fixes to remove incorrect translatable messages and configure.ac modelines
+    defined.
+
+    * configure.ac: Added modelines instructions.
+
+    * src/ui.glade: Modified "gtk-about", "gtk-preferences" and "gtk-quit" to
+    not translatable
+
+    * src/ui.glade: Modified menu name from imagemenuitem20 to mnu_about.
+
+    * po/pt_BR.po: Updated to new modifications.
+
+2009-05-27  Fabrício Godoy <skarllot@gmail.com>
     Updated localizable messages.
 
     * po/POTFILES.in: Added new files with localizable messages.

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-24 02:07-0300\n"
+"POT-Creation-Date: 2009-05-27 23:34-0300\n"
 "PO-Revision-Date: 2009-05-14 22:13-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -20,23 +20,23 @@ msgstr ""
 msgid "Fatal error"
 msgstr ""
 
-#: ../src/main.cpp:63
+#: ../src/main.cpp:62
 msgid "Name: %1"
 msgstr "Nome: %1"
 
-#: ../src/main.cpp:65
+#: ../src/main.cpp:64
 msgid "Internal name: %1"
 msgstr "Nome interno: %1"
 
-#: ../src/main.cpp:67
+#: ../src/main.cpp:66
 msgid "Physical address: %1"
 msgstr "Endereço físico: %1"
 
-#: ../src/main.cpp:69
+#: ../src/main.cpp:68
 msgid "Bytes in: %1"
 msgstr "Bytes de entrada: %1"
 
-#: ../src/main.cpp:71
+#: ../src/main.cpp:70
 msgid "Bytes out: %1"
 msgstr "Bytes de saída: %1"
 
@@ -72,18 +72,6 @@ msgstr ""
 #. MenuItem from wndMain
 #: ../src/ui.glade.h:13
 msgid "_Help"
-msgstr ""
-
-#: ../src/ui.glade.h:14
-msgid "gtk-about"
-msgstr ""
-
-#: ../src/ui.glade.h:15
-msgid "gtk-preferences"
-msgstr ""
-
-#: ../src/ui.glade.h:16
-msgid "gtk-quit"
 msgstr ""
 
 #: ../src/windowsdef.c:29
