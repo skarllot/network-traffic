@@ -1,5 +1,7 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
+src/functions.cpp
 src/main.cpp
-src/win_networkinterface.cpp
+src/ui.glade
 src/windowsdef.c
+src/win_networkinterface.cpp

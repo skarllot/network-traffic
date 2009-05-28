@@ -1,3 +1,10 @@
+2009-05-27  Fabrício Godoy <skarllot@gmail.com>
+    Updated localizable messages.
+
+    * po/POTFILES.in: Added new files with localizable messages.
+
+    * po/pt_BR.po: Updated to new modifications.
+
 2009-05-20  Fabrício Godoy <skarllot@gmail.com>
     Some paths cleanups.
 
