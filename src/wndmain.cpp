@@ -20,44 +20,81 @@
 
 #include "wndmain.hpp"
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
 #if (defined(WIN32) || defined(WINNT))
 #include "windowsdef.h"
 #endif
-#include <libglademm.h>
+#include <vector>
 #include "functions.hpp"
+#include "networkinterface.hpp"
 
 #define GLADEFILE "ui.glade"
 #define GLADEROOT "wndMain"
 
 wndMain::wndMain()
 {
-    Glib::RefPtr<Gnome::Glade::Xml> refXml;
     try
     {
+#ifndef TEST
         refXml = Gnome::Glade::Xml::create(
                 NETWORK_LOGGER_GLADEDIR "/" GLADEFILE, GLADEROOT);
+#else
+        refXml = Gnome::Glade::Xml::create(
+                LOCALPATH "/src/" GLADEFILE, GLADEROOT);
+#endif
     }
     catch (Gnome::Glade::XmlError& error)
     {
-        try
-        {
-            refXml = Gnome::Glade::Xml::create("src/" GLADEFILE, GLADEROOT);
-        }
-        catch (Gnome::Glade::XmlError& error2)
-        {
-            show_error(error.what(), true);
-        }
+        show_error(error.what(), true);
     }
-    window = NULL;
-    refXml->get_widget(GLADEROOT, window);
+
+    wnd_root = NULL;
+    cbo_interfaces = NULL;
+    refXml->get_widget(GLADEROOT, wnd_root);
+    refXml->get_widget("cbo_interfaces", cbo_interfaces);
+
+    this->fill_cbointerfaces();
 }
 
 wndMain::~wndMain()
 {
+    if (wnd_root)
+        delete wnd_root;
+}
+
+void wndMain::fill_cbointerfaces()
+{
+    std::vector<NetworkInterface*> netifs =
+            NetworkInterface::get_all_network_interfaces();
+    std::vector<NetworkInterface*>::iterator iter;
+
+    Glib::RefPtr<Gtk::ListStore> cbomodel =
+            Gtk::ListStore::create(m_columns);
+    cbo_interfaces->set_model(cbomodel);
+
+    for (iter = netifs.begin(); iter != netifs.end(); iter++)
+    {
+        Gtk::TreeModel::Row row = *(cbomodel->append());
+        row[m_columns.m_col_name] = (**iter).get_name();
+    }
+    
+    cbo_interfaces->pack_start(m_columns.m_col_name);
+
+    // Free all vector items
+    for (iter = netifs.begin(); iter != netifs.end(); iter++)
+        delete *iter;
+    netifs.clear();
+}
+
+Gtk::ComboBox* wndMain::get_cbointerfaces()
+{
+    return this->cbo_interfaces;
 }
 
 Gtk::Window* wndMain::get_root()
 {
-    return this->window;
+    return this->wnd_root;
 }
 

@@ -1,3 +1,19 @@
+2009-05-29  Fabrício Godoy <skarllot@gmail.com>
+    Changes to show network interface names into combobox, created TEST specific
+    code and fixed version name.
+
+    * src/main.cpp:
+    (main): commented console output code.
+
+    * src/wndmain.hpp, src/wndmain.cpp: Modifications to fill cbo_interfaces.
+
+    * configure.ac:
+    [AC_INIT]: Added ".ALPHA" to version name.
+
+    * configure.ac: Added "--enable-testing" option. Defines TEST and LOCALPATH.
+
+    * src/wndmain.hpp, src/wndmain.cpp: Spplited code to specific TEST code.
+
 2009-05-27  Fabrício Godoy <skarllot@gmail.com>
     Fixes to remove incorrect translatable messages and configure.ac modelines
     defined.

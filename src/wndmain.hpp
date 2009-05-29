@@ -22,17 +22,36 @@
 #define	_WNDMAIN_H
 
 #include <gtkmm.h>
+#include <libglademm.h>
 
 class wndMain
 {
 public:
     wndMain();
     virtual ~wndMain();
-    
+
+    Gtk::ComboBox* get_cbointerfaces();
     Gtk::Window* get_root();
 
 private:
-    Gtk::Window* window;
+
+    class ModelColumns : public Gtk::TreeModel::ColumnRecord
+    {
+    public:
+        ModelColumns()
+        {
+            add(m_col_name);
+        }
+
+        Gtk::TreeModelColumn<Glib::ustring> m_col_name;
+    };
+
+    Gtk::ComboBox* cbo_interfaces;
+    ModelColumns m_columns;
+    Glib::RefPtr<Gnome::Glade::Xml> refXml;
+    Gtk::Window* wnd_root;
+
+    void fill_cbointerfaces();
 };
 
 #endif	/* _WNDMAIN_H */

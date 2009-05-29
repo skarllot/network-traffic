@@ -3,7 +3,7 @@
 # vim:set ts=4 sw=4 expandtab nowrap textwidth=80
 
 AC_PREREQ([2.54])
-AC_INIT([Network Logger],[0.1.0],
+AC_INIT([Network Logger],[0.1.0.ALPHA],
         [http://code.google.com/p/network-logger/issues],
         [network-logger])
 
@@ -77,6 +77,14 @@ AC_ARG_ENABLE(winvista,
     AC_DEFINE(WINVER,0x0600,[Define minimum Windows version])
 ])
 AM_CONDITIONAL(WINVISTA, test "x$iswinvista" = "x1")
+
+# Enable code testing without install (can load local glade file)
+AC_ARG_ENABLE(testing,
+    AC_HELP_STRING([--enable-testing],[Enable code testing without install]),[
+    enabletest=1
+    AC_DEFINE(TEST,,[Code for testing purposes])
+    AC_DEFINE_UNQUOTED(LOCALPATH, "$PWD", [Defines local compile path])
+])
 
 # Checks for header files.
 AC_HEADER_STDC

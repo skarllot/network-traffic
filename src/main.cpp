@@ -50,7 +50,7 @@ int main(int argc, char** argv)
     Gtk::Main kit(argc, argv);
     wndMain wndmain;
     kit.run(*wndmain.get_root());
-
+/*
     std::vector<NetworkInterface*> netifs =
             NetworkInterface::get_all_network_interfaces();
 
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
     for (iter = netifs.begin(); iter != netifs.end(); iter++)
         delete *iter;
     netifs.clear();
-
+*/
     return (EXIT_SUCCESS);
 }
 
