@@ -46,6 +46,11 @@
 #endif
 #define NETWORK_LOGGER_LOCALEDIR "../share/locale"
 
+#ifdef LOCALPATH
+#undef LOCALPATH
+#define LOCALPATH "."
+#endif
+
 
 #ifdef __cplusplus
 // Avoid C++ name mangling

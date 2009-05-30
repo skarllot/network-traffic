@@ -1,4 +1,30 @@
 2009-05-29  Fabrício Godoy <skarllot@gmail.com>
+    Reorganized mingw32-extension subproject and some code cleanups.
+
+    * configure.ac: Cleaned ununsed macros and added needed macros.
+
+    * configure.ac, Makefile.am, src/Makefile.am: Added license header.
+
+    * configure.ac:
+    [AC_CONFIG_FILES]: Modified Makefile list.
+
+    * Makefile.am:
+    [SUBDIRS]: Added "mingw32-extension".
+
+    * mingw32-extension/Makefile.am, mingw32-extension/iphlpapi.def,
+    mingw32-extension/iphlpapi2.h: Files reorganized.
+
+    * mingw32-extension/COPYING: Added public domain license.
+
+    * src/Makefile.am: Modifications to link libiphlapi2.
+
+    * src/windowsdef.h:
+    [LOCALPATH]: Added specific Windows definition.
+
+    * src/Makefile.am, src/wndmain.cpp:
+    [GLADEDIR]: Changed from NETWORK_LOGGER_GLADEDIR.
+
+2009-05-29  Fabrício Godoy <skarllot@gmail.com>
     Changes to show network interface names into combobox, created TEST specific
     code and fixed version name.
 

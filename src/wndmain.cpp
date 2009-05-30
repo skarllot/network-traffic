@@ -23,7 +23,7 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#if (defined(WIN32) || defined(WINNT))
+#ifdef WINNT
 #include "windowsdef.h"
 #endif
 #include <vector>
@@ -39,7 +39,7 @@ wndMain::wndMain()
     {
 #ifndef TEST
         refXml = Gnome::Glade::Xml::create(
-                NETWORK_LOGGER_GLADEDIR "/" GLADEFILE, GLADEROOT);
+                GLADEDIR "/" GLADEFILE, GLADEROOT);
 #else
         refXml = Gnome::Glade::Xml::create(
                 LOCALPATH "/src/" GLADEFILE, GLADEROOT);

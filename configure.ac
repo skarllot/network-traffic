@@ -1,6 +1,23 @@
-#                                               -*- Autoconf -*-
-# Process this file with autoconf to produce a configure script.
 # vim:set ts=4 sw=4 expandtab nowrap textwidth=80
+#
+# Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# Authors:
+#   Fabrício Godoy <skarllot@gmail.com>
+#
 
 AC_PREREQ([2.54])
 AC_INIT([Network Logger],[0.1.0.ALPHA],
@@ -11,21 +28,21 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([src])
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE([1.9 -Wall -Werror -Woverride])
-AM_MAINTAINER_MODE
-AC_SUBST([ACLOCAL_AMFLAGS], ["\${ACLOCAL_FLAGS}"])
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror -Woverride dist-zip])
 
 # Check build environment
 AC_CANONICAL_HOST
 
 # Checks for programs.
-AC_PROG_CC
 AC_PROG_CXX
-#AC_LIBTOOL_WIN32_DLL
-#AM_PROG_LIBTOOL
-AM_PROG_CC_C_O
-AM_SANITY_CHECK
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_LN_S
+AC_PROG_RANLIB
 AC_CHECK_TOOL([DLLTOOL], [dlltool], [:])
+#AC_PROG_LIBTOOL
+#AC_LIBTOOL_WIN32_DLL
+AM_PROG_CC_C_O
 
 AC_LANG([C++])
 
@@ -40,6 +57,7 @@ AC_SUBST(DEPS_CXX_CFLAGS)
 AC_SUBST(DEPS_CXX_LIBS)
 
 # I18n
+#AC_PROG_INTLTOOL([0.35.5])
 GETTEXT_PACKAGE=network-logger
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
@@ -97,10 +115,9 @@ AC_TYPE_UINT64_T
 AC_CHECK_FUNCS([memset strtoull])
 
 AC_CONFIG_FILES([Makefile
+                 mingw32-extension/Makefile
                  po/Makefile.in
-                 src/Makefile
-                 src/mingw32-extension/Makefile
-                 src/mingw32-extension/lib/Makefile])
+                 src/Makefile])
 AC_OUTPUT
 
 dnl ==========================================================================

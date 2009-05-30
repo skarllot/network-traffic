@@ -5,10 +5,10 @@ all-local:
 
 
 CLEANFILES = \
-        libiphlpapi2.a
+    libiphlpapi2.a
 endif
 endif
 
 EXTRA_DIST = \
-        iphlpapi.def
+    iphlpapi.def
 

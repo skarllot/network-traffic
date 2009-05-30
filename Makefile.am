@@ -1,6 +1,26 @@
+# Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+# Authors:
+#   Fabrício Godoy <skarllot@gmail.com>
+#
+
 SUBDIRS = \
-	src \
-	po
+    mingw32-extension \
+    src \
+    po
 
 INTLTOOL_FILES = \
 	intltool-extract.in \
@@ -16,8 +36,10 @@ EXTRA_DIST = \
 CLEANFILES = *~
 
 MAINTAINERCLEANFILES = \
+dnl -- AC_CANONICAL_HOST --
 	build-aux/config.guess \
 	build-aux/config.sub \
+dnl ----
 	build-aux/depcomp \
 	build-aux/install-sh \
 	build-aux/missing \
