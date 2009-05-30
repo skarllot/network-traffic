@@ -1,4 +1,15 @@
 2009-05-29  Fabrício Godoy <skarllot@gmail.com>
+    Fixed mingw32-extension references and version name.
+
+    * configure.ac:
+    [AC_INIT]: Removed uneeded ALPHA from version name.
+
+    * mingw32-extension/Makefile.am:
+    [EXTRA_DIST]: Added iphlpapi2.h file.
+
+    * src/Makefile.am: Fixed iphlpapi2.h path.
+
+2009-05-29  Fabrício Godoy <skarllot@gmail.com>
     Reorganized mingw32-extension subproject and some code cleanups.
 
     * configure.ac: Cleaned ununsed macros and added needed macros.

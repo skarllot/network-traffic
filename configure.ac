@@ -20,7 +20,7 @@
 #
 
 AC_PREREQ([2.54])
-AC_INIT([Network Logger],[0.1.0.ALPHA],
+AC_INIT([Network Logger],[0.1.0],
         [http://code.google.com/p/network-logger/issues],
         [network-logger])
 

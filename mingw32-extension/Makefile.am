@@ -10,5 +10,6 @@ endif
 endif
 
 EXTRA_DIST = \
+    iphlpapi2.h \
     iphlpapi.def
 

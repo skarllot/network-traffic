@@ -46,7 +46,7 @@ network_logger_SOURCES += \
 	windowsdef.c
 if WINVISTA
 network_logger_SOURCES += \
-	mingw32-extension/iphlpapi2.h
+	$(top_builddir)/mingw32-extension/iphlpapi2.h
 endif
 endif
 
