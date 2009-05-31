@@ -13,3 +13,6 @@ EXTRA_DIST = \
     iphlpapi2.h \
     iphlpapi.def
 
+MAINTAINERCLEANFILES = \
+    Makefile.in
+

@@ -1,3 +1,11 @@
+2009-05-31  Fabrício Godoy <skarllot@gmail.com>
+    Fixed maintainer-clean files and done changes to fit clean environment.
+
+    * Makefile.am, mingw32-extension/Makefile.am:
+    [MAINTAINERCLEANFILES]: Fixes and additions.
+
+    * autogen.sh: Modifications to best fit a starting environment.
+
 2009-05-29  Fabrício Godoy <skarllot@gmail.com>
     Fixed mingw32-extension references and version name.
 
