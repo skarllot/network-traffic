@@ -24,7 +24,7 @@
 #include <glibmm/ustring.h>
 #include <vector>
 
-/** Base class that provides basic network interface information.
+/** Base class that provides basic information from network interfaces.
  */
 class NetworkInterface
 {
@@ -32,19 +32,24 @@ public:
     NetworkInterface();
     virtual ~NetworkInterface();
 
-    /** Gets an array or NetworkInterface for all computer network interfaces.
+    /** Gets NetworkInterface instances for all network interfaces found in
+     * current system.
      *
-     * @return A vector of NetworkInterface.
+     * @return A network interfaces information vector.
      */
     static std::vector<NetworkInterface*> get_all_network_interfaces();
 
-    /** Gets a number that represents a count of computer network interfaces.
+    /** Gets a number that represents a count of network interfaces found in
+     * current system.
+     *
+     * @return Network interfaces count.
      */
     static int get_interface_count();
 
-    /** Gets a NetworkInterface by its physical address.
+    /** Gets a NetworkInterface instance by its physical address.
      *
-     * @param physaddr String representation of network interface physical address.
+     * @param physaddr String representation of network interface physical
+     * address.
      */
     static NetworkInterface* get_network_interface(Glib::ustring physaddr);
 
@@ -56,15 +61,15 @@ public:
      */
     virtual uint64_t get_bytes_sent() = 0;
 
-    /** Gets the system name of this network interface.
+    /** Gets system name for this network interface.
      */
     virtual Glib::ustring get_internal_name() = 0;
 
-    /** Gets the name of this network interface.
+    /** Gets user name for this network interface.
      */
     virtual Glib::ustring get_name() = 0;
 
-    /** Gets the Media Access Control address of this network interface.
+    /** Gets the Media Access Control address from this network interface.
      */
     virtual Glib::ustring get_physical_address() = 0;
 };

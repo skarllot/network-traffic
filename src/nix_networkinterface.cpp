@@ -66,8 +66,6 @@ nix_NetworkInterface::~nix_NetworkInterface()
     }
 }
 
-/** Add info for same interface but different protocol (e.g. IPv6)
- */
 void nix_NetworkInterface::add_info(const ifaddrs* ifinfo)
 {
     this->ifinfo.push_back(*ifinfo);
@@ -157,10 +155,6 @@ Glib::ustring nix_NetworkInterface::get_physical_address()
     return paddr;
 }
 
-/** Reads network information given its final path.
- *
- * @suffix The final path where information is read from.
- */
 std::string nix_NetworkInterface::read_info(std::string suffix)
 {
     // Reads from pseudo file

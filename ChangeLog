@@ -1,3 +1,13 @@
+2009-06-02  Fabrício Godoy <skarllot@gmail.com>
+    Comments modifications and fixed network_interfaces scope.
+
+    * src/wndmain.hpp, src/wndmain.cpp: Added network_interfaces as class field.
+
+    * src/main.cpp, src/networkinterface.hpp, src/nix_networkinterface.hpp,
+    src/win_networkinterface.hpp, src/wndmain.hpp: Added and modified comments.
+
+    * src/nix_networkinterface.cpp: Comments moved to header file.
+
 2009-05-31  Fabrício Godoy <skarllot@gmail.com>
     Fixed maintainer-clean files and done changes to fit clean environment.
 

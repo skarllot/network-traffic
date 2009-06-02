@@ -21,20 +21,35 @@
 #ifndef _WNDMAIN_H
 #define	_WNDMAIN_H
 
+#include <vector>
 #include <gtkmm.h>
 #include <libglademm.h>
+#include "networkinterface.hpp"
 
+/** Class to manage wndMain Window widget.
+ */
 class wndMain
 {
 public:
     wndMain();
     virtual ~wndMain();
 
+    /** Get the cbo_interfaces ComboBox widget.
+     *
+     * @return The cbo_interfaces widget pointer.
+     */
     Gtk::ComboBox* get_cbointerfaces();
+
+    /** Get the top Window widget represented by this instance.
+     *
+     * @return The wndMain widget pointer.
+     */
     Gtk::Window* get_root();
 
 private:
 
+    /** Represents a column record for ComboBox.
+     */
     class ModelColumns : public Gtk::TreeModel::ColumnRecord
     {
     public:
@@ -46,11 +61,19 @@ private:
         Gtk::TreeModelColumn<Glib::ustring> m_col_name;
     };
 
+    /// The ComboBox that show network interface list.
     Gtk::ComboBox* cbo_interfaces;
+    /// Columns model for cbo_interfaces.
     ModelColumns m_columns;
+    /// NetworkInterface instances vector.
+    std::vector<NetworkInterface*> network_interfaces;
+    /// Pointer to loaded Glade file.
     Glib::RefPtr<Gnome::Glade::Xml> refXml;
+    /// The main Window.
     Gtk::Window* wnd_root;
 
+    /** Fill cbo_interfaces with network interface list.
+     */
     void fill_cbointerfaces();
 };
 

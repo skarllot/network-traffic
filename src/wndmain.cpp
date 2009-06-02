@@ -26,9 +26,7 @@
 #ifdef WINNT
 #include "windowsdef.h"
 #endif
-#include <vector>
 #include "functions.hpp"
-#include "networkinterface.hpp"
 
 #define GLADEFILE "ui.glade"
 #define GLADEROOT "wndMain"
@@ -62,30 +60,34 @@ wndMain::~wndMain()
 {
     if (wnd_root)
         delete wnd_root;
+
+    // Free all vector items
+    std::vector<NetworkInterface*>::iterator iter;
+    for (iter = network_interfaces.begin();
+            iter != network_interfaces.end(); iter++)
+    {
+        delete *iter;
+    }
+    network_interfaces.clear();
 }
 
 void wndMain::fill_cbointerfaces()
 {
-    std::vector<NetworkInterface*> netifs =
-            NetworkInterface::get_all_network_interfaces();
+    network_interfaces = NetworkInterface::get_all_network_interfaces();
     std::vector<NetworkInterface*>::iterator iter;
 
     Glib::RefPtr<Gtk::ListStore> cbomodel =
             Gtk::ListStore::create(m_columns);
     cbo_interfaces->set_model(cbomodel);
 
-    for (iter = netifs.begin(); iter != netifs.end(); iter++)
+    for (iter = network_interfaces.begin();
+            iter != network_interfaces.end(); iter++)
     {
         Gtk::TreeModel::Row row = *(cbomodel->append());
         row[m_columns.m_col_name] = (**iter).get_name();
     }
-    
-    cbo_interfaces->pack_start(m_columns.m_col_name);
 
-    // Free all vector items
-    for (iter = netifs.begin(); iter != netifs.end(); iter++)
-        delete *iter;
-    netifs.clear();
+    cbo_interfaces->pack_start(m_columns.m_col_name);
 }
 
 Gtk::ComboBox* wndMain::get_cbointerfaces()

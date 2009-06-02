@@ -37,6 +37,7 @@
 int main(int argc, char** argv)
 {
 #if (defined(WIN32) || defined(WINNT))
+    // Verify if current running system fulfil minimum requeriments.
     int retval = check_version();
     if (retval != NO_ERROR)
         return retval;

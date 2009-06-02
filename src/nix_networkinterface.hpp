@@ -26,18 +26,24 @@
 #include <map>
 #include <string.h>
 
+/** Class that provides basic network interface information for *nix systems.
+ */
 class nix_NetworkInterface : NetworkInterface
 {
 public:
     virtual ~nix_NetworkInterface();
 
-    /** Gets an array or NetworkInterface for all computer network interfaces.
+    /** Gets NetworkInterface instances for all network interfaces found in
+     * current system.
      *
-     * @return A vector of NetworkInterface.
+     * @return A network interfaces information vector.
      */
     static std::vector<NetworkInterface*> get_all_network_interfaces();
 
-    /** Gets a number that represents a count of computer network interfaces.
+    /** Gets a number that represents a count of network interfaces found in
+     * current system.
+     *
+     * @return Network interfaces count.
      */
     static int get_interface_count();
 
@@ -49,27 +55,44 @@ public:
      */
     virtual uint64_t get_bytes_sent();
 
-    /** Gets the system name of this network interface.
+    /** Gets system name for this network interface.
      */
     virtual Glib::ustring get_internal_name();
 
-    /** Gets the name of this network interface.
+    /** Gets user name for this network interface.
      */
     virtual Glib::ustring get_name();
 
-    /** Gets the Media Access Control address of this network interface.
+    /** Gets the Media Access Control address from this network interface.
      */
     virtual Glib::ustring get_physical_address();
     
 private:
+    /** Constructs new instance based on parameters.
+     * 
+     * @param ifinfo Network interface native information.
+     * @param firstinfo Network interface got by linked list.
+     */
     nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* firstinfo);
 
+    /** Add info for same interface but different protocol (e.g. IPv6)
+     *
+     * @param ifinfo Network interface native information.
+     */
     void add_info(const ifaddrs* ifinfo);
+    /** Reads network information file given its final path.
+     *
+     * @param suffix The suffix of path where information file is read from.
+     */
     std::string read_info(std::string suffix);
 
+    /// Current native network interface information list.
     std::vector<ifaddrs> ifinfo;
+    /// Current native top network interface information from linked list.
     ifaddrs* firstinfo;
-    
+
+    /// Store network interface information reference counting for all
+    /// nix_networkinterface instances.
     static std::map<ifaddrs*, int> ifs_references;
 };
 
