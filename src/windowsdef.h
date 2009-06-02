@@ -36,10 +36,10 @@
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
-#ifdef NETWORK_LOGGER_GLADEDIR
-#undef NETWORK_LOGGER_GLADEDIR
+#ifdef GLADEDIR
+#undef GLADEDIR
 #endif
-#define NETWORK_LOGGER_GLADEDIR "../share/" PACKAGE "/glade"
+#define GLADEDIR "../share/" PACKAGE "/glade"
 
 #ifdef NETWORK_LOGGER_LOCALEDIR
 #undef NETWORK_LOGGER_LOCALEDIR

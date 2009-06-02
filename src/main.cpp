@@ -23,11 +23,8 @@
 #endif
 
 #include <stdlib.h>
-#include <iostream>
-#include <vector>
 #include <gtkmm.h>
 #include "i18n.hpp"
-#include "networkinterface.hpp"
 #include "wndmain.hpp"
 
 #if (defined(WIN32) || defined(WINNT))
@@ -51,38 +48,7 @@ int main(int argc, char** argv)
     Gtk::Main kit(argc, argv);
     wndMain wndmain;
     kit.run(*wndmain.get_root());
-/*
-    std::vector<NetworkInterface*> netifs =
-            NetworkInterface::get_all_network_interfaces();
 
-    std::vector<NetworkInterface*>::iterator iter;
-    for (int i = 0; i < 6; i++)
-    {
-        for (iter = netifs.begin(); iter != netifs.end(); iter++)
-        {
-            std::cout << COMPOSE(_("Name: %1"),
-                    (**iter).get_name()) << std::endl;
-            std::cout << COMPOSE(_("Internal name: %1"),
-                    (**iter).get_internal_name()) << std::endl;
-            std::cout << COMPOSE(_("Physical address: %1"),
-                    (**iter).get_physical_address()) << std::endl;
-            std::cout << COMPOSE(_("Bytes in: %1"),
-                    (**iter).get_bytes_received()) << std::endl;
-            std::cout << COMPOSE(_("Bytes out: %1"),
-                    (**iter).get_bytes_sent()) << std::endl;
-            std::cout << std::endl;
-        }
-        std::cout << "--------------------" << std::endl;
-
-        // Wait 1 second
-        Glib::usleep(G_USEC_PER_SEC);
-    }
-
-    // Free all vector items
-    for (iter = netifs.begin(); iter != netifs.end(); iter++)
-        delete *iter;
-    netifs.clear();
-*/
     return (EXIT_SUCCESS);
 }
 

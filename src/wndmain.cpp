@@ -31,6 +31,7 @@
 
 #define GLADEFILE "ui.glade"
 #define GLADEROOT "wndMain"
+#define REFRESH_MS 500
 
 wndMain::wndMain()
 {
@@ -61,12 +62,15 @@ wndMain::wndMain()
     cbo_interfaces->set_model(cbomodel);
     cbo_interfaces->pack_start(mcolumn.m_col_name);
     cbo_interfaces->signal_changed().connect(sigc::mem_fun(*this,
-            &wndMain::on_cbointerfaces_changed));
+            &wndMain::refresh_all_information));
+    cbo_interfaces->set_has_tooltip(true);
+    cbo_interfaces->signal_query_tooltip().connect(sigc::mem_fun(*this,
+            &wndMain::on_cbointerfaces_query_tooltip));
 
     // lbl_bytes_received
     lbl_bytes_received = NULL;
     refXml->get_widget("lbl_bytes_received", lbl_bytes_received);
-    
+
     // lbl_bytes_sent
     lbl_bytes_sent = NULL;
     refXml->get_widget("lbl_bytes_sent", lbl_bytes_sent);
@@ -75,6 +79,8 @@ wndMain::wndMain()
     this->fill_cbointerfaces();
     if (network_interfaces.size() > 0)
         cbo_interfaces->set_active(0);
+    Glib::signal_timeout().connect(sigc::mem_fun(*this,
+            &wndMain::timed_refresh), REFRESH_MS, Glib::PRIORITY_LOW);
 }
 
 wndMain::~wndMain()
@@ -120,7 +126,19 @@ Gtk::Window* wndMain::get_root()
     return this->wnd_root;
 }
 
-void wndMain::on_cbointerfaces_changed()
+bool wndMain::on_cbointerfaces_query_tooltip(int x, int y,
+        bool keyboard_tooltip, const Glib::RefPtr<Gtk::Tooltip>& tooltip)
+{
+    int index = cbo_interfaces->get_active_row_number();
+
+    tooltip->set_markup(COMPOSE("<b>Internal name:</b> %1\n"
+            "<b>Physical address:</b> %2",
+            network_interfaces[index]->get_internal_name(),
+            network_interfaces[index]->get_physical_address()));
+    return true;
+}
+
+void wndMain::refresh_all_information()
 {
     int index = cbo_interfaces->get_active_row_number();
 
@@ -128,5 +146,11 @@ void wndMain::on_cbointerfaces_changed()
             network_interfaces[index]->get_bytes_received()));
     lbl_bytes_sent->set_text(COMPOSE("%1 B",
             network_interfaces[index]->get_bytes_sent()));
+}
+
+bool wndMain::timed_refresh()
+{
+    refresh_all_information();
+    return true;
 }
 

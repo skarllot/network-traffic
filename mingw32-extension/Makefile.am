@@ -1,5 +1,5 @@
-if PLATFORM_WIN32
-if WINVISTA
+if OS_WIN32
+if OS_WINVISTA
 all-local:
 	@DLLTOOL@ -k -l libiphlpapi2.a --def iphlpapi.def
 

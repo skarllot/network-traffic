@@ -1,4 +1,21 @@
 2009-06-02  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to show an information tooltip and auto refresh information
+    interface; Fixed some issues.
+
+    * src/wndmain.hpp, src/wndmain.cpp: Modifications to show a tooltip for
+    ComboBox and to refresh network interface information each 500 ms.
+
+    * configure.ac, mingw32-extension/Makefile.am, src/Makefile.am:
+    [OS_WIN32]: New name for PLATFORM_WIN32.
+    [OS_WINVISTA]: New name for WINVISTA.
+
+    * src: Added network-logger.exe to ignore list.
+
+    * src/main.cpp: Removed obsoleted code.
+
+    * src/windowsdef.h: Fixed reference to GLADEDIR.
+
+2009-06-02  Fabrício Godoy <skarllot@gmail.com>
     Modifications to show received and sent bytes by selected network interface.
 
     * src/wndmain.hpp: Modified sub-class name from ModelColumns to

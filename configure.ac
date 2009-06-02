@@ -74,16 +74,16 @@ IT_PROG_INTLTOOL([0.35.1])
 AC_MSG_CHECKING([for native Win32])
 case "$host_os" in
   *mingw*)
-    iswin32=1
+    iswin32=yes
     AC_MSG_RESULT(yes)
     ;;
   *)
-    iswin32=0
+    iswin32=no
     AC_MSG_RESULT(no)
     ;;
 esac
 
-AM_CONDITIONAL(PLATFORM_WIN32, test "x$iswin32" = "x1")
+AM_CONDITIONAL(OS_WIN32, [test "$iswin32" = "yes"])
 
 # ------------------------------------------------------------------------------
 # Target compile to Windows Vista
@@ -94,7 +94,7 @@ AC_ARG_ENABLE(winvista,
 	iswinvista=1
     AC_DEFINE(WINVER,0x0600,[Define minimum Windows version])
 ])
-AM_CONDITIONAL(WINVISTA, test "x$iswinvista" = "x1")
+AM_CONDITIONAL(OS_WINVISTA, test "x$iswinvista" = "x1")
 
 # Enable code testing without install (can load local glade file)
 AC_ARG_ENABLE(testing,

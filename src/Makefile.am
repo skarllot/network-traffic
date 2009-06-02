@@ -34,7 +34,7 @@ network_logger_SOURCES = \
 	networkinterface.cpp \
     wndmain.hpp \
     wndmain.cpp
-if !PLATFORM_WIN32
+if !OS_WIN32
 network_logger_SOURCES += \
 	nix_networkinterface.hpp \
 	nix_networkinterface.cpp
@@ -44,7 +44,7 @@ network_logger_SOURCES += \
 	win_networkinterface.cpp \
 	windowsdef.h \
 	windowsdef.c
-if WINVISTA
+if OS_WINVISTA
 network_logger_SOURCES += \
 	$(top_builddir)/mingw32-extension/iphlpapi2.h
 endif
@@ -57,9 +57,9 @@ network_logger_CFLAGS = \
 network_logger_CXXFLAGS = \
     $(DEPS_CXX_CFLAGS)
 
-if PLATFORM_WIN32
+if OS_WIN32
 network_logger_LDADD += -liphlpapi -lintl
-if WINVISTA
+if OS_WINVISTA
 network_logger_LDADD += $(top_builddir)/mingw32-extension/libiphlpapi2.a
 endif
 endif

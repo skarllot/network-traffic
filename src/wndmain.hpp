@@ -77,10 +77,19 @@ private:
     /** Fill cbo_interfaces with network interface list.
      */
     void fill_cbointerfaces();
-    
-    /** Called when active item from cbo_interfaces is changed.
+
+    /** Called when queried tooltip to cbo_interfaces.
      */
-    void on_cbointerfaces_changed();
+    bool on_cbointerfaces_query_tooltip(int x, int y, bool keyboard_tooltip,
+            const Glib::RefPtr<Gtk::Tooltip>& tooltip);
+
+    /** Shows updated information for active network interface.
+     */
+    void refresh_all_information();
+
+    /** Always called over a fixed time space.
+     */
+    bool timed_refresh();
 };
 
 #endif	/* _WNDMAIN_H */
