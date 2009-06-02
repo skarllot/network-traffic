@@ -1,4 +1,20 @@
 2009-06-02  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to show received and sent bytes by selected network interface.
+
+    * src/wndmain.hpp: Modified sub-class name from ModelColumns to
+    SingleTextModel.
+
+    * src/wndmain.hpp: Added lbl_bytes_received and lbl_bytes_sent class fields.
+
+    * src/wndmain.hpp:
+    (on_cbointerfaces_changed): Added to track cbo_interfaces changes.
+
+    * src/wndmain.cpp: Code reorganized to cbo_interfaces setting.
+
+    * src/wndmain.cpp: Modifications to fill lbl_bytes_received and
+    lbl_bytes_sent.
+
+2009-06-02  Fabrício Godoy <skarllot@gmail.com>
     Comments modifications and fixed network_interfaces scope.
 
     * src/wndmain.hpp, src/wndmain.cpp: Added network_interfaces as class field.

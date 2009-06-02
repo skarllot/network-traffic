@@ -50,10 +50,10 @@ private:
 
     /** Represents a column record for ComboBox.
      */
-    class ModelColumns : public Gtk::TreeModel::ColumnRecord
+    class SingleTextModel : public Gtk::TreeModel::ColumnRecord
     {
     public:
-        ModelColumns()
+        SingleTextModel()
         {
             add(m_col_name);
         }
@@ -63,8 +63,10 @@ private:
 
     /// The ComboBox that show network interface list.
     Gtk::ComboBox* cbo_interfaces;
-    /// Columns model for cbo_interfaces.
-    ModelColumns m_columns;
+    /// The Label that show bytes received by current network interface.
+    Gtk::Label* lbl_bytes_received;
+    /// The Label that show bytes sent by current network interface.
+    Gtk::Label* lbl_bytes_sent;
     /// NetworkInterface instances vector.
     std::vector<NetworkInterface*> network_interfaces;
     /// Pointer to loaded Glade file.
@@ -75,6 +77,10 @@ private:
     /** Fill cbo_interfaces with network interface list.
      */
     void fill_cbointerfaces();
+    
+    /** Called when active item from cbo_interfaces is changed.
+     */
+    void on_cbointerfaces_changed();
 };
 
 #endif	/* _WNDMAIN_H */

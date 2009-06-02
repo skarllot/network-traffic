@@ -27,6 +27,7 @@
 #include "windowsdef.h"
 #endif
 #include "functions.hpp"
+#include "i18n.hpp"
 
 #define GLADEFILE "ui.glade"
 #define GLADEROOT "wndMain"
@@ -48,12 +49,32 @@ wndMain::wndMain()
         show_error(error.what(), true);
     }
 
+    // wndmain
     wnd_root = NULL;
-    cbo_interfaces = NULL;
     refXml->get_widget(GLADEROOT, wnd_root);
+
+    // cbo_interfaces
+    cbo_interfaces = NULL;
     refXml->get_widget("cbo_interfaces", cbo_interfaces);
+    SingleTextModel mcolumn;
+    Glib::RefPtr<Gtk::ListStore> cbomodel = Gtk::ListStore::create(mcolumn);
+    cbo_interfaces->set_model(cbomodel);
+    cbo_interfaces->pack_start(mcolumn.m_col_name);
+    cbo_interfaces->signal_changed().connect(sigc::mem_fun(*this,
+            &wndMain::on_cbointerfaces_changed));
+
+    // lbl_bytes_received
+    lbl_bytes_received = NULL;
+    refXml->get_widget("lbl_bytes_received", lbl_bytes_received);
+    
+    // lbl_bytes_sent
+    lbl_bytes_sent = NULL;
+    refXml->get_widget("lbl_bytes_sent", lbl_bytes_sent);
+
 
     this->fill_cbointerfaces();
+    if (network_interfaces.size() > 0)
+        cbo_interfaces->set_active(0);
 }
 
 wndMain::~wndMain()
@@ -76,18 +97,17 @@ void wndMain::fill_cbointerfaces()
     network_interfaces = NetworkInterface::get_all_network_interfaces();
     std::vector<NetworkInterface*>::iterator iter;
 
+    SingleTextModel mcolumn;
     Glib::RefPtr<Gtk::ListStore> cbomodel =
-            Gtk::ListStore::create(m_columns);
-    cbo_interfaces->set_model(cbomodel);
+            Glib::RefPtr<Gtk::ListStore>::cast_dynamic(
+            cbo_interfaces->get_model());
 
     for (iter = network_interfaces.begin();
             iter != network_interfaces.end(); iter++)
     {
         Gtk::TreeModel::Row row = *(cbomodel->append());
-        row[m_columns.m_col_name] = (**iter).get_name();
+        row[mcolumn.m_col_name] = (**iter).get_name();
     }
-
-    cbo_interfaces->pack_start(m_columns.m_col_name);
 }
 
 Gtk::ComboBox* wndMain::get_cbointerfaces()
@@ -98,5 +118,15 @@ Gtk::ComboBox* wndMain::get_cbointerfaces()
 Gtk::Window* wndMain::get_root()
 {
     return this->wnd_root;
+}
+
+void wndMain::on_cbointerfaces_changed()
+{
+    int index = cbo_interfaces->get_active_row_number();
+
+    lbl_bytes_received->set_text(COMPOSE("%1 B",
+            network_interfaces[index]->get_bytes_received()));
+    lbl_bytes_sent->set_text(COMPOSE("%1 B",
+            network_interfaces[index]->get_bytes_sent()));
 }
 
