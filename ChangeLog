@@ -1,3 +1,27 @@
+2009-06-03  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to correct handle common paths to Windows and done small
+    fixes.
+
+    * src/Makefile.am: Added new files.
+
+    * src/Makefile.am: Removed iphlpapi2.h as "source".
+
+    * src/shareddef.h, src/shareddef.c: Added global variables to store common
+    paths.
+    (build_package_paths): Initialize global variables.
+
+    * src/main.cpp:
+    (main): Modified to call build_package_paths function and use new global
+    variables.
+
+    * src/functions.hpp: Fixed missed definition armor.
+
+    * src/functions.hpp, src/functions_templates.hpp: (build_filename): Added.
+
+    * src/windowsdef.h: Removed unused re-definitions.
+
+    * src/wndmain.cpp: Modified to not use relative paths.
+
 2009-06-02  Fabrício Godoy <skarllot@gmail.com>
     Modifications to show an information tooltip and auto refresh information
     interface; Fixed some issues.
@@ -63,7 +87,7 @@
 2009-05-29  Fabrício Godoy <skarllot@gmail.com>
     Reorganized mingw32-extension subproject and some code cleanups.
 
-    * configure.ac: Cleaned ununsed macros and added needed macros.
+    * configure.ac: Cleaned unused macros and added needed macros.
 
     * configure.ac, Makefile.am, src/Makefile.am: Added license header.
 
@@ -436,7 +460,7 @@
 
 2009-04-14  Fabrício Godoy <skarllot@gmail.com>
     * src/main.cpp:
-    Removed ununsed includes.
+    Removed unused includes.
 
     * src/main.cpp [WINVER]:
     Define here is better.

@@ -27,11 +27,14 @@ AM_CPPFLAGS = \
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \
     functions.hpp \
+    functions_templates.hpp \
     functions.cpp \
-	i18n.hpp \
-	main.cpp \
-	networkinterface.hpp \
-	networkinterface.cpp \
+    i18n.hpp \
+    main.cpp \
+    networkinterface.hpp \
+    networkinterface.cpp \
+    shareddef.h \
+    shareddef.c \
     wndmain.hpp \
     wndmain.cpp
 if !OS_WIN32
@@ -44,10 +47,6 @@ network_logger_SOURCES += \
 	win_networkinterface.cpp \
 	windowsdef.h \
 	windowsdef.c
-if OS_WINVISTA
-network_logger_SOURCES += \
-	$(top_builddir)/mingw32-extension/iphlpapi2.h
-endif
 endif
 
 network_logger_LDADD = \

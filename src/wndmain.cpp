@@ -26,8 +26,10 @@
 #ifdef WINNT
 #include "windowsdef.h"
 #endif
+#include <string>
 #include "functions.hpp"
 #include "i18n.hpp"
+#include "shareddef.h"
 
 #define GLADEFILE "ui.glade"
 #define GLADEROOT "wndMain"
@@ -37,13 +39,13 @@ wndMain::wndMain()
 {
     try
     {
+        Glib::ustring file_path;
 #ifndef TEST
-        refXml = Gnome::Glade::Xml::create(
-                GLADEDIR "/" GLADEFILE, GLADEROOT);
+        file_path = build_filename(glade_dir, GLADEFILE);
 #else
-        refXml = Gnome::Glade::Xml::create(
-                LOCALPATH "/src/" GLADEFILE, GLADEROOT);
+        file_path = build_filename(local_path, "src", GLADEFILE);
 #endif
+        refXml = Gnome::Glade::Xml::create(file_path, GLADEROOT);
     }
     catch (Gnome::Glade::XmlError& error)
     {

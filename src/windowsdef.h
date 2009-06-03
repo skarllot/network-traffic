@@ -36,22 +36,6 @@
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))
 
-#ifdef GLADEDIR
-#undef GLADEDIR
-#endif
-#define GLADEDIR "../share/" PACKAGE "/glade"
-
-#ifdef NETWORK_LOGGER_LOCALEDIR
-#undef NETWORK_LOGGER_LOCALEDIR
-#endif
-#define NETWORK_LOGGER_LOCALEDIR "../share/locale"
-
-#ifdef LOCALPATH
-#undef LOCALPATH
-#define LOCALPATH "."
-#endif
-
-
 #ifdef __cplusplus
 // Avoid C++ name mangling
 extern "C" {

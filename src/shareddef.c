@@ -14,44 +14,43 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Fabrício Godoy <skarllot@gmail.com>
+ * Authors:
+ *      Fabrício Godoy <skarllot@gmail.com>
  *
  */
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
-#include <stdlib.h>
-#include <gtkmm.h>
-#include "i18n.hpp"
 #include "shareddef.h"
-#include "wndmain.hpp"
 
-#if (defined(WIN32) || defined(WINNT))
 #include "windowsdef.h"
+
+gchar* glade_dir = NULL;
+gchar* locale_dir = NULL;
+#ifdef TEST
+gchar* local_path = NULL;
 #endif
 
-int main(int argc, char** argv)
+void build_package_paths(void)
 {
-#if (defined(WIN32) || defined(WINNT))
-    // Verify if current running system fulfil minimum requeriments.
-    int retval = check_version();
-    if (retval != NO_ERROR)
-        return retval;
+#ifdef WINNT
+
+    gchar* prefix;
+    prefix = g_win32_get_package_installation_directory_of_module(NULL);
+
+    glade_dir = g_build_filename(prefix, "share", PACKAGE, "glade", NULL);
+    locale_dir = g_build_filename(prefix, "share", "locale", NULL);
+#ifdef TEST
+    local_path = g_build_filename(prefix, "..", NULL);
+#endif
+    
+    g_free(prefix);
+
+#else /* WINNT */
+
+    glade_dir = g_strdup(GLADEDIR);
+    locale_dir = g_strdup(NETWORK_LOGGER_LOCALEDIR);
+#ifdef TEST
+    local_path = g_strdup(LOCALPATH);
 #endif
 
-    build_package_paths();
-
-    // Gettext initialization
-    bindtextdomain(GETTEXT_PACKAGE, locale_dir);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
-
-    Gtk::Main kit(argc, argv);
-    wndMain wndmain;
-    kit.run(*wndmain.get_root());
-
-    return (EXIT_SUCCESS);
+#endif /* WINNT */
 }
-

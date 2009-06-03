@@ -14,44 +14,40 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
- * Authors: Fabrício Godoy <skarllot@gmail.com>
+ * Authors:
+ *      Fabrício Godoy <skarllot@gmail.com>
  *
  */
+
+#ifndef _SHAREDDEF_H
+#define	_SHAREDDEF_H
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
 
-#include <stdlib.h>
-#include <gtkmm.h>
-#include "i18n.hpp"
-#include "shareddef.h"
-#include "wndmain.hpp"
+#include <glib.h>
 
-#if (defined(WIN32) || defined(WINNT))
-#include "windowsdef.h"
+extern gchar* glade_dir;
+extern gchar* locale_dir;
+#ifdef TEST
+extern gchar* local_path;
 #endif
 
-int main(int argc, char** argv)
-{
-#if (defined(WIN32) || defined(WINNT))
-    // Verify if current running system fulfil minimum requeriments.
-    int retval = check_version();
-    if (retval != NO_ERROR)
-        return retval;
+#ifdef __cplusplus
+// Avoid C++ name mangling
+extern "C" {
 #endif
 
-    build_package_paths();
+// Based on http://git.gnome.org/cgit/glade3/tree/gladeui/glade-app.c
+// (Copyright (C) 2001 Ximian, Inc.)
+/** Build package paths at runtime.
+ */
+void build_package_paths(void);
 
-    // Gettext initialization
-    bindtextdomain(GETTEXT_PACKAGE, locale_dir);
-    bind_textdomain_codeset(GETTEXT_PACKAGE, "UTF-8");
-    textdomain(GETTEXT_PACKAGE);
-
-    Gtk::Main kit(argc, argv);
-    wndMain wndmain;
-    kit.run(*wndmain.get_root());
-
-    return (EXIT_SUCCESS);
+#ifdef __cplusplus
 }
+#endif
+
+#endif	/* _SHAREDDEF_H */
 

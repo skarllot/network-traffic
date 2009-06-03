@@ -18,6 +18,11 @@
  *
  */
 
+#ifndef _FUNCTIONS_H
+#define	_FUNCTIONS_H
+
+#define __FUNCTIONS_H_INSIDE__
+
 #include <gtkmm.h>
 
 // Based on http://git.gnome.org/cgit/hardware-monitor/tree/src/helpers.cpp
@@ -28,3 +33,119 @@
  * @param canexit True whether should call program exit.
  */
 void show_error(const Glib::ustring& msg, bool canexit = false);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ */
+template <class T1, class T2>
+Glib::ustring build_filename(const T1& str1, const T2& str2);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ */
+template <class T1, class T2, class T3>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ */
+template <class T1, class T2, class T3, class T4>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ * @param str5 The fifth element in the path.
+ */
+template <class T1, class T2, class T3, class T4, class T5>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4, const T5& str5);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ * @param str5 The fifth element in the path.
+ * @param str6 The sixth element in the path.
+ */
+template <class T1, class T2, class T3, class T4, class T5, class T6>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4, const T5& str5, const T6& str6);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ * @param str5 The fifth element in the path.
+ * @param str6 The sixth element in the path.
+ * @param str7 The seventh element in the path.
+ */
+template <class T1, class T2, class T3, class T4, class T5, class T6, class T7>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4, const T5& str5, const T6& str6, const T7& str7);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ * @param str5 The fifth element in the path.
+ * @param str6 The sixth element in the path.
+ * @param str7 The seventh element in the path.
+ * @param str8 The eighth element in the path.
+ */
+template <class T1, class T2, class T3, class T4, class T5, class T6, class T7,
+class T8>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4, const T5& str5, const T6& str6, const T7& str7,
+        const T8& str8);
+
+/** Creates a filename from a series of elements using the correct separator
+ * for filenames.
+ *
+ * @param str1 The first element in the path.
+ * @param str2 The second element in the path.
+ * @param str3 The third element in the path.
+ * @param str4 The fourth element in the path.
+ * @param str5 The fifth element in the path.
+ * @param str6 The sixth element in the path.
+ * @param str7 The seventh element in the path.
+ * @param str8 The eighth element in the path.
+ * @param str9 The ninth element in the path.
+ */
+template <class T1, class T2, class T3, class T4, class T5, class T6, class T7,
+class T8, class T9>
+Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
+        const T4& str4, const T5& str5, const T6& str6, const T7& str7,
+        const T8& str8, const T9& str9);
+
+#include "functions_templates.hpp"
+
+#undef __FUNCTIONS_H_INSIDE__
+
+#endif /* _FUNCTIONS_H */
