@@ -1,3 +1,11 @@
+2009-06-04  Fabrício Godoy <skarllot@gmail.com>
+    Small fix and added translator comment.
+
+    * src/ui.glade: Added comment to translatable message from wndMain title.
+
+    * src/shareddef.c: Fixed to not include "windowsdef.h" to other system than
+    Windows.
+
 2009-06-03  Fabrício Godoy <skarllot@gmail.com>
     Modifications to correct handle common paths to Windows and done small
     fixes.

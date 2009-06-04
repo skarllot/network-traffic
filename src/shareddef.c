@@ -21,7 +21,9 @@
 
 #include "shareddef.h"
 
+#ifdef WINNT
 #include "windowsdef.h"
+#endif
 
 gchar* glade_dir = NULL;
 gchar* locale_dir = NULL;
