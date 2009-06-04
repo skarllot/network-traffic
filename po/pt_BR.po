@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-05-27 23:34-0300\n"
-"PO-Revision-Date: 2009-05-14 22:13-0300\n"
+"POT-Creation-Date: 2009-06-04 00:02-0300\n"
+"PO-Revision-Date: 2009-06-04 00:15-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
 "MIME-Version: 1.0\n"
@@ -18,61 +18,42 @@ msgstr ""
 #. TRANSLATORS: Title from error dialog.
 #: ../src/functions.cpp:31
 msgid "Fatal error"
-msgstr ""
-
-#: ../src/main.cpp:62
-msgid "Name: %1"
-msgstr "Nome: %1"
-
-#: ../src/main.cpp:64
-msgid "Internal name: %1"
-msgstr "Nome interno: %1"
-
-#: ../src/main.cpp:66
-msgid "Physical address: %1"
-msgstr "Endereço físico: %1"
-
-#: ../src/main.cpp:68
-msgid "Bytes in: %1"
-msgstr "Bytes de entrada: %1"
-
-#: ../src/main.cpp:70
-msgid "Bytes out: %1"
-msgstr "Bytes de saída: %1"
+msgstr "Erro fatal"
 
 #. Label from wndMain
 #: ../src/ui.glade.h:2
 msgid "<b>Bytes received:</b>"
-msgstr ""
+msgstr "<b>Bytes recebidos:</b>"
 
 #. Label from wndMain
 #: ../src/ui.glade.h:4
 msgid "<b>Bytes sent:</b>"
-msgstr ""
+msgstr "<b>Bytes enviados:</b>"
 
 #. Label from wndMain
 #: ../src/ui.glade.h:6
 msgid "<b>Interface:</b>"
-msgstr ""
+msgstr "<b>Interface:</b>"
 
-#: ../src/ui.glade.h:7
+#. wndMain Window title
+#: ../src/ui.glade.h:8
 msgid "Network Logger"
-msgstr ""
+msgstr "Network Logger"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:9
+#: ../src/ui.glade.h:10
 msgid "_Edit"
-msgstr ""
+msgstr "_Editar"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:11
+#: ../src/ui.glade.h:12
 msgid "_File"
-msgstr ""
+msgstr "_Arquivo"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:13
+#: ../src/ui.glade.h:14
 msgid "_Help"
-msgstr ""
+msgstr "Aj_uda"
 
 #: ../src/windowsdef.c:29
 msgid "Windows version not supported, requires at least Windows XP with SP2"
@@ -101,3 +82,18 @@ msgstr "Falha ao alocar memória para a struct IP_ADAPTER_ADDRESSES"
 #: ../src/win_networkinterface.cpp:198
 msgid "GetAdapterAddresses failed"
 msgstr "Falha em GetAdapterAddresses"
+
+#~ msgid "Name: %1"
+#~ msgstr "Nome: %1"
+
+#~ msgid "Internal name: %1"
+#~ msgstr "Nome interno: %1"
+
+#~ msgid "Physical address: %1"
+#~ msgstr "Endereço físico: %1"
+
+#~ msgid "Bytes in: %1"
+#~ msgstr "Bytes de entrada: %1"
+
+#~ msgid "Bytes out: %1"
+#~ msgstr "Bytes de saída: %1"
