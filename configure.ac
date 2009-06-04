@@ -116,6 +116,7 @@ AC_CHECK_FUNCS([memset strtoull])
 
 AC_CONFIG_FILES([Makefile
                  mingw32-extension/Makefile
+                 data/Makefile
                  po/Makefile.in
                  src/Makefile])
 AC_OUTPUT

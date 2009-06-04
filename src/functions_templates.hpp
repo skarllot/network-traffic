@@ -28,6 +28,8 @@
 
 #include <gtkmm.h>
 
+#define NULLPOINTER static_cast<void*>(0)
+
 template <class T1, class T2>
 Glib::ustring build_filename(const T1& str1, const T2& str2)
 {
@@ -36,7 +38,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2)
 
     gchar* path;
 
-    path = g_build_filename(ustr1.c_str(), ustr2.c_str(), NULL);
+    path = g_build_filename(ustr1.c_str(), ustr2.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -52,7 +54,8 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3)
 
     gchar* path;
 
-    path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(), NULL);
+    path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
+            NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -71,7 +74,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
     gchar* path;
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
-            ustr4.c_str(), NULL);
+            ustr4.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -91,7 +94,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
     gchar* path;
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
-            ustr4.c_str(), ustr5.c_str(), NULL);
+            ustr4.c_str(), ustr5.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -112,7 +115,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
     gchar* path;
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
-            ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), NULL);
+            ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -134,7 +137,8 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
     gchar* path;
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
-            ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), ustr7.c_str(), NULL);
+            ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), ustr7.c_str(),
+            NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -160,7 +164,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
             ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), ustr7.c_str(),
-            ustr8.c_str(), NULL);
+            ustr8.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);
@@ -187,7 +191,7 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
 
     path = g_build_filename(ustr1.c_str(), ustr2.c_str(), ustr3.c_str(),
             ustr4.c_str(), ustr5.c_str(), ustr6.c_str(), ustr7.c_str(),
-            ustr8.c_str(), ustr9.c_str(), NULL);
+            ustr8.c_str(), ustr9.c_str(), NULLPOINTER);
 
     Glib::ustring r_path(path);
     g_free(path);

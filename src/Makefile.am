@@ -63,12 +63,7 @@ network_logger_LDADD += $(top_builddir)/mingw32-extension/libiphlpapi2.a
 endif
 endif
 
-glade_DATA = ui.glade
-gladedir = $(datadir)/$(PACKAGE)/glade
-
 CLEANFILES = *~
-
-EXTRA_DIST = $(glade_DATA)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

@@ -27,9 +27,6 @@
 
 gchar* glade_dir = NULL;
 gchar* locale_dir = NULL;
-#ifdef TEST
-gchar* local_path = NULL;
-#endif
 
 void build_package_paths(void)
 {
@@ -38,21 +35,23 @@ void build_package_paths(void)
     gchar* prefix;
     prefix = g_win32_get_package_installation_directory_of_module(NULL);
 
+#ifndef TEST
     glade_dir = g_build_filename(prefix, "share", PACKAGE, "glade", NULL);
-    locale_dir = g_build_filename(prefix, "share", "locale", NULL);
-#ifdef TEST
-    local_path = g_build_filename(prefix, "..", NULL);
+#else
+    glade_dir = g_build_filename(prefix, "..", "data", NULL);
 #endif
-    
+    locale_dir = g_build_filename(prefix, "share", "locale", NULL);
+
     g_free(prefix);
 
 #else /* WINNT */
 
+#ifndef TEST
     glade_dir = g_strdup(GLADEDIR);
-    locale_dir = g_strdup(NETWORK_LOGGER_LOCALEDIR);
-#ifdef TEST
-    local_path = g_strdup(LOCALPATH);
+#else
+    glade_dir = g_build_filename(LOCALPATH, "data", NULL);
 #endif
+    locale_dir = g_strdup(NETWORK_LOGGER_LOCALEDIR);
 
 #endif /* WINNT */
 }

@@ -39,12 +39,7 @@ wndMain::wndMain()
 {
     try
     {
-        Glib::ustring file_path;
-#ifndef TEST
-        file_path = build_filename(glade_dir, GLADEFILE);
-#else
-        file_path = build_filename(local_path, "src", GLADEFILE);
-#endif
+        Glib::ustring file_path = build_filename(glade_dir, GLADEFILE);
         refXml = Gnome::Glade::Xml::create(file_path, GLADEROOT);
     }
     catch (Gnome::Glade::XmlError& error)

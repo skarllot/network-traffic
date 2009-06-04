@@ -1,4 +1,26 @@
 2009-06-04  Fabrício Godoy <skarllot@gmail.com>
+    Created "data" directory to store Glade files and done fixes on global
+    variables setting.
+
+    * configure.ac: [AC_CONFIG_FILES]: Added "data/Makefile" to build list.
+
+    * data/Makefile.am, data/ui.glade: Moved "ui.glade" file to "data" directory.
+
+    * Makefile.am: [SUBDIRS]: Added "data" directory.
+
+    * src/functions_templates.hpp: (build_filename): Modified NULL parameter to
+    safest NULLPOINTER parameter.
+
+    * src/shareddef.h, src/shareddef.c: Removed unused "local_path" global
+    variable.
+
+    * src/shareddef.c: (build_package_paths): Modified to correctly set global
+    variables when TEST is defined.
+
+    * src/wndmain.cpp: (wndMain): Modified to just use "glade_dir" global
+    variable.
+
+2009-06-04  Fabrício Godoy <skarllot@gmail.com>
     Small fix and added translator comment.
 
     * src/ui.glade: Added comment to translatable message from wndMain title.

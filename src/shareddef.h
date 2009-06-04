@@ -30,9 +30,6 @@
 
 extern gchar* glade_dir;
 extern gchar* locale_dir;
-#ifdef TEST
-extern gchar* local_path;
-#endif
 
 #ifdef __cplusplus
 // Avoid C++ name mangling
