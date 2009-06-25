@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-04 00:02-0300\n"
+"POT-Creation-Date: 2009-06-16 22:50-0300\n"
 "PO-Revision-Date: 2009-06-04 00:15-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -21,37 +21,37 @@ msgid "Fatal error"
 msgstr "Erro fatal"
 
 #. Label from wndMain
-#: ../src/ui.glade.h:2
+#: ../data/ui.glade.h:2
 msgid "<b>Bytes received:</b>"
 msgstr "<b>Bytes recebidos:</b>"
 
 #. Label from wndMain
-#: ../src/ui.glade.h:4
+#: ../data/ui.glade.h:4
 msgid "<b>Bytes sent:</b>"
 msgstr "<b>Bytes enviados:</b>"
 
 #. Label from wndMain
-#: ../src/ui.glade.h:6
+#: ../data/ui.glade.h:6
 msgid "<b>Interface:</b>"
 msgstr "<b>Interface:</b>"
 
 #. wndMain Window title
-#: ../src/ui.glade.h:8
+#: ../data/ui.glade.h:8
 msgid "Network Logger"
 msgstr "Network Logger"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:10
+#: ../data/ui.glade.h:10
 msgid "_Edit"
 msgstr "_Editar"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:12
+#: ../data/ui.glade.h:12
 msgid "_File"
 msgstr "_Arquivo"
 
 #. MenuItem from wndMain
-#: ../src/ui.glade.h:14
+#: ../data/ui.glade.h:14
 msgid "_Help"
 msgstr "Aj_uda"
 
