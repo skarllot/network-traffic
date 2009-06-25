@@ -18,6 +18,8 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
+gladedir = $(datadir)/$(PACKAGE)/glade
+
 AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = \

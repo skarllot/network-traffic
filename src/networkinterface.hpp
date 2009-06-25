@@ -21,6 +21,7 @@
 #ifndef _NETWORKINTERFACE_H
 #define	_NETWORKINTERFACE_H
 
+#include <stdint.h>
 #include <glibmm/ustring.h>
 #include <vector>
 

@@ -2,6 +2,6 @@
 # Please keep this file sorted alphabetically.
 src/functions.cpp
 src/main.cpp
-src/ui.glade
+data/ui.glade
 src/windowsdef.c
 src/win_networkinterface.cpp

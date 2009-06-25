@@ -20,6 +20,7 @@
 
 #include "windowsdef.h"
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <glib/gi18n.h>
 

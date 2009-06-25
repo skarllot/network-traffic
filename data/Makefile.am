@@ -17,8 +17,9 @@
 # Authors:
 #   Fabrício Godoy <skarllot@gmail.com>
 #
-glade_DATA = ui.glade
+
 gladedir = $(datadir)/$(PACKAGE)/glade
+glade_DATA = ui.glade
 
 EXTRA_DIST = $(glade_DATA)
 

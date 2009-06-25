@@ -19,7 +19,7 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
-AC_PREREQ([2.54])
+AC_PREREQ([2.61])
 AC_INIT([Network Logger],[0.1.0],
         [http://code.google.com/p/network-logger/issues],
         [network-logger])
@@ -28,7 +28,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([src])
 AC_CONFIG_HEADERS([config.h])
 
-AM_INIT_AUTOMAKE([1.9 -Wall -Werror -Woverride dist-zip])
+AM_INIT_AUTOMAKE([1.9 -Wall -Werror -Woverride])
 
 # Check build environment
 AC_CANONICAL_HOST
@@ -75,13 +75,13 @@ AC_MSG_CHECKING([for native Win32])
 case "$host_os" in
   *mingw*)
     iswin32=yes
-    AC_MSG_RESULT(yes)
+    AC_DEFINE(WIN32_LEAN_AND_MEAN, 1, [Define for faster code generation.])
     ;;
   *)
     iswin32=no
-    AC_MSG_RESULT(no)
     ;;
 esac
+AC_MSG_RESULT([$iswin32])
 
 AM_CONDITIONAL(OS_WIN32, [test "$iswin32" = "yes"])
 

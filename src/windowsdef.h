@@ -31,7 +31,12 @@
 #define WINVER 0x0502
 #endif /* WINVER */
 
+#if WINVER < 0x0502
+#error WINVER should be greater or equal 0x0502.
+#endif
+
 #include <windows.h>
+#include <winsock2.h>
 
 #define MALLOC(x) HeapAlloc(GetProcessHeap(), 0, (x))
 #define FREE(x) HeapFree(GetProcessHeap(), 0, (x))

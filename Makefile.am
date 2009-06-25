@@ -36,6 +36,9 @@ EXTRA_DIST = \
 
 CLEANFILES = *~
 
+DISTCLEANFILES = \
+    mingw32-config.cache
+
 MAINTAINERCLEANFILES = \
     build-aux/compile \
     build-aux/config.guess \
@@ -46,14 +49,14 @@ MAINTAINERCLEANFILES = \
     build-aux/mkinstalldirs \
     po/Makefile.in.in \
     aclocal.m4 \
+    autoscan.log \
     config.h.in \
     configure \
-    Makefile.in \
-    autoscan.log \
     configure.scan \
     intltool-extract.in \
     intltool-merge.in \
     intltool-update.in \
+    Makefile.in \
     po/.intltool-merge-cache \
     po/missing
 

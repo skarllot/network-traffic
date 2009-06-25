@@ -1,3 +1,32 @@
+2009-06-24  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to correct compile on Windows systems and fixed required
+    modifications to moved "ui.glade" file.
+
+    * configure.ac:
+    [AC_PREREQ]: Fixed to require version 2.61.
+    [AM_INIT_AUTOMAKE]: Modified to not create zip distribution archive.
+    [WIN32_LEAN_AND_MEAN]: Added to generate faster code to Windows systems.
+
+    * Makefile.am:
+    [DISTCLEANFILES]: Added mingw32-config.cache file.
+    [MAINTAINERCLEANFILES]: Files alphabetically sorted.
+
+    * data/Makefile.am: Code reordered.
+
+    * src/Makefile.am: Added gladedir variable.
+
+    * src/networkinterface.hpp: Added "stdint.h" header file to define uint64_t.
+
+    * src/windowsdef.h: Modification to show compile error if WINVER is defined
+    less than 0x0502.
+
+    * src/windowsdef.h: Added "winsock2.h" header file, required by used
+    iphlpapi.h functions and types.
+
+    * src/windowsdef.c: Added "stdlib.h" header file to define EXIT_FAILURE.
+
+    * po/POTFILES.in: Modified "ui.glade" file path.
+
 2009-06-04  Fabrício Godoy <skarllot@gmail.com>
     Created "data" directory to store Glade files and done fixes on global
     variables setting.
