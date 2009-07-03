@@ -103,6 +103,7 @@ AC_ARG_ENABLE(testing,
     AC_DEFINE(TEST,,[Code for testing purposes])
     AC_DEFINE_UNQUOTED(LOCALPATH, "$PWD", [Defines local compile path])
 ])
+AM_CONDITIONAL(TEST, test "x$enabletest" = "x1")
 
 # Checks for header files.
 AC_HEADER_STDC

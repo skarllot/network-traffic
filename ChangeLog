@@ -1,3 +1,16 @@
+2009-07-03  Fabrício Godoy <skarllot@gmail.com>
+    Modifications to not show console window if not testing and fixed compile
+    error on MinGW.
+
+    * configure.ac: Modified to define TEST variable to automake if testing
+    argument is used.
+
+    * src/Makefile.am: Modification to not show console on Windows if testing
+    argument is not used
+
+    * src/windowsdef.c: (check_version): Workaround to fix compile error on
+    MinGW.
+
 2009-06-24  Fabrício Godoy <skarllot@gmail.com>
     Modifications to correct compile on Windows systems and fixed required
     modifications to moved "ui.glade" file.

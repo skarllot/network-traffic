@@ -21,7 +21,7 @@
 #include "windowsdef.h"
 
 #include <stdlib.h>
-#include <stdio.h>
+#include <glib.h>
 #include <glib/gi18n.h>
 
 int check_version(void)
@@ -60,7 +60,7 @@ int check_version(void)
 
 #endif /* WINNT */
 
-        printf(_(msg));
+        g_print(_(msg));
         return (EXIT_FAILURE);
 
 #ifdef WINNT

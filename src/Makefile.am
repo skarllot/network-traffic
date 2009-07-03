@@ -59,6 +59,9 @@ network_logger_CXXFLAGS = \
     $(DEPS_CXX_CFLAGS)
 
 if OS_WIN32
+if !TEST
+network_logger_LDFLAGS = -mwindows
+endif
 network_logger_LDADD += -liphlpapi -lintl
 if OS_WINVISTA
 network_logger_LDADD += $(top_builddir)/mingw32-extension/libiphlpapi2.a
