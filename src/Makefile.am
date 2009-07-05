@@ -1,5 +1,6 @@
+# vim:set ts=8 sw=8 noexpandtab nowrap textwidth=80
 #
-# Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+# Copyright (C) 2009 FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 # Authors:
-#   Fabrício Godoy <skarllot@gmail.com>
+#   FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 
 gladedir = $(datadir)/$(PACKAGE)/glade
@@ -23,22 +24,22 @@ gladedir = $(datadir)/$(PACKAGE)/glade
 AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = \
-    -I $(top_srcdir) \
-    -DGLADEDIR=\""$(gladedir)"\"
+	-I $(top_srcdir) \
+	-DGLADEDIR=\""$(gladedir)"\"
 
 bin_PROGRAMS = network-logger
 network_logger_SOURCES = \
-    functions.hpp \
-    functions_templates.hpp \
-    functions.cpp \
-    i18n.hpp \
-    main.cpp \
-    networkinterface.hpp \
-    networkinterface.cpp \
-    shareddef.h \
-    shareddef.c \
-    wndmain.hpp \
-    wndmain.cpp
+	functions.hpp \
+	functions_templates.hpp \
+	functions.cpp \
+	i18n.hpp \
+	main.cpp \
+	networkinterface.hpp \
+	networkinterface.cpp \
+	shareddef.h \
+	shareddef.c \
+	wndmain.hpp \
+	wndmain.cpp
 if !OS_WIN32
 network_logger_SOURCES += \
 	nix_networkinterface.hpp \
@@ -52,11 +53,11 @@ network_logger_SOURCES += \
 endif
 
 network_logger_LDADD = \
-    $(DEPS_CXX_LIBS)
+	$(DEPS_CXX_LIBS)
 network_logger_CFLAGS = \
-    $(DEPS_C_CFLAGS)
+	$(DEPS_C_CFLAGS)
 network_logger_CXXFLAGS = \
-    $(DEPS_CXX_CFLAGS)
+	$(DEPS_CXX_CFLAGS)
 
 if OS_WIN32
 if !TEST

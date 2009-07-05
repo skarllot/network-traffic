@@ -1,5 +1,6 @@
+# vim:set ts=8 sw=8 noexpandtab nowrap textwidth=80
 #
-# Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+# Copyright (C) 2009 FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +16,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 # Authors:
-#   Fabrício Godoy <skarllot@gmail.com>
+#   FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 
 gladedir = $(datadir)/$(PACKAGE)/glade

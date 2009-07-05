@@ -1,4 +1,6 @@
-# Copyright (C) 2009 Fabrício Godoy <skarllot@gmail.com>
+# vim:set ts=8 sw=8 noexpandtab nowrap textwidth=80
+#
+# Copyright (C) 2009 FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,49 +16,49 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 # Authors:
-#   Fabrício Godoy <skarllot@gmail.com>
+#   FabrÃ­cio Godoy <skarllot@gmail.com>
 #
 
 SUBDIRS = \
-    mingw32-extension \
-    data \
-    src \
-    po
+	mingw32-extension \
+	data \
+	src \
+	po
 
 INTLTOOL_FILES = \
-    intltool-extract.in \
-    intltool-merge.in \
-    intltool-update.in
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
 
 EXTRA_DIST = \
-    HACKING \
-    intltool-extract.in \
-    intltool-merge.in \
-    intltool-update.in
+	HACKING \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in
 
 CLEANFILES = *~
 
 DISTCLEANFILES = \
-    mingw32-config.cache
+	mingw32-config.cache
 
 MAINTAINERCLEANFILES = \
-    build-aux/compile \
-    build-aux/config.guess \
-    build-aux/config.sub \
-    build-aux/depcomp \
-    build-aux/install-sh \
-    build-aux/missing \
-    build-aux/mkinstalldirs \
-    po/Makefile.in.in \
-    aclocal.m4 \
-    autoscan.log \
-    config.h.in \
-    configure \
-    configure.scan \
-    intltool-extract.in \
-    intltool-merge.in \
-    intltool-update.in \
-    Makefile.in \
-    po/.intltool-merge-cache \
-    po/missing
+	build-aux/compile \
+	build-aux/config.guess \
+	build-aux/config.sub \
+	build-aux/depcomp \
+	build-aux/install-sh \
+	build-aux/missing \
+	build-aux/mkinstalldirs \
+	po/Makefile.in.in \
+	aclocal.m4 \
+	autoscan.log \
+	config.h.in \
+	configure \
+	configure.scan \
+	intltool-extract.in \
+	intltool-merge.in \
+	intltool-update.in \
+	Makefile.in \
+	po/.intltool-merge-cache \
+	po/missing
 
