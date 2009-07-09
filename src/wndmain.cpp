@@ -24,11 +24,11 @@
 #include <config.h>
 #endif
 #ifdef WINNT
-#include "windowsdef.h"
+#include "utils/windowsdef.h"
 #endif
 #include <string>
-#include "functions.hpp"
-#include "i18n.hpp"
+#include "utils/functions.hpp"
+#include "utils/i18n.hpp"
 #include "shareddef.h"
 
 #define GLADEFILE "ui.glade"

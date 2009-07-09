@@ -24,7 +24,7 @@
 #include <vector>
 #include <gtkmm.h>
 #include <libglademm.h>
-#include "networkinterface.hpp"
+#include "core/networkinterface.hpp"
 
 /** Class to manage wndMain Window widget.
  */

@@ -24,12 +24,12 @@
 
 #include <stdlib.h>
 #include <gtkmm.h>
-#include "i18n.hpp"
+#include "utils/i18n.hpp"
 #include "shareddef.h"
 #include "wndmain.hpp"
 
 #if (defined(WIN32) || defined(WINNT))
-#include "windowsdef.h"
+#include "utils/windowsdef.h"
 #endif
 
 int main(int argc, char** argv)

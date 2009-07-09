@@ -19,20 +19,27 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
-if OS_WIN32
-if OS_WINVISTA
-libiphlpapi2.a: iphlpapi.def
-	$(DLLTOOL) -k -l libiphlpapi2.a --def iphlpapi.def
+AM_CFLAGS = -Wall
+AM_CXXFLAGS = -Wall
+AM_CPPFLAGS = -I $(top_srcdir)/src
 
-BUILT_SOURCES = libiphlpapi2.a
+noinst_LIBRARIES = libnetlog-core.a
 
-CLEANFILES = libiphlpapi2.a
+libnetlog_core_a_SOURCES = \
+	networkinterface.hpp \
+	networkinterface.cpp
+if !OS_WIN32
+libnetlog_core_a_SOURCES += \
+	nix_networkinterface.hpp \
+	nix_networkinterface.cpp
+else
+libnetlog_core_a_SOURCES += \
+	win_networkinterface.hpp \
+	win_networkinterface.cpp
 endif
-endif
 
-EXTRA_DIST = \
-	iphlpapi2.h \
-	iphlpapi.def
+libnetlog_core_a_CXXFLAGS = \
+	$(CORE_DEPS_CFLAGS)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

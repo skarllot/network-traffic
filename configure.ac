@@ -25,7 +25,7 @@ AC_INIT([Network Logger],[0.1.0],
         [network-logger])
 
 AC_CONFIG_AUX_DIR([build-aux])
-AC_CONFIG_SRCDIR([src])
+AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
@@ -46,7 +46,21 @@ AM_PROG_CC_C_O
 
 AC_LANG([C++])
 
+# ------------------------------------------------------------------------------
 # Checks for libraries.
+# ------------------------------------------------------------------------------
+PKG_CHECK_MODULES([UTILS_DEPS_C],[glib-2.0])
+AC_SUBST(UTILS_DEPS_C_CFLAGS)
+AC_SUBST(UTILS_DEPS_C_LIBS)
+
+PKG_CHECK_MODULES([UTILS_DEPS_CXX],[gtkmm-2.4])
+AC_SUBST(UTILS_DEPS_CXX_CFLAGS)
+AC_SUBST(UTILS_DEPS_CXX_LIBS)
+
+PKG_CHECK_MODULES([CORE_DEPS],[glibmm-2.4])
+AC_SUBST(CORE_DEPS_CFLAGS)
+AC_SUBST(CORE_DEPS_LIBS)
+
 PKG_CHECK_MODULES([DEPS_C],[glib-2.0])
 AC_SUBST(DEPS_C_CFLAGS)
 AC_SUBST(DEPS_C_LIBS)
@@ -109,19 +123,22 @@ AM_CONDITIONAL(TEST, test "x$enabletest" = "x1")
 
 # Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h string.h])
+AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
 AC_TYPE_UINT64_T
 
 # Checks for library functions.
 AC_CHECK_FUNCS([memset strtoull])
 
 AC_CONFIG_FILES([Makefile
-                 mingw32-extension/Makefile
                  data/Makefile
                  po/Makefile.in
-                 src/Makefile])
+                 src/Makefile
+                 src/core/Makefile
+                 src/mingw32-extension/Makefile
+                 src/utils/Makefile])
 AC_OUTPUT
 
 echo "

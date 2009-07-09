@@ -24,7 +24,7 @@
 #include "networkinterface.hpp"
 
 #include <map>
-#include "windowsdef.h"
+#include "utils/windowsdef.h"
 #include <iphlpapi.h>
 
 #if (WINVER >= 0x0600)

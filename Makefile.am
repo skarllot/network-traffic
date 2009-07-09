@@ -20,7 +20,6 @@
 #
 
 SUBDIRS = \
-	mingw32-extension \
 	data \
 	src \
 	po

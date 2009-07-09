@@ -19,47 +19,26 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
-SUBDIRS = \
-	mingw32-extension \
-	utils \
-	core
-
-gladedir = $(datadir)/$(PACKAGE)/glade
-
 AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
-AM_CPPFLAGS = -DGLADEDIR=\""$(gladedir)"\"
 
-bin_PROGRAMS = network-logger
-network_logger_SOURCES = \
-	main.cpp \
-	shareddef.h \
-	shareddef.c \
-	wndmain.hpp \
-	wndmain.cpp
+noinst_LIBRARIES = libnetlog-utils.a
 
-network_logger_LDADD = \
-	$(top_srcdir)/src/utils/libnetlog-utils.a \
-	$(top_srcdir)/src/core/libnetlog-core.a \
-	$(DEPS_CXX_LIBS)
-network_logger_CFLAGS = \
-	$(DEPS_C_CFLAGS)
-network_logger_CXXFLAGS = \
-	$(DEPS_CXX_CFLAGS)
-
+libnetlog_utils_a_SOURCES = \
+	functions.hpp \
+	functions_templates.hpp \
+	functions.cpp \
+	i18n.hpp
 if OS_WIN32
-network_logger_LDADD += -lintl
-if !TEST
-network_logger_LDFLAGS = -mwindows
-endif
-# ----- libnetlog-core -----
-network_logger_LDADD += -liphlpapi
-if OS_WINVISTA
-network_logger_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
-endif
+libnetlog_utils_a_SOURCES += \
+	windowsdef.h \
+	windowsdef.c
 endif
 
-CLEANFILES = *~
+libnetlog_utils_a_CFLAGS = \
+	$(UTILS_DEPS_C_CFLAGS)
+libnetlog_utils_a_CXXFLAGS = \
+	$(UTILS_DEPS_CXX_CFLAGS)
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

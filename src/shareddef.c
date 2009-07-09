@@ -22,7 +22,7 @@
 #include "shareddef.h"
 
 #ifdef WINNT
-#include "windowsdef.h"
+#include "utils/windowsdef.h"
 #endif
 
 gchar* glade_dir = NULL;

@@ -22,7 +22,7 @@
 
 #include <iomanip>
 #include <glib.h> // To g_utf16_to_utf8(...) function
-#include "i18n.hpp"
+#include "utils/i18n.hpp"
 
 #ifdef GLIBMM_HAVE_WIDE_STREAM
 #define IFMAC_DEFAULTFORMAT std::hex, std::setfill(L'0'), std::setw(2), \
