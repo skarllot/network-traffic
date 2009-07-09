@@ -1,4 +1,9 @@
 2009-07-09  Fabrício Godoy <skarllot@gmail.com>
+    Updated localizable file list.
+
+    po/POTFILES.in: Updated file list.
+
+2009-07-09  Fabrício Godoy <skarllot@gmail.com>
     Code organized into libraries.
 
     * Makefile.am, src/mingw32-extension/Makefile.am,
