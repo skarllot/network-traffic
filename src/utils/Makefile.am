@@ -22,22 +22,22 @@
 AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 
-noinst_LIBRARIES = libnetlog-utils.a
+noinst_LIBRARIES = libnettraffic-utils.a
 
-libnetlog_utils_a_SOURCES = \
+libnettraffic_utils_a_SOURCES = \
 	functions.hpp \
 	functions_templates.hpp \
 	functions.cpp \
 	i18n.hpp
 if OS_WIN32
-libnetlog_utils_a_SOURCES += \
+libnettraffic_utils_a_SOURCES += \
 	windowsdef.h \
 	windowsdef.c
 endif
 
-libnetlog_utils_a_CFLAGS = \
+libnettraffic_utils_a_CFLAGS = \
 	$(UTILS_DEPS_C_CFLAGS)
-libnetlog_utils_a_CXXFLAGS = \
+libnettraffic_utils_a_CXXFLAGS = \
 	$(UTILS_DEPS_CXX_CFLAGS)
 
 MAINTAINERCLEANFILES = \

@@ -30,32 +30,32 @@ AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = -DGLADEDIR=\""$(gladedir)"\"
 
-bin_PROGRAMS = network-logger
-network_logger_SOURCES = \
+bin_PROGRAMS = network-traffic
+network_traffic_SOURCES = \
 	main.cpp \
 	shareddef.h \
 	shareddef.c \
 	wndmain.hpp \
 	wndmain.cpp
 
-network_logger_LDADD = \
-	$(top_srcdir)/src/utils/libnetlog-utils.a \
-	$(top_srcdir)/src/core/libnetlog-core.a \
+network_traffic_LDADD = \
+	$(top_srcdir)/src/utils/libnettraffic-utils.a \
+	$(top_srcdir)/src/core/libnettraffic-core.a \
 	$(DEPS_CXX_LIBS)
-network_logger_CFLAGS = \
+network_traffic_CFLAGS = \
 	$(DEPS_C_CFLAGS)
-network_logger_CXXFLAGS = \
+network_traffic_CXXFLAGS = \
 	$(DEPS_CXX_CFLAGS)
 
 if OS_WIN32
-network_logger_LDADD += -lintl
+network_traffic_LDADD += -lintl
 if !TEST
-network_logger_LDFLAGS = -mwindows
+network_traffic_LDFLAGS = -mwindows
 endif
-# ----- libnetlog-core -----
-network_logger_LDADD += -liphlpapi
+# ----- libnettraffic-core -----
+network_traffic_LDADD += -liphlpapi
 if OS_WINVISTA
-network_logger_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
+network_traffic_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
 endif
 endif
 

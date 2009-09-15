@@ -23,22 +23,22 @@ AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = -I $(top_srcdir)/src
 
-noinst_LIBRARIES = libnetlog-core.a
+noinst_LIBRARIES = libnettraffic-core.a
 
-libnetlog_core_a_SOURCES = \
+libnettraffic_core_a_SOURCES = \
 	networkinterface.hpp \
 	networkinterface.cpp
 if !OS_WIN32
-libnetlog_core_a_SOURCES += \
+libnettraffic_core_a_SOURCES += \
 	nix_networkinterface.hpp \
 	nix_networkinterface.cpp
 else
-libnetlog_core_a_SOURCES += \
+libnettraffic_core_a_SOURCES += \
 	win_networkinterface.hpp \
 	win_networkinterface.cpp
 endif
 
-libnetlog_core_a_CXXFLAGS = \
+libnettraffic_core_a_CXXFLAGS = \
 	$(CORE_DEPS_CFLAGS)
 
 MAINTAINERCLEANFILES = \

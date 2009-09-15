@@ -51,7 +51,7 @@ void build_package_paths(void)
 #else
     glade_dir = g_build_filename(LOCALPATH, "data", NULL);
 #endif
-    locale_dir = g_strdup(NETWORK_LOGGER_LOCALEDIR);
+    locale_dir = g_strdup(NETWORK_TRAFFIC_LOCALEDIR);
 
 #endif /* WINNT */
 }

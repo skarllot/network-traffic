@@ -20,9 +20,9 @@
 #
 
 AC_PREREQ([2.61])
-AC_INIT([Network Logger],[0.1.0],
-        [http://code.google.com/p/network-logger/issues],
-        [network-logger])
+AC_INIT([Network Traffic],[0.1.0],
+        [http://github.com/skarllot/network-traffic/issues],
+        [network-traffic])
 
 AC_CONFIG_AUX_DIR([build-aux])
 AC_CONFIG_SRCDIR([src/main.cpp])
@@ -73,13 +73,13 @@ AC_SUBST(DEPS_CXX_LIBS)
 # ------------------------------------------------------------------------------
 # Internationalization
 # ------------------------------------------------------------------------------
-GETTEXT_PACKAGE=network-logger
+GETTEXT_PACKAGE=network-traffic
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED([GETTEXT_PACKAGE], ["$GETTEXT_PACKAGE"],
                    [the gettext translation domain])
 
 AM_GLIB_GNU_GETTEXT
-GLIB_DEFINE_LOCALEDIR(NETWORK_LOGGER_LOCALEDIR)
+GLIB_DEFINE_LOCALEDIR(NETWORK_TRAFFIC_LOCALEDIR)
 
 IT_PROG_INTLTOOL([0.35.1])
 
@@ -142,7 +142,7 @@ AC_CONFIG_FILES([Makefile
 AC_OUTPUT
 
 echo "
-network-logger-$VERSION:
+network-traffic-$VERSION:
 
     prefix:                 ${prefix}
     source code location:   ${srcdir}

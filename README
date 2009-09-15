@@ -1,12 +1,12 @@
-Network Logger
-==============
+Network Traffic
+===============
 
-Network Logger is an application that write logs from network usage, that is,
+Network Traffic is an application that write logs from network traffic, that is,
 how many bytes was sent and received from your network interface.
-Useful when your internet provider restrict your network usage.
+Useful when your internet provider restrict your network traffic.
 
 You can download or see more information about it on:
-	http://code.google.com/p/network-logger/
+	http://skarllot.github.com/network-traffic
 
 
 Installation
@@ -24,7 +24,8 @@ See NEWS file.
 How to report bugs
 ==================
 
-Bugs should be reported in http://code.google.com/p/network-logger/issues page.
+Bugs should be reported in http://github.com/skarllot/network-traffic/issues
+page.
 
 
 Contact
