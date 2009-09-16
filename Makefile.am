@@ -38,7 +38,8 @@ EXTRA_DIST = \
 CLEANFILES = *~
 
 DISTCLEANFILES = \
-	mingw32-config.cache
+	mingw32-config.cache \
+	po/.intltool-merge-cache
 
 MAINTAINERCLEANFILES = \
 	build-aux/compile \
@@ -58,6 +59,5 @@ MAINTAINERCLEANFILES = \
 	intltool-merge.in \
 	intltool-update.in \
 	Makefile.in \
-	po/.intltool-merge-cache \
 	po/missing
 
