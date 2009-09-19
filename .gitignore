@@ -16,6 +16,7 @@ intltool-extract.in
 intltool-merge.in
 intltool-update.in
 Makefile*
+!Makefile.am
 missing
 po/POTFILES
 po/stamp-it
