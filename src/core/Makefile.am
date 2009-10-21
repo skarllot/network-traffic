@@ -30,8 +30,8 @@ libnettraffic_core_a_SOURCES = \
 	networkinterface.cpp
 if !OS_WIN32
 libnettraffic_core_a_SOURCES += \
-	nix_networkinterface.hpp \
-	nix_networkinterface.cpp
+	linux_networkinterface.hpp \
+	linux_networkinterface.cpp
 else
 libnettraffic_core_a_SOURCES += \
 	win_networkinterface.hpp \

@@ -18,7 +18,7 @@
  *
  */
 
-#include "nix_networkinterface.hpp"
+#include "linux_networkinterface.hpp"
 
 #include <fstream>
 #include <stdlib.h>
@@ -31,15 +31,16 @@
 #include <dirent.h>
 //#include <arpa/inet.h> */
 
-// define paths to network information files
-#define NET_INFO_ROOT "/sys/class/net/"
-#define NET_ADDRESS_SUFFIX "/address"
-#define NET_STATISTICS_RX_SUFFIX "/statistics/rx_bytes"
-#define NET_STATISTICS_TX_SUFFIX "/statistics/tx_bytes"
+// sysfs paths
+#define SYSFS_NET_CLASS "/sys/class/net"
+#define SYSFS_IFADDRESS SYSFS_NET_CLASS "/%1/address"
+#define SYSFS_IFRX SYSFS_NET_CLASS "/%1/statistics/rx_bytes"
+#define SYSFS_IFTX SYSFS_NET_CLASS "/%1/statistics/tx_bytes"
 
-std::map<ifaddrs*, int> nix_NetworkInterface::ifs_references;
 
-nix_NetworkInterface::nix_NetworkInterface(const ifaddrs* ifinfo,
+std::map<ifaddrs*, int> linux_NetworkInterface::ifs_references;
+
+linux_NetworkInterface::linux_NetworkInterface(const ifaddrs* ifinfo,
         ifaddrs* firstinfo)
 {
     this->ifinfo.push_back(*ifinfo);
@@ -53,7 +54,7 @@ nix_NetworkInterface::nix_NetworkInterface(const ifaddrs* ifinfo,
         iter->second++; // increases reference counting
 }
 
-nix_NetworkInterface::~nix_NetworkInterface()
+linux_NetworkInterface::~linux_NetworkInterface()
 {
     std::map<ifaddrs*, int>::iterator iter;
     iter = ifs_references.find(firstinfo);
@@ -66,16 +67,16 @@ nix_NetworkInterface::~nix_NetworkInterface()
     }
 }
 
-void nix_NetworkInterface::add_info(const ifaddrs* ifinfo)
+void linux_NetworkInterface::add_info(const ifaddrs* ifinfo)
 {
     this->ifinfo.push_back(*ifinfo);
 }
 
-std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces()
+std::vector<NetworkInterface*> linux_NetworkInterface::get_all_network_interfaces()
 {
     std::vector<NetworkInterface*> ifs;
-    std::map<std::string, nix_NetworkInterface*> ifsmap;
-    std::map<std::string, nix_NetworkInterface*>::iterator it_ifsmap;
+    std::map<std::string, linux_NetworkInterface*> ifsmap;
+    std::map<std::string, linux_NetworkInterface*>::iterator it_ifsmap;
 
     ifaddrs* ifsinfo = NULL;
     getifaddrs(&ifsinfo);
@@ -85,11 +86,11 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
     while (curIfsinfo)
     {
         it_ifsmap = ifsmap.find(curIfsinfo->ifa_name);
-        nix_NetworkInterface* currnetif;
+        linux_NetworkInterface* currnetif;
 
         if (it_ifsmap == ifsmap.end()) // If this interface is not added
         {
-            currnetif = new nix_NetworkInterface(curIfsinfo, ifsinfo);
+            currnetif = new linux_NetworkInterface(curIfsinfo, ifsinfo);
             ifs.push_back(currnetif);
             ifsmap[curIfsinfo->ifa_name] = currnetif;
         }
@@ -107,20 +108,20 @@ std::vector<NetworkInterface*> nix_NetworkInterface::get_all_network_interfaces(
     return ifs;
 }
 
-uint64_t nix_NetworkInterface::get_bytes_received()
+uint64_t linux_NetworkInterface::get_bytes_received()
 {
     // TODO: test if_data struct at <net/if.h>
-    std::string rbytes = this->read_info(NET_STATISTICS_RX_SUFFIX);
+    std::string rbytes = this->read_sysfs(SYSFS_IFRX);
     return strtoull(rbytes.c_str(), NULL, 0);
 }
 
-uint64_t nix_NetworkInterface::get_bytes_sent()
+uint64_t linux_NetworkInterface::get_bytes_sent()
 {
-    std::string tbytes = this->read_info(NET_STATISTICS_TX_SUFFIX);
+    std::string tbytes = this->read_sysfs(SYSFS_IFTX);
     return strtoull(tbytes.c_str(), NULL, 0);
 }
 
-int nix_NetworkInterface::get_interface_count()
+int linux_NetworkInterface::get_interface_count()
 {
     ifaddrs* ifsinfo = NULL;
     getifaddrs(&ifsinfo);
@@ -138,33 +139,31 @@ int nix_NetworkInterface::get_interface_count()
     return count;
 }
 
-Glib::ustring nix_NetworkInterface::get_internal_name()
+Glib::ustring linux_NetworkInterface::get_internal_name()
 {
     return this->get_name();
 }
 
-Glib::ustring nix_NetworkInterface::get_name()
+Glib::ustring linux_NetworkInterface::get_name()
 {
     Glib::ustring name(this->ifinfo[0].ifa_name);
     return name;
 }
 
-Glib::ustring nix_NetworkInterface::get_physical_address()
+Glib::ustring linux_NetworkInterface::get_physical_address()
 {
-    std::string paddr = this->read_info(NET_ADDRESS_SUFFIX);
+    std::string paddr = this->read_sysfs(SYSFS_IFADDRESS);
     return paddr;
 }
 
-std::string nix_NetworkInterface::read_info(std::string suffix)
+std::string linux_NetworkInterface::read_sysfs(std::string path)
 {
-    // Reads from pseudo file
-    std::string filename(NET_INFO_ROOT);
-    filename += this->ifinfo[0].ifa_name;
-    filename += suffix;
+    std::string filename = Glib::ustring::compose(path,
+            this->ifinfo[0].ifa_name);
 
     std::ifstream fs(filename.c_str());
     std::string strvalue;
-    getline(fs, strvalue);
+    std::getline(fs, strvalue);
     fs.close();
 
     return strvalue;

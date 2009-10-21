@@ -28,10 +28,10 @@
 
 /** Class that provides basic network interface information for *nix systems.
  */
-class nix_NetworkInterface : NetworkInterface
+class linux_NetworkInterface : NetworkInterface
 {
 public:
-    virtual ~nix_NetworkInterface();
+    virtual ~linux_NetworkInterface();
 
     /** Gets NetworkInterface instances for all network interfaces found in
      * current system.
@@ -73,18 +73,18 @@ private:
      * @param ifinfo Network interface native information.
      * @param firstinfo Network interface got by linked list.
      */
-    nix_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* firstinfo);
+    linux_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* firstinfo);
 
     /** Add info for same interface but different protocol (e.g. IPv6)
      *
      * @param ifinfo Network interface native information.
      */
     void add_info(const ifaddrs* ifinfo);
-    /** Reads network information file given its final path.
+    /** Reads sysfs network information file.
      *
-     * @param suffix The suffix of path where information file is read from.
+     * @param path The file where information is read from.
      */
-    std::string read_info(std::string suffix);
+    std::string read_sysfs(std::string path);
 
     /// Current native network interface information list.
     std::vector<ifaddrs> ifinfo;

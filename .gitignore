@@ -13,6 +13,7 @@ configure
 intltool-extract.in
 intltool-merge.in
 intltool-update.in
+nbproject
 Makefile*
 po/POTFILES
 po/stamp-it
