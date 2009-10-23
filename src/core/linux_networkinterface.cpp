@@ -28,13 +28,6 @@
 #include <sys/types.h>
 #include <dirent.h>
 
-/* Test
-#include <iostream>
-#include <sys/socket.h>
-#include <netdb.h>
-#include <dirent.h>
-//#include <arpa/inet.h> */
-
 // sysfs paths
 #define SYSFS_NET_CLASS "/sys/class/net"
 #define SYSFS_IFADDRESS SYSFS_NET_CLASS "/%1/address"
@@ -76,7 +69,6 @@ std::vector<NetworkInterface*> linux_NetworkInterface::get_all_network_interface
 
 uint64_t linux_NetworkInterface::get_bytes_received()
 {
-    // TODO: test if_data struct at <net/if.h>
     std::string rbytes = this->read_sysfs(SYSFS_IFRX);
     return strtoull(rbytes.c_str(), NULL, 0);
 }
@@ -134,72 +126,5 @@ std::string linux_NetworkInterface::read_sysfs(std::string path)
 
     return strvalue;
 }
-
-/*
- *
-int nix_NetworkInterface::test_code()
-{
-    DIR* dirp;
-    struct dirent* entry;
-
-    if (dirp = opendir("/sys/class/net"))
-    {
-        readdir(dirp); // .
-        readdir(dirp); // ..
-        while (entry = readdir(dirp))
-            std::cout << entry->d_name << std::endl;
-        closedir(dirp);
-    }
-
-    std::cout << "----------" << std::endl;
-
-    struct ifaddrs* ifs;
-    getifaddrs(&ifs);
-
-    struct ifaddrs* curIfs;
-    curIfs = ifs;
-    while (curIfs)
-    {
-        std::cout << "Name: " << curIfs->ifa_name << std::endl;
-        if (curIfs->ifa_addr)
-        {
-            char name[NI_MAXHOST];
-            memset(name, 0, NI_MAXHOST);
-            getnameinfo(curIfs->ifa_addr, sizeof (sockaddr_storage), name, sizeof (name),
-                    NULL, 0, NI_NUMERICHOST);
-            std::string strname(name);
-            std::cout << "Gen addr: " << strname << " -> " << strname.length() << std::endl;
-
-            // ---
-
-            std::string filename("/sys/class/net/");
-            filename.append(curIfs->ifa_name).append("/statistics/rx_bytes");
-            std::ifstream fs(filename.c_str());
-            std::string rbytes;
-
-            getline(fs, rbytes);
-            fs.close();
-            std::cout << "R. bytes: " << rbytes << std::endl;
-
-            // ---
-
-            std::string filename2("/sys/class/net/");
-            filename2.append(curIfs->ifa_name).append("/statistics/tx_bytes");
-            std::ifstream fs2(filename2.c_str());
-            std::string tbytes;
-
-            getline(fs2, tbytes);
-            fs2.close();
-            std::cout << "T. bytes: " << tbytes << std::endl;
-        }
-        std::cout << "------------------------------------------------------" <<
-                std::endl;
-
-        curIfs = curIfs->ifa_next;
-    }
-
-    freeifaddrs(ifs);
-}
- */
 
 #endif

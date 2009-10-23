@@ -22,8 +22,6 @@
 #define	_NIX_NETWORKINTERFACE_H
 
 #include "networkinterface.hpp"
-#include <ifaddrs.h>
-#include <map>
 #include <string.h>
 
 /** Class that provides basic network interface information for *nix systems.
