@@ -18,11 +18,15 @@
  *
  */
 
+#ifdef __linux__
+
 #include "linux_networkinterface.hpp"
 
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
+#include <sys/types.h>
+#include <dirent.h>
 
 /* Test
 #include <iostream>
@@ -34,78 +38,40 @@
 // sysfs paths
 #define SYSFS_NET_CLASS "/sys/class/net"
 #define SYSFS_IFADDRESS SYSFS_NET_CLASS "/%1/address"
-#define SYSFS_IFRX SYSFS_NET_CLASS "/%1/statistics/rx_bytes"
-#define SYSFS_IFTX SYSFS_NET_CLASS "/%1/statistics/tx_bytes"
+#define SYSFS_IFRX      SYSFS_NET_CLASS "/%1/statistics/rx_bytes"
+#define SYSFS_IFTX      SYSFS_NET_CLASS "/%1/statistics/tx_bytes"
 
 
-std::map<ifaddrs*, int> linux_NetworkInterface::ifs_references;
-
-linux_NetworkInterface::linux_NetworkInterface(const ifaddrs* ifinfo,
-        ifaddrs* firstinfo)
+linux_NetworkInterface::linux_NetworkInterface(const char* ifname)
 {
-    this->ifinfo.push_back(*ifinfo);
-    this->firstinfo = firstinfo; // pointer that must be freed
-
-    std::map<ifaddrs*, int>::iterator iter;
-    iter = ifs_references.find(firstinfo);
-    if (iter == ifs_references.end())
-        ifs_references[firstinfo] = 1; // first reference
-    else
-        iter->second++; // increases reference counting
+    this->ifname = ifname;
 }
 
 linux_NetworkInterface::~linux_NetworkInterface()
 {
-    std::map<ifaddrs*, int>::iterator iter;
-    iter = ifs_references.find(firstinfo);
-    iter->second--; // decreases reference count
-
-    if (iter->second == 0) // last reference
-    {
-        ifs_references.erase(iter);
-        freeifaddrs(firstinfo);
-    }
-}
-
-void linux_NetworkInterface::add_info(const ifaddrs* ifinfo)
-{
-    this->ifinfo.push_back(*ifinfo);
 }
 
 std::vector<NetworkInterface*> linux_NetworkInterface::get_all_network_interfaces()
 {
-    std::vector<NetworkInterface*> ifs;
-    std::map<std::string, linux_NetworkInterface*> ifsmap;
-    std::map<std::string, linux_NetworkInterface*>::iterator it_ifsmap;
+    std::vector<NetworkInterface*> if_list;
+    DIR* dirp;
 
-    ifaddrs* ifsinfo = NULL;
-    getifaddrs(&ifsinfo);
-
-    // Iterates over linked list to add each item
-    ifaddrs* curIfsinfo = ifsinfo;
-    while (curIfsinfo)
+    if (dirp = opendir(SYSFS_NET_CLASS))
     {
-        it_ifsmap = ifsmap.find(curIfsinfo->ifa_name);
-        linux_NetworkInterface* currnetif;
-
-        if (it_ifsmap == ifsmap.end()) // If this interface is not added
+        struct dirent* entry;
+        
+        readdir(dirp); // skip .
+        readdir(dirp); // skip ..
+        while (entry = readdir(dirp))
         {
-            currnetif = new linux_NetworkInterface(curIfsinfo, ifsinfo);
-            ifs.push_back(currnetif);
-            ifsmap[curIfsinfo->ifa_name] = currnetif;
+            linux_NetworkInterface* if_item =
+                    new linux_NetworkInterface(entry->d_name);
+            if_list.push_back(if_item);
         }
-        else // If this interface is already added
-        {
-            currnetif = it_ifsmap->second;
-            currnetif->add_info(curIfsinfo);
-        }
-
-        curIfsinfo = curIfsinfo->ifa_next;
+        closedir(dirp);
     }
 
-    // Will be free on destructor.
-    //freeifaddrs(ifsinfo);
-    return ifs;
+    return if_list;
 }
 
 uint64_t linux_NetworkInterface::get_bytes_received()
@@ -123,19 +89,20 @@ uint64_t linux_NetworkInterface::get_bytes_sent()
 
 int linux_NetworkInterface::get_interface_count()
 {
-    ifaddrs* ifsinfo = NULL;
-    getifaddrs(&ifsinfo);
-
-    // Interates over linked list to count
+    DIR* dirp;
     int count = 0;
-    ifaddrs* curIfsinfo = ifsinfo;
-    while (curIfsinfo)
+
+    if (dirp = opendir(SYSFS_NET_CLASS))
     {
-        count++;
-        curIfsinfo = curIfsinfo->ifa_next;
+        struct dirent* entry;
+
+        readdir(dirp); // skip .
+        readdir(dirp); // skip ..
+        while (entry = readdir(dirp))
+            count++;
+        closedir(dirp);
     }
 
-    freeifaddrs(ifsinfo);
     return count;
 }
 
@@ -146,7 +113,7 @@ Glib::ustring linux_NetworkInterface::get_internal_name()
 
 Glib::ustring linux_NetworkInterface::get_name()
 {
-    Glib::ustring name(this->ifinfo[0].ifa_name);
+    Glib::ustring name(this->ifname);
     return name;
 }
 
@@ -158,8 +125,7 @@ Glib::ustring linux_NetworkInterface::get_physical_address()
 
 std::string linux_NetworkInterface::read_sysfs(std::string path)
 {
-    std::string filename = Glib::ustring::compose(path,
-            this->ifinfo[0].ifa_name);
+    std::string filename = Glib::ustring::compose(path, this->ifname);
 
     std::ifstream fs(filename.c_str());
     std::string strvalue;
@@ -235,3 +201,5 @@ int nix_NetworkInterface::test_code()
     freeifaddrs(ifs);
 }
  */
+
+#endif

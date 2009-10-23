@@ -18,6 +18,8 @@
  *
  */
 
+#ifdef WINNT
+
 #include "win_networkinterface.hpp"
 
 #include <iomanip>
@@ -252,3 +254,5 @@ Glib::ustring win_NetworkInterface::get_physical_address()
  * - Atheros L2 Fast Ethernet 10/100Base-T Controller
  * - Software Loopback Interface 1
  */
+
+#endif

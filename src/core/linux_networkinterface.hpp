@@ -73,27 +73,16 @@ private:
      * @param ifinfo Network interface native information.
      * @param firstinfo Network interface got by linked list.
      */
-    linux_NetworkInterface(const ifaddrs* ifinfo, ifaddrs* firstinfo);
+    linux_NetworkInterface(const char* ifname);
 
-    /** Add info for same interface but different protocol (e.g. IPv6)
-     *
-     * @param ifinfo Network interface native information.
-     */
-    void add_info(const ifaddrs* ifinfo);
     /** Reads sysfs network information file.
      *
      * @param path The file where information is read from.
      */
     std::string read_sysfs(std::string path);
 
-    /// Current native network interface information list.
-    std::vector<ifaddrs> ifinfo;
-    /// Current native top network interface information from linked list.
-    ifaddrs* firstinfo;
-
-    /// Store network interface information reference counting for all
-    /// nix_networkinterface instances.
-    static std::map<ifaddrs*, int> ifs_references;
+    /// Network interface internal name.
+    std::string ifname;
 };
 
 #endif	/* _NIX_NETWORKINTERFACE_H */

@@ -20,9 +20,9 @@
 
 #include "networkinterface.hpp"
 
-#ifndef WINNT
+#ifdef __linux__
 #include "linux_networkinterface.hpp"
-#else
+#elif WINNT
 #include "win_networkinterface.hpp"
 #endif
 
@@ -36,18 +36,18 @@ NetworkInterface::~NetworkInterface()
 
 std::vector<NetworkInterface*> NetworkInterface::get_all_network_interfaces()
 {
-#ifndef WINNT
+#ifdef __linux__
     return linux_NetworkInterface::get_all_network_interfaces();
-#else
+#elif WINNT
     return win_NetworkInterface::get_all_network_interfaces();
 #endif
 }
 
 int NetworkInterface::get_interface_count()
 {
-#ifndef WINNT
+#ifdef __linux__
     return linux_NetworkInterface::get_interface_count();
-#else
+#elif WINNT
     return win_NetworkInterface::get_interface_count();
 #endif
 }

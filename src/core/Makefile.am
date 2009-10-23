@@ -27,16 +27,11 @@ noinst_LIBRARIES = libnettraffic-core.a
 
 libnettraffic_core_a_SOURCES = \
 	networkinterface.hpp \
-	networkinterface.cpp
-if !OS_WIN32
-libnettraffic_core_a_SOURCES += \
+	networkinterface.cpp \
 	linux_networkinterface.hpp \
-	linux_networkinterface.cpp
-else
-libnettraffic_core_a_SOURCES += \
+	linux_networkinterface.cpp \
 	win_networkinterface.hpp \
 	win_networkinterface.cpp
-endif
 
 libnettraffic_core_a_CXXFLAGS = \
 	$(CORE_DEPS_CFLAGS)
