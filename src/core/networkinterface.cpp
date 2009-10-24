@@ -53,8 +53,9 @@ int NetworkInterface::get_interface_count()
 }
 
 NetworkInterface* NetworkInterface::
-get_network_interface(Glib::ustring physaddr)
+get_network_interface(Glib::ustring ifname)
 {
-    // TODO: Implement this.
-    return NULL;
+#ifdef __linux__
+    return linux_NetworkInterface::get_network_interface(ifname);
+#endif
 }

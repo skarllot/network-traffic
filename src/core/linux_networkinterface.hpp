@@ -45,6 +45,12 @@ public:
      */
     static int get_interface_count();
 
+    /** Gets a NetworkInterface instance by its internal name.
+     *
+     * @param ifname System name for this network interface.
+     */
+    static NetworkInterface* get_network_interface(Glib::ustring ifname);
+
     /** Gets the bytes received by this network interface.
      */
     virtual uint64_t get_bytes_received();
@@ -64,6 +70,10 @@ public:
     /** Gets the Media Access Control address from this network interface.
      */
     virtual Glib::ustring get_physical_address();
+
+    /** Gets true whether this network interface is valid.
+     */
+    virtual bool is_valid();
     
 private:
     /** Constructs new instance based on parameters.

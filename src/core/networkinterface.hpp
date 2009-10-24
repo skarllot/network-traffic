@@ -47,12 +47,11 @@ public:
      */
     static int get_interface_count();
 
-    /** Gets a NetworkInterface instance by its physical address.
+    /** Gets a NetworkInterface instance by its internal name.
      *
-     * @param physaddr String representation of network interface physical
-     * address.
+     * @param ifname System name for this network interface.
      */
-    static NetworkInterface* get_network_interface(Glib::ustring physaddr);
+    static NetworkInterface* get_network_interface(Glib::ustring ifname);
 
     /** Gets the bytes received by this network interface.
      */
@@ -73,6 +72,10 @@ public:
     /** Gets the Media Access Control address from this network interface.
      */
     virtual Glib::ustring get_physical_address() = 0;
+
+    /** Gets true whether this network interface is valid.
+     */
+    virtual bool is_valid() = 0;
 };
 
 #endif	/* _NETWORKINTERFACE_H */

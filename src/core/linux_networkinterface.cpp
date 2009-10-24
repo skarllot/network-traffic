@@ -44,7 +44,8 @@ linux_NetworkInterface::~linux_NetworkInterface()
 {
 }
 
-std::vector<NetworkInterface*> linux_NetworkInterface::get_all_network_interfaces()
+std::vector<NetworkInterface*> linux_NetworkInterface::
+get_all_network_interfaces()
 {
     std::vector<NetworkInterface*> if_list;
     DIR* dirp;
@@ -109,10 +110,48 @@ Glib::ustring linux_NetworkInterface::get_name()
     return name;
 }
 
+NetworkInterface* linux_NetworkInterface::
+get_network_interface(Glib::ustring ifname)
+{
+    NetworkInterface* ret = NULL;
+
+    DIR* dirp_netclass;
+    if (dirp_netclass = opendir(SYSFS_NET_CLASS))
+    {
+        struct dirent* entry;
+
+        readdir(dirp_netclass); // skip .
+        readdir(dirp_netclass); // skip ..
+        while (entry = readdir(dirp_netclass))
+        {
+            Glib::ustring entry_ifname(entry->d_name);
+            if (entry_ifname == ifname)
+            {
+                ret = new linux_NetworkInterface(entry->d_name);
+                break;
+            }
+        }
+        closedir(dirp_netclass);
+    }
+
+    return ret;
+}
+
 Glib::ustring linux_NetworkInterface::get_physical_address()
 {
     std::string paddr = this->read_sysfs(SYSFS_IFADDRESS);
     return paddr;
+}
+
+bool linux_NetworkInterface::is_valid()
+{
+    DIR* dirp;
+    std::string ifpath = SYSFS_NET_CLASS "/";
+    ifpath += this->ifname;
+    
+    bool ret = opendir(ifpath.c_str()) != NULL;
+    closedir(dirp);
+    return ret;
 }
 
 std::string linux_NetworkInterface::read_sysfs(std::string path)
