@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Thu Jun  4 00:02:16 2009 -->
+<?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="wndMain">
-    <property name="title" translatable="yes" comments="wndMain Window title">Network Logger</property>
+    <property name="title" translatable="yes" comments="wndMain Window title">Network Traffic Meter</property>
     <property name="default_width">350</property>
     <property name="default_height">100</property>
     <child>
@@ -23,8 +23,8 @@
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkImageMenuItem" id="mnu_quit">
-                        <property name="visible">True</property>
                         <property name="label">gtk-quit</property>
+                        <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>
@@ -43,8 +43,8 @@
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkImageMenuItem" id="mnu_preferences">
-                        <property name="visible">True</property>
                         <property name="label">gtk-preferences</property>
+                        <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>
@@ -63,8 +63,8 @@
                     <property name="visible">True</property>
                     <child>
                       <widget class="GtkImageMenuItem" id="mnu_about">
-                        <property name="visible">True</property>
                         <property name="label">gtk-about</property>
+                        <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                       </widget>
@@ -76,6 +76,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
@@ -93,7 +94,7 @@
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes" comments="Label from wndMain">&lt;b&gt;Interface:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
-                <property name="wrap_mode">PANGO_WRAP_WORD_CHAR</property>
+                <property name="wrap_mode">word-char</property>
                 <property name="single_line_mode">True</property>
               </widget>
             </child>
