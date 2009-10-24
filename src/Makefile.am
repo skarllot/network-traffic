@@ -1,3 +1,3 @@
-bin_PROGRAMS = c_file_parse
+bin_PROGRAMS = testcase
 
-c_file_parse_SOURCES = main.cpp
+testcase_SOURCES = main.cpp
