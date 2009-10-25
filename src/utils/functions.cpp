@@ -23,19 +23,12 @@
 #include "i18n.hpp"
 #include <gtk/gtk.h>
 
+#define BYTE_UNITS_COUNT 4
 
 Glib::ustring
 format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
 {
     gchar* retp;
-
-    enum
-    {
-        K_INDEX,
-        M_INDEX,
-        G_INDEX,
-        T_INDEX
-    };
 
     struct Format
     {
@@ -43,7 +36,7 @@ format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
         const char* string;
     };
 
-    const Format all_formats[2][4] = {
+    const Format all_formats[2][BYTE_UNITS_COUNT] = {
         {
             { 1UL << 10, N_("%.1f KiB")},
             { 1UL << 20, N_("%.1f MiB")},
@@ -58,7 +51,7 @@ format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
         }
     };
 
-    const Format(&formats)[4] = all_formats[to_bits ? 1 : 0];
+    const Format(&formats)[BYTE_UNITS_COUNT] = all_formats[to_bits ? 1 : 0];
 
     if (to_bits)
     {
@@ -69,7 +62,7 @@ format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
     if (max_size == 0)
         max_size = size;
 
-    if (max_size < formats[K_INDEX].factor)
+    if (max_size < formats[0].factor)
     {
         const char *format = (to_bits
                 ? dngettext(GETTEXT_PACKAGE, "%u bit", "%u bits", (guint) size)
@@ -78,28 +71,22 @@ format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
     }
     else
     {
-        guint64 factor;
+        uint64_t factor;
         const char* format = NULL;
 
-        if (max_size < formats[M_INDEX].factor)
+        for (int i = 1; i < BYTE_UNITS_COUNT; i++)
         {
-            factor = formats[K_INDEX].factor;
-            format = formats[K_INDEX].string;
+            if (max_size < formats[i].factor)
+            {
+                factor = formats[i - 1].factor;
+                format = formats[i - 1].string;
+                break;
+            }
         }
-        else if (max_size < formats[G_INDEX].factor)
+        if (format == NULL)
         {
-            factor = formats[M_INDEX].factor;
-            format = formats[M_INDEX].string;
-        }
-        else if (max_size < formats[T_INDEX].factor)
-        {
-            factor = formats[G_INDEX].factor;
-            format = formats[G_INDEX].string;
-        }
-        else
-        {
-            factor = formats[T_INDEX].factor;
-            format = formats[T_INDEX].string;
+            factor = formats[BYTE_UNITS_COUNT - 1].factor;
+            format = formats[BYTE_UNITS_COUNT - 1].string;
         }
 
         retp = g_strdup_printf(_(format), size / (double) factor);
