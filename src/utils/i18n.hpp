@@ -21,7 +21,12 @@
 #ifndef _I18N_H
 #define	_I18N_H
 
-#include <glibmm/i18n.h>
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#include <glib.h>
+#include <glib/gi18n-lib.h>
 #include <glibmm/ustring.h>
 
 // ustring text = ustring::compose("%1 of %2 done (%3%%)", 7, 20, 35);

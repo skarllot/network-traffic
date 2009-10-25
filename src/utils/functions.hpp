@@ -23,7 +23,34 @@
 
 #define __FUNCTIONS_H_INSIDE__
 
+#include <stdint.h>
 #include <gtkmm.h>
+
+
+// Based on http://git.gnome.org/cgit/gnome-system-monitor/tree/src/util.cpp
+/** Formats the file size passed in @bytes in a way that is easy for
+ * the user to read. Gives the size in bytes, kibibytes, mebibytes or
+ * gibibytes, choosing whatever is appropriate.
+ *
+ * @size A size in bytes.
+ * @max_size A size to adjust unit
+ * @to_bits A value to indicates whether should use bits instead of bytes.
+ * @return A string with the size ready to be shown.
+ */
+Glib::ustring
+format_bytes(uint64_t size, uint64_t max_size = 0, bool to_bits = false);
+
+// Based on http://git.gnome.org/cgit/gnome-system-monitor/tree/src/util.cpp
+/** Formats the rate passed in @bytes in a way that is easy for the user to
+ * read.
+ *
+ * @rate A rate in bytes per second.
+ * @max_size A size to adjust unit
+ * @to_bits A value to indicates whether should use bits instead of bytes.
+ * @return A string with the rate ready to be shown.
+ */
+Glib::ustring
+format_bytes_rate(uint64_t rate, uint64_t max_size = 0, bool to_bits = false);
 
 // Based on http://git.gnome.org/cgit/hardware-monitor/tree/src/helpers.cpp
 // (Copyright (c) 2003 Ole Laursen)

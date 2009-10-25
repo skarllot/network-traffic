@@ -139,10 +139,10 @@ void wndMain::refresh_all_information()
 {
     int index = cbo_interfaces->get_active_row_number();
 
-    lbl_bytes_received->set_text(COMPOSE("%1 B",
-            network_interfaces[index]->get_bytes_received()));
-    lbl_bytes_sent->set_text(COMPOSE("%1 B",
-            network_interfaces[index]->get_bytes_sent()));
+    lbl_bytes_received->set_text(
+            format_bytes(network_interfaces[index]->get_bytes_received()));
+    lbl_bytes_sent->set_text(
+            format_bytes(network_interfaces[index]->get_bytes_sent()));
 }
 
 bool wndMain::timed_refresh()
