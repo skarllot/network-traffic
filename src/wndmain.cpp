@@ -128,8 +128,8 @@ bool wndMain::on_cbointerfaces_query_tooltip(int x, int y,
 {
     int index = cbo_interfaces->get_active_row_number();
 
-    tooltip->set_markup(COMPOSE("<b>Internal name:</b> %1\n"
-            "<b>Physical address:</b> %2",
+    tooltip->set_markup(COMPOSE(_("<b>Internal name:</b> %1\n"
+            "<b>Physical address:</b> %2"),
             network_interfaces[index]->get_internal_name(),
             network_interfaces[index]->get_physical_address()));
     return true;

@@ -28,12 +28,9 @@ libnettraffic_utils_a_SOURCES = \
 	functions.hpp \
 	functions_templates.hpp \
 	functions.cpp \
-	i18n.hpp
-if OS_WIN32
-libnettraffic_utils_a_SOURCES += \
+	i18n.hpp \
 	windowsdef.h \
 	windowsdef.c
-endif
 
 libnettraffic_utils_a_CFLAGS = \
 	$(UTILS_DEPS_C_CFLAGS)

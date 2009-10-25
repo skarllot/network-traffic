@@ -5,3 +5,4 @@ src/main.cpp
 src/core/win_networkinterface.cpp
 src/utils/functions.cpp
 src/utils/windowsdef.c
+src/wndmain.cpp

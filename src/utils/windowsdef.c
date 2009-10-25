@@ -18,6 +18,8 @@
  *
  */
 
+#ifdef WIN32
+
 #include "windowsdef.h"
 
 #include <stdlib.h>
@@ -39,7 +41,7 @@ int check_version(void)
     OSVERSIONINFOEX os_version;
     ZeroMemory(&os_version, sizeof (OSVERSIONINFOEX));
     os_version.dwOSVersionInfoSize = sizeof (OSVERSIONINFOEX);
-    GetVersionEx((OSVERSIONINFO*) &os_version);
+    GetVersionEx((OSVERSIONINFO*) & os_version);
 
 #if (WINVER < 0x0600)
     if (
@@ -69,3 +71,5 @@ int check_version(void)
     return NO_ERROR;
 #endif /* WINNT */
 }
+
+#endif
