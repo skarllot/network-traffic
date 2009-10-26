@@ -33,6 +33,7 @@ AM_CPPFLAGS = -DGLADEDIR=\""$(gladedir)"\"
 bin_PROGRAMS = network-traffic
 network_traffic_SOURCES = \
 	main.cpp \
+	program-info.h \
 	shareddef.h \
 	shareddef.c \
 	wndmain.hpp \

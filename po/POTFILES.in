@@ -3,6 +3,7 @@
 data/ui.glade
 src/main.cpp
 src/core/win_networkinterface.cpp
+src/program-info.h
 src/utils/functions.cpp
 src/utils/windowsdef.c
 src/wndmain.cpp

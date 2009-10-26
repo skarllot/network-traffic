@@ -3,7 +3,6 @@
   <!-- interface-requires gtk+ 2.16 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="wndMain">
-    <property name="title" translatable="yes" comments="wndMain Window title">Network Traffic Meter</property>
     <property name="default_width">350</property>
     <property name="default_height">100</property>
     <child>
@@ -35,7 +34,6 @@
             </child>
             <child>
               <widget class="GtkMenuItem" id="mnu_edit">
-                <property name="visible">True</property>
                 <property name="label" translatable="yes" comments="MenuItem from wndMain">_Edit</property>
                 <property name="use_underline">True</property>
                 <child>

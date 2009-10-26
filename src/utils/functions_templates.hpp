@@ -198,5 +198,5 @@ Glib::ustring build_filename(const T1& str1, const T2& str2, const T3& str3,
     return r_path;
 };
 
-#endif	/* _FUNCTIONS_TEMPLATES_HPP */
+#endif	/* _FUNCTIONS_TEMPLATES_H */
 

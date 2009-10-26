@@ -67,6 +67,10 @@ private:
     Gtk::Label* lbl_bytes_received;
     /// The Label that show bytes sent by current network interface.
     Gtk::Label* lbl_bytes_sent;
+    /// The MenuItem that show about dialog.
+    Gtk::MenuItem* mnu_about;
+    /// The MenuItem that exits application.
+    Gtk::MenuItem* mnu_quit;
     /// NetworkInterface instances vector.
     std::vector<NetworkInterface*> network_interfaces;
     /// Pointer to loaded Glade file.
@@ -82,6 +86,18 @@ private:
      */
     bool on_cbointerfaces_query_tooltip(int x, int y, bool keyboard_tooltip,
             const Glib::RefPtr<Gtk::Tooltip>& tooltip);
+
+    /** Called when a link is clicked.
+     */
+    void on_link_clicked(Gtk::Widget& widget, const Glib::ustring& link);
+
+    /** Called when mnu_about menu item is activated.
+     */
+    void on_mnuabout_activate();
+
+    /** Called when mnu_quit menu item is activated.
+     */
+    void on_mnuquit_activate();
 
     /** Shows updated information for active network interface.
      */
