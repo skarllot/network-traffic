@@ -41,9 +41,9 @@ wndMain::wndMain()
     try
     {
         Glib::ustring file_path = build_filename(glade_dir, GLADEFILE);
-        refXml = Gnome::Glade::Xml::create(file_path, GLADEROOT);
+        refXml = Gtk::Builder::create_from_file(file_path);
     }
-    catch (Gnome::Glade::XmlError& error)
+    catch (Glib::MarkupError& error)
     {
         show_error(error.what(), true);
     }

@@ -23,7 +23,6 @@
 
 #include <vector>
 #include <gtkmm.h>
-#include <libglademm.h>
 #include "core/networkinterface.hpp"
 
 /** Class to manage wndMain Window widget.
@@ -74,7 +73,7 @@ private:
     /// NetworkInterface instances vector.
     std::vector<NetworkInterface*> network_interfaces;
     /// Pointer to loaded Glade file.
-    Glib::RefPtr<Gnome::Glade::Xml> refXml;
+    Glib::RefPtr<Gtk::Builder> refXml;
     /// The main Window.
     Gtk::Window* wnd_root;
 

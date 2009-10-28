@@ -49,24 +49,27 @@ AC_LANG([C++])
 # ------------------------------------------------------------------------------
 # Checks for libraries.
 # ------------------------------------------------------------------------------
-PKG_CHECK_MODULES([UTILS_DEPS_C],[glib-2.0])
+minimum_glib="glib-2.0"
+minimum_glibmm="glibmm-2.4 >= 2.17.2" # Stringify fix
+minimum_gtkmm="gtkmm-2.4"
+
+PKG_CHECK_MODULES([UTILS_DEPS_C],[$minimum_glib])
 AC_SUBST(UTILS_DEPS_C_CFLAGS)
 AC_SUBST(UTILS_DEPS_C_LIBS)
 
-PKG_CHECK_MODULES([UTILS_DEPS_CXX],[gtkmm-2.4])
+PKG_CHECK_MODULES([UTILS_DEPS_CXX],[$minimum_gtkmm])
 AC_SUBST(UTILS_DEPS_CXX_CFLAGS)
 AC_SUBST(UTILS_DEPS_CXX_LIBS)
 
-PKG_CHECK_MODULES([CORE_DEPS],[glibmm-2.4])
+PKG_CHECK_MODULES([CORE_DEPS],[$minimum_glibmm])
 AC_SUBST(CORE_DEPS_CFLAGS)
 AC_SUBST(CORE_DEPS_LIBS)
 
-PKG_CHECK_MODULES([DEPS_C],[glib-2.0])
+PKG_CHECK_MODULES([DEPS_C],[$minimum_glib])
 AC_SUBST(DEPS_C_CFLAGS)
 AC_SUBST(DEPS_C_LIBS)
 
-PKG_CHECK_MODULES([DEPS_CXX],[gtkmm-2.4 \
-    libglademm-2.4])
+PKG_CHECK_MODULES([DEPS_CXX],[$minimum_gtkmm])
 AC_SUBST(DEPS_CXX_CFLAGS)
 AC_SUBST(DEPS_CXX_LIBS)
 

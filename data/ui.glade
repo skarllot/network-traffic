@@ -1,84 +1,90 @@
 <?xml version="1.0"?>
-<glade-interface>
-  <!-- interface-requires gtk+ 2.16 -->
+<interface>
+  <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy toplevel-contextual -->
-  <widget class="GtkWindow" id="wndMain">
+  <object class="GtkWindow" id="wndMain">
     <property name="default_width">350</property>
     <property name="default_height">100</property>
+    <accel-groups>
+      <group name="accelgroup1"/>
+    </accel-groups>
     <child>
-      <widget class="GtkVBox" id="vbox_main">
+      <object class="GtkVBox" id="vbox_main">
         <property name="visible">True</property>
         <property name="spacing">2</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar2">
+          <object class="GtkMenuBar" id="menubar2">
             <property name="visible">True</property>
             <child>
-              <widget class="GtkMenuItem" id="mnu_file">
+              <object class="GtkMenuItem" id="mnu_file">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes" comments="MenuItem from wndMain">_File</property>
                 <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu4">
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu4">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="mnu_quit">
+                      <object class="GtkImageMenuItem" id="mnu_quit">
                         <property name="label">gtk-quit</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                      </widget>
+                        <property name="accel_group">accelgroup1</property>
+                      </object>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="mnu_edit">
+              <object class="GtkMenuItem" id="mnu_edit">
                 <property name="label" translatable="yes" comments="MenuItem from wndMain">_Edit</property>
                 <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu5">
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu5">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="mnu_preferences">
+                      <object class="GtkImageMenuItem" id="mnu_preferences">
                         <property name="label">gtk-preferences</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                      </widget>
+                        <property name="accel_group">accelgroup1</property>
+                      </object>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="mnu_help">
+              <object class="GtkMenuItem" id="mnu_help">
                 <property name="visible">True</property>
                 <property name="label" translatable="yes" comments="MenuItem from wndMain">_Help</property>
                 <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu6">
+                <child type="submenu">
+                  <object class="GtkMenu" id="menu6">
                     <property name="visible">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="mnu_about">
+                      <object class="GtkImageMenuItem" id="mnu_about">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
-                      </widget>
+                        <property name="accel_group">accelgroup1</property>
+                      </object>
                     </child>
-                  </widget>
+                  </object>
                 </child>
-              </widget>
+              </object>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="expand">False</property>
             <property name="position">0</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkTable" id="tbl_center">
+          <object class="GtkTable" id="tbl_center">
             <property name="visible">True</property>
             <property name="border_width">5</property>
             <property name="n_rows">3</property>
@@ -87,43 +93,43 @@
             <property name="row_spacing">3</property>
             <property name="homogeneous">True</property>
             <child>
-              <widget class="GtkLabel" id="lbl_interfaces_title">
+              <object class="GtkLabel" id="lbl_interfaces_title">
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes" comments="Label from wndMain">&lt;b&gt;Interface:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
                 <property name="wrap_mode">word-char</property>
                 <property name="single_line_mode">True</property>
-              </widget>
+              </object>
             </child>
             <child>
-              <widget class="GtkComboBox" id="cbo_interfaces">
+              <object class="GtkComboBox" id="cbo_interfaces">
                 <property name="visible">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="lbl_bytes_received_title">
+              <object class="GtkLabel" id="lbl_bytes_received_title">
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes" comments="Label from wndMain">&lt;b&gt;Bytes received:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
                 <property name="single_line_mode">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="lbl_bytes_received">
+              <object class="GtkLabel" id="lbl_bytes_received">
                 <property name="visible">True</property>
                 <property name="label">0 B</property>
                 <property name="single_line_mode">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
@@ -132,24 +138,24 @@
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="lbl_bytes_sent_title">
+              <object class="GtkLabel" id="lbl_bytes_sent_title">
                 <property name="visible">True</property>
                 <property name="xalign">1</property>
                 <property name="label" translatable="yes" comments="Label from wndMain">&lt;b&gt;Bytes sent:&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
                 <property name="single_line_mode">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="lbl_bytes_sent">
+              <object class="GtkLabel" id="lbl_bytes_sent">
                 <property name="visible">True</property>
                 <property name="label">0 B</property>
                 <property name="single_line_mode">True</property>
-              </widget>
+              </object>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="right_attach">2</property>
@@ -157,12 +163,13 @@
                 <property name="bottom_attach">3</property>
               </packing>
             </child>
-          </widget>
+          </object>
           <packing>
             <property name="position">1</property>
           </packing>
         </child>
-      </widget>
+      </object>
     </child>
-  </widget>
-</glade-interface>
+  </object>
+  <object class="GtkAccelGroup" id="accelgroup1"/>
+</interface>
