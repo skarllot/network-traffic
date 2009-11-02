@@ -23,11 +23,9 @@ AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = -I $(top_srcdir)/src
 
-noinst_LTLIBRARIES = libnettraffic-core.la
+noinst_LTLIBRARIES = libnetcore-@LIBCORE_RELEASE@.la
 
-libnettraffic_core_la_LIBADD = \
-	$(CORE_DEPS_LIBS)
-libnettraffic_core_la_SOURCES = \
+libnetcore_@LIBCORE_RELEASE@_la_SOURCES = \
 	networkinterface.hpp \
 	networkinterface.cpp \
 	linux_networkinterface.hpp \
@@ -35,13 +33,17 @@ libnettraffic_core_la_SOURCES = \
 	win_networkinterface.hpp \
 	win_networkinterface.cpp
 
-libnettraffic_core_la_CXXFLAGS = \
+libnetcore_@LIBCORE_RELEASE@_la_LIBADD = \
+	$(CORE_DEPS_LIBS) \
+	$(top_builddir)/src/utils/libnetutils-@LIBUTILS_RELEASE@.la
+libnetcore_@LIBCORE_RELEASE@_la_CXXFLAGS = \
 	$(CORE_DEPS_CFLAGS)
+libnetcore_@LIBCORE_RELEASE@_la_LDFLAGS = -version-info $(LIBCORE_VERSION)
 
 if OS_WIN32
-libnettraffic_core_la_LIBADD += -lintl -liphlpapi
+libnetcore_@LIBCORE_RELEASE@_la_LIBADD += -lintl -liphlpapi
 if OS_WINVISTA
-libnettraffic_core_la_LIBADD += \
+libnetcore_@LIBCORE_RELEASE@_la_LIBADD += \
 	$(top_builddir)/src/mingw32-extension/libiphlpapi2.a
 endif
 endif

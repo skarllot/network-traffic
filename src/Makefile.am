@@ -42,8 +42,8 @@ network_traffic_SOURCES = \
 network_traffic_LDADD = \
 	$(DEPS_C_LIBS) \
 	$(DEPS_CXX_LIBS) \
-	$(top_builddir)/src/utils/libnettraffic-utils.la \
-	$(top_builddir)/src/core/libnettraffic-core.la
+	$(top_builddir)/src/utils/libnetutils-@LIBUTILS_RELEASE@.la \
+	$(top_builddir)/src/core/libnetcore-@LIBCORE_RELEASE@.la
 network_traffic_CFLAGS = \
 	$(DEPS_C_CFLAGS)
 network_traffic_CXXFLAGS = \

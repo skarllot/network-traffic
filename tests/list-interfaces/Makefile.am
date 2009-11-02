@@ -27,8 +27,7 @@ check_PROGRAMS = list-interfaces
 
 list_interfaces_SOURCES = main.cpp
 list_interfaces_LDADD = \
-	$(top_builddir)/src/utils/libnettraffic-utils.la \
-	$(top_builddir)/src/core/libnettraffic-core.la \
+	$(top_builddir)/src/core/libnetcore-@LIBCORE_RELEASE@.la \
 	$(DEPS_CXX_LIBS)
 list_interfaces_CXXFLAGS = \
 	$(DEPS_CXX_CFLAGS)
