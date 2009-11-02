@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: network-logger 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-10-25 12:28-0200\n"
+"POT-Creation-Date: 2009-10-26 01:27-0200\n"
 "PO-Revision-Date: 2009-10-25 12:30-0300\n"
 "Last-Translator: Fabrício Godoy <skarllot@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <ldp-br@bazar.conectiva.com.br>\n"
@@ -31,23 +31,18 @@ msgstr "<b>Bytes enviados:</b>"
 msgid "<b>Interface:</b>"
 msgstr "<b>Interface:</b>"
 
-#. wndMain Window title
-#: ../data/ui.glade.h:8
-msgid "Network Traffic Meter"
-msgstr "Medidor de tráfego de rede"
-
 #. MenuItem from wndMain
-#: ../data/ui.glade.h:10
+#: ../data/ui.glade.h:8
 msgid "_Edit"
 msgstr "_Editar"
 
 #. MenuItem from wndMain
-#: ../data/ui.glade.h:12
+#: ../data/ui.glade.h:10
 msgid "_File"
 msgstr "_Arquivo"
 
 #. MenuItem from wndMain
-#: ../data/ui.glade.h:14
+#: ../data/ui.glade.h:12
 msgid "_Help"
 msgstr "Aj_uda"
 
@@ -67,6 +62,55 @@ msgstr "Falha ao alocar memória para a struct IP_ADAPTER_ADDRESSES"
 #: ../src/core/win_networkinterface.cpp:200
 msgid "GetAdapterAddresses failed"
 msgstr "Falha em GetAdapterAddresses"
+
+#. TRANSLATORS: Program comment
+#: ../src/program-info.h:32
+msgid "Network Traffic Meter keep logs from your network traffic"
+msgstr "O Medidor de tráfego de rede guarda registros do seu tráfego de rede"
+
+#. TRANSLATORS: Program name
+#: ../src/program-info.h:43
+msgid "Network Traffic Meter"
+msgstr "Medidor de tráfego de rede"
+
+#: ../src/program-info.h:45
+msgid "translator-credits"
+msgstr "Fabrício Godoy <skarllot@gmail.com>"
+
+#: ../src/program-info.h:49
+msgid "Network Traffic Meter Web Site"
+msgstr "Site do Medidor de tráfego de rede"
+
+#: ../src/program-info.h:65
+msgid ""
+"Network Traffic is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License as\n"
+"published by the Free Software Foundation; either version 3 of the\n"
+"License, or (at your option) any later version.\n"
+"\n"
+"Network Traffic is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"
+"GNU General Public License for more details.\n"
+"\n"
+"You should have received a copy of the GNU General Public License\n"
+"along with Network Traffic; if not, write to the Free Software\n"
+"Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,\n"
+"MA 02110-1301 USA"
+msgstr ""
+"O Medidor de tráfego de rede é um software livre; você pode redistribuí-lo\n"
+"e/ou modificá-lo sob os termos da Licença Pública Geral GNU (GNU GPL) como\n"
+"publicada pela Free Software Foundation; tanto a versão 3 da Licença ou\n"
+"(a sua escolha) qualquer versão posterior.\n"
+"\n"
+"O Medidor de tráfego de rede é distribuído na esperança de que será útil,\n"
+"mas SEM NENHUMA GARANTIA; até mesmo sem a garantia implícita de\n"
+"COMERCIALIZAÇÃO ou ADEQUAÇÃO A UM PROPÓSITO EM PARTICULAR. Veja a\n"
+"Licença Pública Geral GNU (GNU GPL) para mais detalhes.\n"
+"\n"
+"Você deve ter recebido uma cópia da GNU General Public License (GPL)\n"
+"junto com o Nautilus; se não, escreva para a Free Software\n"
+"Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA"
 
 #: ../src/utils/functions.cpp:41
 #, c-format
@@ -132,19 +176,19 @@ msgstr "%1/s"
 msgid "Fatal error"
 msgstr "Erro fatal"
 
-#: ../src/utils/windowsdef.c:30
+#: ../src/utils/windowsdef.c:32
 msgid "Windows version not supported, requires at least Windows XP with SP2"
 msgstr ""
 "Não há suporte a esta versão do Windows, é necessário ao menos o Windows XP "
 "com SP2"
 
-#: ../src/utils/windowsdef.c:33
+#: ../src/utils/windowsdef.c:35
 msgid "Windows version not supported, requires at least Windows Vista"
 msgstr ""
 "Não há suporte a esta versão do Windows, é necessário ao menos o Windows "
 "Vista"
 
-#: ../src/wndmain.cpp:131
+#: ../src/wndmain.cpp:147
 msgid ""
 "<b>Internal name:</b> %1\n"
 "<b>Physical address:</b> %2"
