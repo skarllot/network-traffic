@@ -149,7 +149,8 @@ AC_CONFIG_FILES([Makefile
                  src/mingw32-extension/Makefile
                  src/utils/Makefile
                  tests/Makefile
-                 tests/list-interfaces/Makefile])
+                 tests/list-interfaces/Makefile
+                 network-traffic.spec])
 AC_OUTPUT
 
 echo "

@@ -64,3 +64,9 @@ MAINTAINERCLEANFILES = \
 	Makefile.in \
 	po/missing
 
+# Rule to build RPM distribution package
+rpm: $(PACKAGE)-$(VERSION).tar.gz
+	cp $(PACKAGE)-$(VERSION).tar.gz ~/rpmbuild/SOURCES
+	rpm -ba network-traffic.spec
+
+

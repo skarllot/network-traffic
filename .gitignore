@@ -23,8 +23,9 @@ stamp-*
 /intltool-extract.in
 /intltool-merge.in
 /intltool-update.in
-/nbproject/
 /libtool
+/nbproject/
+/network-traffic.spec
 /network-traffic-*.tar.*
 
 # m4/

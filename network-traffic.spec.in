@@ -1,0 +1,58 @@
+%define ver      @VERSION@
+%define rel      1
+%define prefix   /usr
+
+Summary:   Network Traffic Meter
+Name:      network-traffic
+Version:   %ver
+Release:   %rel
+Copyright: GPLv3+
+Group:     Applications/Internet
+Source0:   @PACKAGE@-%{PACKAGE_VERSION}.tar.gz
+URL:       http://github.com/skarllot/network-traffic
+BuildRoot: /tmp/@PACKAGE@-%{PACKAGE_VERSION}-root
+Packager:  Fabrício Godoy <skarllot@gmail.com>
+Docdir: %{prefix}/doc
+
+%description
+Network Traffic Meter keep logs from your network traffic.
+
+%prep
+rm -rf ${RPM_BUILD_ROOT}
+
+%setup -q
+
+%build
+# Needed for snapshot releases.
+if [ ! -f configure ]; then
+  CFLAGS="$RPM_OPT_FLAGS" ./autogen.sh --prefix=%prefix
+else
+  CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix
+fi
+
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+make prefix=$RPM_BUILD_ROOT%{prefix} install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post
+/sbin/ldconfig
+
+%postun
+/sbin/ldconfig
+
+%files
+%defattr(-, root, root)
+%doc CHANGES COPYING README
+%{prefix}/bin/network-traffic
+%{prefix}/share/network-traffic/*
+
+%changelog
+* Mon Nov  2 2009 Fabrício Godoy <skarllot@gmail.com>
+- Created package
+
