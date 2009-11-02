@@ -33,8 +33,10 @@ rm -f config.cache acconfig.h
 
 #echo "- glib-gettextize."  && \
 #glib-gettextize --force --copy && \
-echo "- autoreconf"         && \
+echo "- autoreconf."        && \
 autoreconf --install        && \
+echo "- libtoolize."        && \
+libtoolize                  && \
 echo "- intltoolize."       && \
 intltoolize                 && \
 echo "- autoreconf."        && \

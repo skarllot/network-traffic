@@ -23,9 +23,11 @@ AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 AM_CPPFLAGS = -I $(top_srcdir)/src
 
-noinst_LIBRARIES = libnettraffic-core.a
+noinst_LTLIBRARIES = libnettraffic-core.la
 
-libnettraffic_core_a_SOURCES = \
+libnettraffic_core_la_LIBADD = \
+	$(CORE_DEPS_LIBS)
+libnettraffic_core_la_SOURCES = \
 	networkinterface.hpp \
 	networkinterface.cpp \
 	linux_networkinterface.hpp \
@@ -33,8 +35,16 @@ libnettraffic_core_a_SOURCES = \
 	win_networkinterface.hpp \
 	win_networkinterface.cpp
 
-libnettraffic_core_a_CXXFLAGS = \
+libnettraffic_core_la_CXXFLAGS = \
 	$(CORE_DEPS_CFLAGS)
+
+if OS_WIN32
+libnettraffic_core_la_LIBADD += -lintl -liphlpapi
+if OS_WINVISTA
+libnettraffic_core_la_LIBADD += \
+	$(top_builddir)/src/mingw32-extension/libiphlpapi2.a
+endif
+endif
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

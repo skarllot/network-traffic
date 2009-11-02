@@ -22,9 +22,9 @@
 AM_CFLAGS = -Wall
 AM_CXXFLAGS = -Wall
 
-noinst_LIBRARIES = libnettraffic-utils.a
+noinst_LTLIBRARIES = libnettraffic-utils.la
 
-libnettraffic_utils_a_SOURCES = \
+libnettraffic_utils_la_SOURCES = \
 	functions.hpp \
 	functions_templates.hpp \
 	functions.cpp \
@@ -32,10 +32,17 @@ libnettraffic_utils_a_SOURCES = \
 	windowsdef.h \
 	windowsdef.c
 
-libnettraffic_utils_a_CFLAGS = \
+libnettraffic_utils_la_LIBADD = \
+	$(UTILS_DEPS_C_LIBS) \
+	$(UTILS_DEPS_CXX_LIBS)
+libnettraffic_utils_la_CFLAGS = \
 	$(UTILS_DEPS_C_CFLAGS)
-libnettraffic_utils_a_CXXFLAGS = \
+libnettraffic_utils_la_CXXFLAGS = \
 	$(UTILS_DEPS_CXX_CFLAGS)
+
+if OS_WIN32
+libnettraffic_utils_la_LIBADD += -lintl
+endif
 
 MAINTAINERCLEANFILES = \
 	Makefile.in

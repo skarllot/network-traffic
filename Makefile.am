@@ -19,6 +19,8 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
+ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
+
 SUBDIRS = \
 	data \
 	src \

@@ -27,25 +27,11 @@ check_PROGRAMS = list-interfaces
 
 list_interfaces_SOURCES = main.cpp
 list_interfaces_LDADD = \
-	$(top_srcdir)/src/utils/libnettraffic-utils.a \
-	$(top_srcdir)/src/core/libnettraffic-core.a \
+	$(top_builddir)/src/utils/libnettraffic-utils.la \
+	$(top_builddir)/src/core/libnettraffic-core.la \
 	$(DEPS_CXX_LIBS)
-list_interfaces_CFLAGS = \
-	$(DEPS_C_CFLAGS)
 list_interfaces_CXXFLAGS = \
 	$(DEPS_CXX_CFLAGS)
-
-if OS_WIN32
-list_interfaces_LDADD += -lintl
-if !TEST
-list_interfaces_LDFLAGS = -mwindows
-endif
-# ----- libnettraffic-core -----
-list_interfaces_LDADD += -liphlpapi
-if OS_WINVISTA
-list_interfaces_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
-endif
-endif
 
 CLEANFILES = *~
 

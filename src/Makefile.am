@@ -40,9 +40,10 @@ network_traffic_SOURCES = \
 	wndmain.cpp
 
 network_traffic_LDADD = \
-	$(top_srcdir)/src/utils/libnettraffic-utils.a \
-	$(top_srcdir)/src/core/libnettraffic-core.a \
-	$(DEPS_CXX_LIBS)
+	$(DEPS_C_LIBS) \
+	$(DEPS_CXX_LIBS) \
+	$(top_builddir)/src/utils/libnettraffic-utils.la \
+	$(top_builddir)/src/core/libnettraffic-core.la
 network_traffic_CFLAGS = \
 	$(DEPS_C_CFLAGS)
 network_traffic_CXXFLAGS = \
@@ -52,11 +53,6 @@ if OS_WIN32
 network_traffic_LDADD += -lintl
 if !TEST
 network_traffic_LDFLAGS = -mwindows
-endif
-# ----- libnettraffic-core -----
-network_traffic_LDADD += -liphlpapi
-if OS_WINVISTA
-network_traffic_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
 endif
 endif
 

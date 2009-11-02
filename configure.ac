@@ -25,10 +25,14 @@ AC_INIT([Network Traffic],[0.1.0],
         [network-traffic])
 
 AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_SRCDIR([src/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 AM_INIT_AUTOMAKE([1.9 -Wall -Werror])
+
+LT_PREREQ([2.2.6])
+LT_INIT
 
 # Check build environment
 AC_CANONICAL_HOST
@@ -38,10 +42,7 @@ AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_CPP
 AC_PROG_LN_S
-AC_PROG_RANLIB
 AC_CHECK_TOOL([DLLTOOL], [dlltool], [:])
-#AC_PROG_LIBTOOL
-#AC_LIBTOOL_WIN32_DLL
 AM_PROG_CC_C_O
 
 AC_LANG([C++])

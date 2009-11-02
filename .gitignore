@@ -1,27 +1,46 @@
+# wildcard patterns
 *~
-*.a
 *.gmo
+*.l[ao]
 *.mk
 *.o
 *.pot
-.deps
-aclocal.m4
-autom4te.cache
-build-aux
-config.h
-config.h.in
-config.log
-config.status
-configure
-intltool-extract.in
-intltool-merge.in
-intltool-update.in
-nbproject
+.deps/
+.libs/
 Makefile
 Makefile.in
-Makefile.in.in
-po/POTFILES
-po/stamp-it
-src/network-traffic
-stamp-h1
-tests/list-interfaces/list-interfaces
+stamp-*
+
+# /
+/aclocal.m4
+/autom4te.cache/
+/build-aux/
+/config.h
+/config.h.in
+/config.log
+/config.status
+/configure
+/intltool-extract.in
+/intltool-merge.in
+/intltool-update.in
+/nbproject/
+/libtool
+/network-traffic-*.tar.*
+
+# m4/
+/m4/intltool.m4
+/m4/libtool.m4
+/m4/lt~obsolete.m4
+/m4/ltoptions.m4
+/m4/ltsugar.m4
+/m4/ltversion.m4
+
+# po/
+/po/Makefile.in.in
+/po/POTFILES
+
+# src/
+/src/network-traffic
+
+# tests/
+/tests/list-interfaces/list-interfaces
