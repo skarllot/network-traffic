@@ -133,7 +133,7 @@ AC_HEADER_STDBOOL
 AC_TYPE_UINT64_T
 
 # Checks for library functions.
-AC_CHECK_FUNCS([memset strtoull])
+AC_CHECK_FUNCS([memset setlocale strtoull])
 
 AC_CONFIG_FILES([Makefile
                  data/Makefile
@@ -141,7 +141,9 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/core/Makefile
                  src/mingw32-extension/Makefile
-                 src/utils/Makefile])
+                 src/utils/Makefile
+                 tests/Makefile
+                 tests/list-interfaces/Makefile])
 AC_OUTPUT
 
 echo "

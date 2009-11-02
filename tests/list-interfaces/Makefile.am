@@ -19,46 +19,36 @@
 #   Fabrício Godoy <skarllot@gmail.com>
 #
 
-SUBDIRS = \
-	data \
-	src \
-	po \
-	tests
+AM_CFLAGS = -Wall
+AM_CXXFLAGS = -Wall
+AM_CPPFLAGS = -I $(top_srcdir)/src/core
 
-INTLTOOL_FILES = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+check_PROGRAMS = list-interfaces
 
-EXTRA_DIST = \
-	HACKING \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+list_interfaces_SOURCES = main.cpp
+list_interfaces_LDADD = \
+	$(top_srcdir)/src/utils/libnettraffic-utils.a \
+	$(top_srcdir)/src/core/libnettraffic-core.a \
+	$(DEPS_CXX_LIBS)
+list_interfaces_CFLAGS = \
+	$(DEPS_C_CFLAGS)
+list_interfaces_CXXFLAGS = \
+	$(DEPS_CXX_CFLAGS)
+
+if OS_WIN32
+list_interfaces_LDADD += -lintl
+if !TEST
+list_interfaces_LDFLAGS = -mwindows
+endif
+# ----- libnettraffic-core -----
+list_interfaces_LDADD += -liphlpapi
+if OS_WINVISTA
+list_interfaces_LDADD += $(top_srcdir)/src/mingw32-extension/libiphlpapi2.a
+endif
+endif
 
 CLEANFILES = *~
 
-DISTCLEANFILES = \
-	mingw32-config.cache \
-	po/.intltool-merge-cache
-
 MAINTAINERCLEANFILES = \
-	build-aux/compile \
-	build-aux/config.guess \
-	build-aux/config.sub \
-	build-aux/depcomp \
-	build-aux/install-sh \
-	build-aux/missing \
-	build-aux/mkinstalldirs \
-	po/Makefile.in.in \
-	aclocal.m4 \
-	autoscan.log \
-	config.h.in \
-	configure \
-	configure.scan \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
-	Makefile.in \
-	po/missing
+	Makefile.in
 

@@ -20,45 +20,10 @@
 #
 
 SUBDIRS = \
-	data \
-	src \
-	po \
-	tests
-
-INTLTOOL_FILES = \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
-
-EXTRA_DIST = \
-	HACKING \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in
+	list-interfaces
 
 CLEANFILES = *~
 
-DISTCLEANFILES = \
-	mingw32-config.cache \
-	po/.intltool-merge-cache
-
 MAINTAINERCLEANFILES = \
-	build-aux/compile \
-	build-aux/config.guess \
-	build-aux/config.sub \
-	build-aux/depcomp \
-	build-aux/install-sh \
-	build-aux/missing \
-	build-aux/mkinstalldirs \
-	po/Makefile.in.in \
-	aclocal.m4 \
-	autoscan.log \
-	config.h.in \
-	configure \
-	configure.scan \
-	intltool-extract.in \
-	intltool-merge.in \
-	intltool-update.in \
-	Makefile.in \
-	po/missing
+	Makefile.in
 

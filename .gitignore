@@ -1,6 +1,9 @@
+*~
 *.a
 *.gmo
+*.mk
 *.o
+*.pot
 .deps
 aclocal.m4
 autom4te.cache
@@ -14,8 +17,11 @@ intltool-extract.in
 intltool-merge.in
 intltool-update.in
 nbproject
-Makefile*
+Makefile
+Makefile.in
+Makefile.in.in
 po/POTFILES
 po/stamp-it
 src/network-traffic
 stamp-h1
+tests/list-interfaces/list-interfaces

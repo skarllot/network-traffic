@@ -19,7 +19,7 @@
  */
 
 #ifndef _WNDMAIN_H
-#define	_WNDMAIN_H
+#define _WNDMAIN_H
 
 #include <vector>
 #include <gtkmm.h>
@@ -107,5 +107,5 @@ private:
     bool timed_refresh();
 };
 
-#endif	/* _WNDMAIN_H */
+#endif /* _WNDMAIN_H */
 
