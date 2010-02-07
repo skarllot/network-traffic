@@ -40,7 +40,7 @@ wndMain::wndMain()
 {
     try
     {
-        Glib::ustring file_path = build_filename(glade_dir, GLADEFILE);
+        Glib::ustring file_path = Glib::build_filename(glade_dir, GLADEFILE);
         refXml = Gtk::Builder::create_from_file(file_path);
     }
     catch (Glib::MarkupError& error)
