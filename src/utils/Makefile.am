@@ -29,7 +29,6 @@ libnetutils_@LIBUTILS_RELEASE@_la_SOURCES = \
 	functions_templates.hpp \
 	functions.cpp \
 	i18n.hpp \
-	stdint2.h \
 	windowsdef.h \
 	windowsdef.c
 
