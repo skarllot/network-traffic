@@ -53,41 +53,44 @@ public:
 
     /** Gets the bytes received by this network interface.
      */
-    virtual uint64_t get_bytes_received();
+    virtual uint64_t get_bytes_received() const;
 
     /** Gets the bytes sent by this network interface.
      */
-    virtual uint64_t get_bytes_sent();
+    virtual uint64_t get_bytes_sent() const;
 
     /** Gets system name for this network interface.
      */
-    virtual Glib::ustring get_internal_name();
+    virtual Glib::ustring get_internal_name() const;
 
     /** Gets user name for this network interface.
      */
-    virtual Glib::ustring get_name();
+    virtual Glib::ustring get_name() const;
 
     /** Gets the Media Access Control address from this network interface.
      */
-    virtual Glib::ustring get_physical_address();
+    virtual Glib::ustring get_physical_address() const;
 
     /** Gets true whether this network interface is valid.
      */
-    virtual bool is_valid();
+    virtual bool is_valid() const;
     
 private:
-    /** Constructs new instance based on parameters.
+    /** Constructs new instance based on parameter.
      * 
-     * @param ifinfo Network interface native information.
-     * @param firstinfo Network interface got by linked list.
+     * @param ifname Network interface native information.
      */
     linux_NetworkInterface(const char* ifname);
+
+    /** Gets true whether passed network interface name is valid.
+     */
+    static bool is_valid(std::string ifname);
 
     /** Reads sysfs network information file.
      *
      * @param path The file where information is read from.
      */
-    std::string read_sysfs(std::string path);
+    std::string read_sysfs(std::string path) const;
 
     /// Network interface internal name.
     std::string ifname;

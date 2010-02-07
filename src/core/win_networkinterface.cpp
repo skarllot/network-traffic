@@ -92,7 +92,7 @@ get_all_network_interfaces()
     return ifs;
 }
 
-uint64_t win_NetworkInterface::get_bytes_received()
+uint64_t win_NetworkInterface::get_bytes_received() const
 {
     uint64_t inOctets;
 
@@ -110,7 +110,7 @@ uint64_t win_NetworkInterface::get_bytes_received()
     return inOctets;
 }
 
-uint64_t win_NetworkInterface::get_bytes_sent()
+uint64_t win_NetworkInterface::get_bytes_sent() const
 {
     uint64_t outOctets;
 
@@ -219,13 +219,13 @@ int win_NetworkInterface::get_interface_count()
     return count;
 }
 
-Glib::ustring win_NetworkInterface::get_internal_name()
+Glib::ustring win_NetworkInterface::get_internal_name() const
 {
     Glib::ustring iname(this->ifinfo.AdapterName);
     return iname;
 }
 
-Glib::ustring win_NetworkInterface::get_name()
+Glib::ustring win_NetworkInterface::get_name() const
 {
     gchar* pt_name = g_utf16_to_utf8(
             (gunichar2*) this->ifinfo.FriendlyName, -1, NULL, NULL, NULL);
@@ -234,7 +234,7 @@ Glib::ustring win_NetworkInterface::get_name()
     return name;
 }
 
-Glib::ustring win_NetworkInterface::get_physical_address()
+Glib::ustring win_NetworkInterface::get_physical_address() const
 {
     if (this->ifinfo.PhysicalAddressLength != 6)
         return "";
@@ -247,6 +247,12 @@ Glib::ustring win_NetworkInterface::get_physical_address()
             FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[4]),
             FORMAT(IFMAC_DEFAULTFORMAT, (int) ifinfo.PhysicalAddress[5])));
     return paddr;
+}
+
+bool win_NetworkInterface::is_valid() const
+{
+    // FIXME: Unimplemented code.
+    return true;
 }
 
 /*

@@ -23,9 +23,8 @@
 
 #define __FUNCTIONS_H_INSIDE__
 
-#include <stdint.h>
 #include <gtkmm.h>
-
+#include <stdint.h>
 
 // Based on http://git.gnome.org/cgit/gnome-system-monitor/tree/src/util.cpp
 /** Formats the file size passed in @bytes in a way that is easy for

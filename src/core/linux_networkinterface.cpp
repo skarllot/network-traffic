@@ -68,13 +68,13 @@ get_all_network_interfaces()
     return if_list;
 }
 
-uint64_t linux_NetworkInterface::get_bytes_received()
+uint64_t linux_NetworkInterface::get_bytes_received() const
 {
     std::string rbytes = this->read_sysfs(SYSFS_IFRX);
     return strtoull(rbytes.c_str(), NULL, 0);
 }
 
-uint64_t linux_NetworkInterface::get_bytes_sent()
+uint64_t linux_NetworkInterface::get_bytes_sent() const
 {
     std::string tbytes = this->read_sysfs(SYSFS_IFTX);
     return strtoull(tbytes.c_str(), NULL, 0);
@@ -99,62 +99,51 @@ int linux_NetworkInterface::get_interface_count()
     return count;
 }
 
-Glib::ustring linux_NetworkInterface::get_internal_name()
-{
-    return this->get_name();
-}
-
-Glib::ustring linux_NetworkInterface::get_name()
+Glib::ustring linux_NetworkInterface::get_internal_name() const
 {
     Glib::ustring name(this->ifname);
     return name;
+}
+
+Glib::ustring linux_NetworkInterface::get_name() const
+{
+    return this->get_internal_name();
 }
 
 NetworkInterface* linux_NetworkInterface::
 get_network_interface(Glib::ustring ifname)
 {
     NetworkInterface* ret = NULL;
-
-    DIR* dirp_netclass;
-    if (dirp_netclass = opendir(SYSFS_NET_CLASS))
-    {
-        struct dirent* entry;
-
-        readdir(dirp_netclass); // skip .
-        readdir(dirp_netclass); // skip ..
-        while (entry = readdir(dirp_netclass))
-        {
-            Glib::ustring entry_ifname(entry->d_name);
-            if (entry_ifname == ifname)
-            {
-                ret = new linux_NetworkInterface(entry->d_name);
-                break;
-            }
-        }
-        closedir(dirp_netclass);
-    }
+    
+    if (is_valid(ifname))
+        ret = new linux_NetworkInterface(ifname.c_str());
 
     return ret;
 }
 
-Glib::ustring linux_NetworkInterface::get_physical_address()
+Glib::ustring linux_NetworkInterface::get_physical_address() const
 {
     std::string paddr = this->read_sysfs(SYSFS_IFADDRESS);
     return paddr;
 }
 
-bool linux_NetworkInterface::is_valid()
+bool linux_NetworkInterface::is_valid() const
+{
+    return is_valid(this->ifname);
+}
+
+bool linux_NetworkInterface::is_valid(std::string ifname)
 {
     DIR* dirp;
     std::string ifpath = SYSFS_NET_CLASS "/";
-    ifpath += this->ifname;
+    ifpath += ifname;
     
     bool ret = opendir(ifpath.c_str()) != NULL;
     closedir(dirp);
     return ret;
 }
 
-std::string linux_NetworkInterface::read_sysfs(std::string path)
+std::string linux_NetworkInterface::read_sysfs(std::string path) const
 {
     std::string filename = Glib::ustring::compose(path, this->ifname);
 

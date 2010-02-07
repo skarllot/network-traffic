@@ -54,23 +54,27 @@ public:
 
     /** Gets the bytes received by this network interface.
      */
-    virtual uint64_t get_bytes_received();
+    virtual uint64_t get_bytes_received() const;
 
     /** Gets the bytes sent by this network interface.
      */
-    virtual uint64_t get_bytes_sent();
+    virtual uint64_t get_bytes_sent() const;
 
     /** Gets system name for this network interface.
      */
-    virtual Glib::ustring get_internal_name();
+    virtual Glib::ustring get_internal_name() const;
 
     /** Gets user name for this network interface.
      */
-    virtual Glib::ustring get_name();
+    virtual Glib::ustring get_name() const;
 
     /** Gets the Media Access Control address from this network interface.
      */
-    virtual Glib::ustring get_physical_address();
+    virtual Glib::ustring get_physical_address() const;
+
+    /** Gets true whether this network interface is valid.
+     */
+    virtual bool is_valid() const;
 
 private:
     /** Constructs new instance based on parameters.

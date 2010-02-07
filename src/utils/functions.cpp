@@ -22,6 +22,7 @@
 
 #include "i18n.hpp"
 #include <gtk/gtk.h>
+#include "stdint2.h"
 
 #define BYTE_UNITS_COUNT 4
 
@@ -35,19 +36,19 @@ format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
         uint64_t factor;
         const char* string;
     };
-
+    
     const Format all_formats[2][BYTE_UNITS_COUNT] = {
         {
-            { 1UL << 10, N_("%.1f KiB")},
-            { 1UL << 20, N_("%.1f MiB")},
-            { 1UL << 30, N_("%.1f GiB")},
-            { 1UL << 40, N_("%.1f TiB")}
+            { 1 S_UI64 << 10, N_("%.1f KiB")},
+            { 1 S_UI64 << 20, N_("%.1f MiB")},
+            { 1 S_UI64 << 30, N_("%.1f GiB")},
+            { 1 S_UI64 << 40, N_("%.1f TiB")}
         },
         {
-            { 1000, N_("%.1f kbit")},
-            { 1000000, N_("%.1f Mbit")},
-            { 1000000000, N_("%.1f Gbit")},
-            { 1000000000000, N_("%.1f Tbit")}
+            { 1000 S_UI64, N_("%.1f kbit")},
+            { 1000000 S_UI64, N_("%.1f Mbit")},
+            { 1000000000 S_UI64, N_("%.1f Gbit")},
+            { 1000000000000 S_UI64, N_("%.1f Tbit")}
         }
     };
 
