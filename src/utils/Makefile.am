@@ -26,7 +26,6 @@ noinst_LTLIBRARIES = libnetutils-@LIBUTILS_RELEASE@.la
 
 libnetutils_@LIBUTILS_RELEASE@_la_SOURCES = \
 	functions.hpp \
-	functions_templates.hpp \
 	functions.cpp \
 	i18n.hpp \
 	windowsdef.h \

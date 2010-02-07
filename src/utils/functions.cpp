@@ -24,6 +24,7 @@
 #include <gtk/gtk.h>
 
 #define BYTE_UNITS_COUNT 4
+#define NULLPOINTER static_cast<void*>(0)
 
 #if __WORDSIZE == 64
 #define NUM_1TiB 1UL << 40
@@ -32,6 +33,79 @@
 #define NUM_1TiB 1ULL << 40
 #define NUM_1Tbit 1000000000000ULL
 #endif
+
+
+std::string build_filename(const std::string& elem1, const std::string& elem2)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4,
+                           const std::string& elem5)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          elem5.c_str(), NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4,
+                           const std::string& elem5, const std::string& elem6)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          elem5.c_str(), elem6.c_str(), NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4,
+                           const std::string& elem5, const std::string& elem6,
+                           const std::string& elem7)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          elem5.c_str(), elem6.c_str(), elem7.c_str(), NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4,
+                           const std::string& elem5, const std::string& elem6,
+                           const std::string& elem7, const std::string& elem8)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          elem5.c_str(), elem6.c_str(), elem7.c_str(), elem8.c_str(),
+          NULLPOINTER));
+}
+
+std::string build_filename(const std::string& elem1, const std::string& elem2,
+                           const std::string& elem3, const std::string& elem4,
+                           const std::string& elem5, const std::string& elem6,
+                           const std::string& elem7, const std::string& elem8,
+                           const std::string& elem9)
+{
+  return Glib::convert_return_gchar_ptr_to_stdstring(g_build_filename(
+          elem1.c_str(), elem2.c_str(), elem3.c_str(), elem4.c_str(),
+          elem5.c_str(), elem6.c_str(), elem7.c_str(), elem8.c_str(),
+          elem9.c_str(), NULLPOINTER));
+}
 
 Glib::ustring
 format_bytes(uint64_t size, uint64_t max_size, bool to_bits)
