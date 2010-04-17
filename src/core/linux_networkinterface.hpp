@@ -18,8 +18,8 @@
  *
  */
 
-#ifndef _NIX_NETWORKINTERFACE_H
-#define	_NIX_NETWORKINTERFACE_H
+#ifndef _LINUX_NETWORKINTERFACE_H
+#define _LINUX_NETWORKINTERFACE_H
 
 #include "networkinterface.hpp"
 #include <string.h>
@@ -96,4 +96,4 @@ private:
     std::string ifname;
 };
 
-#endif	/* _NIX_NETWORKINTERFACE_H */
+#endif /* _LINUX_NETWORKINTERFACE_H */

@@ -22,6 +22,8 @@
 
 #ifdef __linux__
 #include "linux_networkinterface.hpp"
+#elif __sun__
+#include "solaris_networkinterface.hpp"
 #elif WINNT
 #include "win_networkinterface.hpp"
 #endif

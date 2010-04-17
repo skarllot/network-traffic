@@ -30,6 +30,8 @@ libnetcore_@LIBCORE_RELEASE@_la_SOURCES = \
 	networkinterface.cpp \
 	linux_networkinterface.hpp \
 	linux_networkinterface.cpp \
+	solaris_networkinterface.hpp \
+	solaris_networkinterface.cpp \
 	win_networkinterface.hpp \
 	win_networkinterface.cpp
 
