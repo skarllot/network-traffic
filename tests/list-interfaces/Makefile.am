@@ -32,6 +32,13 @@ list_interfaces_LDADD = \
 list_interfaces_CXXFLAGS = \
 	$(DEPS_CXX_CFLAGS)
 
+if OS_WIN32
+if OS_WINVISTA
+list_interfaces_LDADD += \
+	$(top_builddir)/src/mingw32-extension/libiphlpapi2.a
+endif
+endif
+
 CLEANFILES = *~
 
 MAINTAINERCLEANFILES = \

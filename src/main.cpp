@@ -23,6 +23,7 @@
 #endif
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <gtkmm.h>
 #include "utils/i18n.hpp"
 #include "shareddef.h"
@@ -42,6 +43,9 @@ int main(int argc, char** argv)
 #endif
 
     build_package_paths();
+    #ifdef TEST
+    printf("glade_dir: %s\nlocale_dir: %s\n", glade_dir, locale_dir);
+    #endif
 
     // Gettext initialization
     setlocale(LC_ALL, "");

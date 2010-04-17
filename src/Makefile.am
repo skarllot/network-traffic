@@ -51,6 +51,10 @@ network_traffic_CXXFLAGS = \
 
 if OS_WIN32
 network_traffic_LDADD += -lintl
+if OS_WINVISTA
+network_traffic_LDADD += \
+	$(top_builddir)/src/mingw32-extension/libiphlpapi2.a
+endif
 if !TEST
 network_traffic_LDFLAGS = -mwindows
 endif

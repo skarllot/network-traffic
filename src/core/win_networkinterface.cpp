@@ -259,6 +259,8 @@ bool win_NetworkInterface::is_valid() const
  * MIB_IFROW.bDescr get interface description as:
  * - Atheros L2 Fast Ethernet 10/100Base-T Controller
  * - Software Loopback Interface 1
+ * 
+ * MIB_IFROW.dwLastChange
  */
 
 #endif

@@ -42,10 +42,6 @@ libnetcore_@LIBCORE_RELEASE@_la_LDFLAGS = -version-info $(LIBCORE_VERSION)
 
 if OS_WIN32
 libnetcore_@LIBCORE_RELEASE@_la_LIBADD += -lintl -liphlpapi
-if OS_WINVISTA
-libnetcore_@LIBCORE_RELEASE@_la_LIBADD += \
-	$(top_builddir)/src/mingw32-extension/libiphlpapi2.a
-endif
 endif
 
 MAINTAINERCLEANFILES = \

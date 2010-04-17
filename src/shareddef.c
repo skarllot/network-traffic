@@ -38,7 +38,7 @@ void build_package_paths(void)
 #ifndef TEST
     glade_dir = g_build_filename(prefix, "share", PACKAGE, "glade", NULL);
 #else
-    glade_dir = g_build_filename(prefix, "..", "data", NULL);
+    glade_dir = g_build_filename(prefix, "..", "..", "data", NULL);
 #endif
     locale_dir = g_build_filename(prefix, "share", "locale", NULL);
 
